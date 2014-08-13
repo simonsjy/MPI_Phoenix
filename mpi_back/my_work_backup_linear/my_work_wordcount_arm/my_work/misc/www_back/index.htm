@@ -1,0 +1,1143 @@
+<!DOCTYPE HTML PUBLIC"-//W3C//DTD HTML 4.0 Transitional//EN">
+
+
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=GB-2312">
+<script language="javascript" src="var.js"></script>
+<script language="javascript" src="common.js"></script>
+<script language="javascript" src="ptzctrl.js"></script>
+<script>
+CONTENT_PAGE="main.htm";
+InitLoad();
+</script>
+<style type = "text/css">
+*{
+  	margin:0px;
+  	padding:0px;
+}
+  .jsmenu {
+    top:150px;
+    left:5px;
+  	width:130px;
+  	//border-bottom:#006699 solid 1px;
+  	border-bottom:#C4DE9C solid 1px;
+  	position:absolute;
+  }
+  .jsmenu div {
+  	overflow:hidden;
+  }
+  .jsmenu div.collapsed {
+  	height:28px;
+  }
+  .jsmenu div .menuLink1 {
+  	height:28px;
+  	overflow:hidden;
+  	display:block;
+  	padding:8px 0px 8px 26px;
+  	color:#FFFFFF;
+  	font-size:15px;
+  	font-weight:bold;
+  	//cursor:default;
+ 	border-top:#C4DE9C solid 1px;
+ 	border-bottom:#C4DE9C solid 1px;
+  	cursor:pointer;
+  }
+   
+  .jsmenu div .single {
+  	height:28px;
+  	overflow:hidden;
+  	display:block;
+  	color:#FFFFFF;
+  	padding:0;
+  	font-size:12px;
+  	font-weight:bold;
+  	//cursor:default;
+  	border-top:#C4DE9C solid 1px;
+  }
+  .jsmenu div .single a {
+  	padding:8px 0px 8px 26px;
+  	display:block;
+  	text-decoration:none;
+  	font-size:15px;
+  	color:#FFFFFF;
+  	cursor:pointer;
+  	border-bottom:#C4DE9C solid 1px;
+  }
+  
+  .jsmenu div .single a.current {
+  	//background:url(http://www.webdm.cn/images/20091230/jm_tabon.gif) no-repeat left top;
+  }
+  .jsmenu div.collapsed .fath {
+  	//background:url(http://www.webdm.cn/images/20091230/jm_col.gif) no-repeat 10px 10px;
+  }
+  .jsmenu div .son {
+  	font-size:13px;
+  	border-top:#C4DE9C solid 1px;
+  	//padding:8px 0px 8px 26px;
+  	padding:5px 5px 5px 8px;
+  }
+  .jsmenu a {
+  	padding:7px 0 6px 34px;
+  	display:block;
+  	color:#FFFFFF;
+  	text-decoration:none;
+  }
+  .jsmenu a:hover {
+  	color:#F60;
+  	cursor:hand;
+  	//background:#fff;
+  	text-decoration:none;
+  }
+ 
+</style>
+   
+  <div class="jsmenu" id="js_menu">
+     <div>
+     	<span class="single">
+     	<a href="/index.htm">&nbsp;&nbsp现场</a>
+     	</span>
+     </div>
+     <div class="collapsed">
+       <span class="menuLink1">+ 视频</span>
+         <p class="son" >
+           <a href="#" onclick="ChangeContent('img.htm');">.视频</a>
+           <a href="#" onclick="ChangeContent('imgtune.htm');">.2A设置</a>
+         </p>
+     </div>
+     <div class="collapsed">
+       <span class="menuLink1" >
+       <href="#">+ 网络
+       </span>
+         <p class="son">
+           <a href="#" onclick="ChangeContent('net.htm');">.IP设置</a>
+           <a href="#" onclick="ChangeContent('nftp.htm');">.FTP设置</a>
+           <a href="#" onclick="ChangeContent('nsmtp.htm');">.SMTP设置</a>
+           <a href="#" onclick="ChangeContent('nsntp.htm');">.NTP设置</a>
+           <a href="#" onclick="ChangeContent('multicast.htm');">.RTSP设置</a>
+         </p>
+     </div>
+     <div class="collapsed">
+      <span class="menuLink1" >
+      <href="#">+ 系统</span>
+      <p class="son">
+        <a href="#" onclick="ChangeContent('sdt.htm');">.时间日期</a>
+        <a href="#" onclick="ChangeContent('sts.htm');">.OSD</a>
+        <a href="#" onclick="ChangeContent('suser.htm');">.用户</a>
+        <a href="#" onclick="ChangeContent('saudio.htm');">.音频</a>
+        <a href="#" onclick="ChangeContent('c_update.htm');">.版本更新</a>
+      </p>
+      </div>
+     <div class="collapsed">
+       <span class="menuLink1" >
+       <href="#">+ 事件存储</span>
+       <p class="son">
+           <a href="#" onclick="ChangeContent('ess.htm');">.事件</a>
+           <a href="#" onclick="ChangeContent('storage.htm');">.存储</a>
+       </p>
+      </div>
+     </div>
+<script>
+var g_AlarmCheckTime = 1000;
+var g_AlarmApi = "getalarmstatus";
+CMD_STOP = new Array(0, 0, 0, 0);
+CMD_ZOOM_IN = new Array(0x00, 0x20, 0x00, 0x00);
+CMD_ZOOM_OUT = new Array(0x00, 0x40, 0x00, 0x00);
+CMD_TILT_UP = new Array(0x00, 0x08, 0x00, 0x3F);
+CMD_TILT_DOWN = new Array(0x00, 0x10, 0x00, 0x3F);
+CMD_PAN_LEFT = new Array(0x00, 0x04, 0x3F, 0x00);
+CMD_PAN_RIGHT = new Array(0x00, 0x02, 0x3F, 0x00);
+CMD_STEP_DOWN = new Array(0x00, 0x10, 0x00, 0x20);
+CMD_STEP_RIGHT = new Array(0x00, 0x02, 0x20, 0x00);
+CMD_FOCUS_NEAR = new Array(0x01, 0x00, 0x00, 0x00);
+CMD_STEP_LEFT = new Array(0x00, 0x04, 0x20, 0x00);
+CMD_FOCUS_FAR = new Array(0x00, 0x80, 0x00, 0x00);
+CMD_STEP_UP = new Array(0x00, 0x08, 0x00, 0x20);
+CMD_APERTURE_SUB = new Array(0x04, 0x00, 0x00, 0x00);
+CMD_APERTURE_ADD = new Array(0x02, 0x00, 0x00, 0x00);
+CMD_MENU = new Array(0x00, 0x03, 0x00, 0x5F);
+CMD_PRESET = new Array(0x00, 0x03, 0x00);
+CMD_PRESET_GO = new Array(0x00, 0x07, 0x00);
+CMD_PRESET_X = new Array(0x00, 0x05, 0x00);
+CMD_AUTO_SCAN = new Array(0x00, 0x03, 0x00, 0x60);
+CMD_AUTO_SCAN_X = new Array(0x00, 0x00, 0x00, 0x00);
+CMD_PAT_START = new Array(0x00, 0x1F, 0x00, 0x00);
+CMD_PAT_STOP = new Array(0x00, 0x21, 0x00, 0x00);
+CMD_PAT_RUN = new Array(0x00, 0x23, 0x00, 0x00);
+
+WriteHtmlHead(null, null, null, "CallOnUnload", "CallOnResize");
+
+useActiveX = 1;
+var tick = 0;
+var xhttp = null;
+var mCheckConnHttp = null;
+var daylight = "<%daylight%>";
+var audioSupport = "<%audioenable%>";
+var useActiveX = "<%layoutnum.0%>";
+var lastUseActiveX = useActiveX;
+var timerID = null;
+var timeFormat = parseInt("<%timeformat%>");
+var camDate;
+var imagesource = "<%imagesource%>";
+var timerID2 = null;
+var timerIDAlarm = null;
+
+var mySize = new SIZE(g_viewXSize, g_viewYSize);
+var timerID3 = null;
+var checkTimer;
+var g_IsAxStoped = false;
+var isPtzAx = (g_isShowPtzCtrl || g_isShowFullPtzCtrl);
+var snapShotPath = GetCookie("SNAPSHOT_PATH", "");
+var aviPath = GetCookie("AVI_PATH", "");
+
+var DCL_1 =
+{
+zoom : "1",
+width : "<%jpegxsize.1%>",
+height : "<%jpegysize.1%>"
+};
+var DCL_2 =
+{
+zoom : "1",
+width : "<%jpegxsize.2%>",
+height : "<%jpegysize.2%>"
+};
+var DCL_3 =
+{
+zoom : "1",
+width : "<%jpegxsize.3%>",
+height : "<%jpegysize.3%>"
+};
+var DCL_4 =
+{
+zoom : "1",
+width : "<%jpegxsize.4%>",
+height : "<%jpegysize.4%>"
+};
+
+if (Is2114())
+{
+  DCL_1.height *= 2;
+  DCL_2.height *= 2;
+  DCL_3.height *= 2;
+  DCL_4.height *= 2;
+
+}
+
+//Note 9001 has specify stream sequence
+//s1: mjpeg
+//s2: mpeg4
+//s3: mpeg4cif
+//s4: mjpegcif
+//s5: avc
+//s6: avccif
+var DCL_MP1_1 =
+{
+codec : V_JPEG,
+zoom : "1",
+width : "<%stream1xsize%>",
+height : "<%stream1ysize%>"
+};
+var DCL_MP1_2 =
+{
+codec : V_MPEG4,
+zoom : "1",
+width : "<%stream2xsize%>",
+height : "<%stream2ysize%>"
+};
+var DCL_MP1_3 =
+{
+codec : V_MPEG4,
+zoom : "2",
+width : "<%stream3xsize%>",
+height : "<%stream3ysize%>"
+};
+var DCL_MP1_4 =
+{
+codec : V_JPEG,
+zoom : "2",
+width : "<%stream4xsize%>",
+height : "<%stream4ysize%>"
+};
+var DCL_MP1_5 =
+{
+codec : V_H264,
+zoom : "1",
+width : "<%stream5xsize%>",
+height : "<%stream5ysize%>"
+};
+var DCL_MP1_6 =
+{
+codec : V_H264,
+zoom : "2",
+width : "<%stream6xsize%>",
+height : "<%stream6ysize%>"
+};
+
+
+// select multi profile mode,
+// this var in differnt case will have differnt define.
+// In 7228, 1:MJPEG, 2:H.264,... this var will associate with DCL_MP?_?
+function GetStreamSafe()
+{
+  var i = parseInt(GetCookie("MP_MODE"));
+  if (isNaN(i))
+  {
+    i = GetFirstShowMode();
+  }
+  else if (!eval("g_isSupS"+i))
+  {
+    i = GetFirstShowMode();
+  }
+  return i;
+}
+
+var mpMode = GetStreamSafe();
+
+
+function AddLightIcon(id, left, top, width, height, onImg, offImg, describe)
+{
+  var o = "";
+  o += "<div id='LIGHT_" + id + "' style='position:absolute; left:" + left + "px; top:" + top + "px; width:" + width + "px; height:" + height + "px; z-index:10'><img id='LIGHT_PIC_" + id + "' src='" + offImg + "' style='cursor:default ' alt='" + describe + "' onMouseOver='WS(\"" + describe + "\");' onMouseLeave='WS();'></div>";
+  DW(o);
+  LightAry["LIGHT_" + id] = new LightInfo(id, onImg, offImg);
+}
+AddLightIcon("alarmIcon", -100, -100, 15, 18, "bell2_small_yellow.gif", "bell2_small_gray.gif", "Alarm");
+AddLightIcon("recordIcon", -100, -100, 15, 18, "rec25x25_red.gif", "rec25x25_gray.gif", "Recording");
+//DW("<div id='LOGO_TI' style='position:absolute; left:1px; top:1px; width:150px; height:66px; z-index:10'><img id='LOGO_PIC_TI' src='new_log.gif' style='cursor:pointer' alt='' onMouseOver='WS();' onMouseLeave='WS();'></div>");
+if (Chk_Audio())
+{
+  AddLightIcon("audioBtn", -100, -100, 15, 18, "on.gif", "off.gif", "Audio");
+}
+// will call UpdateViewSize inside
+// FixViewSize();
+
+// update view size
+function UpdateViewSize()
+{
+  if (g_isMP1 || g_isMP73)
+  {
+    var dclMP = eval("DCL_MP1_" + mpMode);
+    g_viewXSize = dclMP.width;
+    g_viewYSize = dclMP.height;
+    mySize = new SIZE(g_viewXSize, g_viewYSize);
+  }
+};
+UpdateViewSize();
+
+function IsPtzOp()
+{
+  return g_socketAuthority > 1;
+};
+
+// get PTZ combo value
+function GetPSV(name)
+{
+  return parseInt(GetValue(name, true));
+};
+
+function SIZE(w, h)
+{
+  this.w = parseInt(w);
+  this.h = parseInt(h);
+};
+function AudioProcess()
+{
+  SetCookie("AUDIO_ON", GetLight("audioBtn"));
+  if (isPtzAx && !IsPtzOp())
+  {
+    StartActiveXEx(GetLight("speedBtn"), GetLight("audioBtn"), GetCodec(), null, null, 9);
+  }
+  else
+  {
+    StartActiveXEx(GetLight("speedBtn"), GetLight("audioBtn"), GetCodec(), g_CHID, (IsVS() ? 1 : null));
+  }
+  return true;
+};
+
+function GetDateStr(pfx, tail)
+{
+  var y, M, d, h, m, s, ms;
+  var myDate = new Date();
+  if (browser_FireFox)
+  {
+    y = FixNum(myDate.getYear() + 1900, 4);
+  }
+  else
+  {
+    y = FixNum(myDate.getYear(), 4);
+  }
+  M = FixNum(myDate.getMonth() + 1, 2);
+  d = FixNum(myDate.getDate(), 2);
+  h = FixNum(myDate.getHours(), 2);
+  m = FixNum(myDate.getMinutes(), 2);
+  s = FixNum(myDate.getSeconds(), 2);
+  ms = parseInt((myDate.getTime() % 1000) / 100);
+  return pfx + "_<%title%>_" + y + M + d + h + m + s + ms + "." + tail;
+}
+
+function RecProcess()
+{
+  var res = false;
+  var obj = (IsVS()) ? GE(AxID + 1) : GE(AxID);
+  if (obj != null)
+  {
+    if (event.button == 2)
+    {
+      FetchAviPath();
+    }
+    else
+    {
+      if (GetLight("recBtn") == 1)
+      {
+        if (CheckIsNullNoMsg(aviPath))
+        {
+          FetchAviPath();
+        }
+        if (CheckIsNullNoMsg(aviPath))
+        {
+          //obj.RecordAviStart("");
+        }
+        else
+        {
+          if (aviPath.charAt(aviPath.length - 1) != '\\')
+          {
+            aviPath += '\\';
+          }
+          //obj.RecordAviStart(aviPath + GetDateStr("Clip", "avi"));
+        }
+      }
+      else
+      {
+        //obj.RecordAviStop();
+      }
+      res = true;
+    }
+
+  }
+  else
+  {
+    alert("fail");
+  }
+  return res;
+};
+
+function Chk_Audio()
+{
+  return (g_isSupportAudio && ("<%audioenable%>" == 1));
+};
+
+function FetchSnapShotPath()
+{
+  snapShotPath = CommPrompt(GL("input_snapshot_path"), "SNAPSHOT_PATH");
+}
+
+function FetchAviPath()
+{
+  aviPath = CommPrompt(GL("input_avi_path"), "AVI_PATH");
+}
+
+function CommPrompt(msg, cook)
+{
+  var o = window.prompt(msg, GetCookie(cook, ""));
+  if (o != null)
+  {
+    SetCookie(cook, o);
+  }
+  return o;
+}
+
+function SnapProcess()
+{
+  var obj = (IsVS()) ? GE(AxID + 1) : GE(AxID);
+  if (obj != null)
+  {
+    if (event.button == 2)
+    {
+      FetchSnapShotPath();
+    }
+    else
+    {
+      if (CheckIsNullNoMsg(snapShotPath))
+      {
+        FetchSnapShotPath();
+      }
+      if (CheckIsNullNoMsg(snapShotPath))
+      {
+        //obj.SaveCurrentImage("");
+      }
+      else
+      {
+        if (snapShotPath.charAt(snapShotPath.length - 1) != '\\')
+        {
+          snapShotPath += '\\';
+        }
+        //obj.SaveCurrentImage(snapShotPath + GetDateStr("Snapshot", "jpg"));
+      }
+    }
+  }
+  else
+  {
+    alert("fail");
+  }
+  return true;
+};
+
+function SpeedProcess()
+{
+  var auOn = 0;
+  if (Chk_Audio())
+  {
+    auOn = GetLight("audioBtn");
+  }
+  if (isPtzAx && !IsPtzOp())
+  {
+    StartActiveXEx(GetLight("speedBtn"), auOn, GetCodec(), null, null, 9);
+  }
+  else
+  {
+    StartActiveXEx(GetLight("speedBtn"), auOn, GetCodec(), g_CHID, (IsVS() ? 1 : null));
+  }
+  return true;
+}
+
+function ChangeDateFormat()
+{
+  timeFormat++;
+  if (timeFormat > 2)
+    timeFormat = 0;
+}
+
+function GetCHSize()
+{
+  var w = myDCL.width;
+  var h = myDCL.height;
+  if ((w > 700 || w == 640) && (h == 240 || h == 288))
+    h *= 2;
+  return new SIZE(w, h);
+};
+
+// =========CALL BACK========
+function MY_CH_CHANGE()
+{
+  myDCL = eval("DCL_" + g_CHID);
+  mySize = GetCHSize();
+  FixZoomPos();
+  if (GE("zoomSel") != null)
+  {
+    SetValue("zoomSel", myDCL.zoom);
+  }
+  CtrlSizeChange(0, 0, mySize.w * myDCL.zoom, mySize.h * myDCL.zoom);
+  if (g_isSupportQuickSet)
+  {
+    FixQuickStatus();
+  }
+};
+
+// check is using ActiveX for view?
+function IsUseAx()
+{
+  var cc = GetCodec();
+  // only JPEG has option to use AJAX
+  return !(useActiveX == 0 && g_videoFormat == 0 && (cc == 0 || cc == V_JPEG) && !IsVS());
+};
+
+function StartRunAx()
+{
+  if (IsUseAx())
+  {
+    useActiveX = 1;
+    if (IsVS())
+    {
+      if (g_CHID == 0)
+      {
+        for ( var i = 1; i <= g_maxCH; i++)
+        {
+          //No PTZ
+          StartActiveXEx(0, 0, GetCodec(), i, i);
+        }
+      }
+      else
+      {
+        MY_CH_CHANGE();
+        // StartActiveXEx(0,0,GetCodec(),g_CHID,1);
+      }
+    }
+    else
+    {
+      var auOn = 0;
+      if (Chk_Audio())
+      {
+        
+        auOn = GetLight("audioBtn");
+      }
+      if (isPtzAx && !IsPtzOp())
+      {
+      
+			StartActiveXEx(GetLight("speedBtn"), auOn, GetCodec(), null, null, 9);
+      }
+      else
+      {
+        	var MP = mpMode;
+		  StartActiveXEx(0,0,1010,g_CHID,1);
+	      StartActiveXEx(GetLight("speedBtn"), auOn, GetCodec(),MP);
+/*
+		var obj=GE(AxID);
+		var URL=location.host;
+		var targetURL='rtsp://'+URL+':8557/h264';
+		obj.playlist.clear();
+		obj.playlist.add(targetURL);
+		obj.playlist.play();
+*/
+      }
+    }
+  }
+  else
+  {
+	imgFetcher.RunDms();
+  }
+};
+
+// return the preference codec
+// if not mulit profile will return 0
+function GetCodec()
+{
+  var res = 0;
+  if (g_isMP1 || g_isMP73)
+  {
+    res = eval("DCL_MP1_" + mpMode + ".codec");
+  }
+  return res;
+};
+
+function MY_ONLOAD()
+{
+  var b_playAudio = 0;
+  LoadClock();
+  CallOnResize();
+  if (Chk_Audio())
+  {
+    SetLight("audioBtn", 1);
+    b_playAudio = 1;
+  }
+  /*if (mySize.w > 720)
+  {
+    ZoomChange(99);
+  }
+  else
+  {
+    ZoomChange(1);
+  }*/
+  
+   StartRunAx();
+ 
+  clearTimeout(timerIDAlarm);
+  timerIDAlarm = setTimeout("StartAlarmWorker()", g_AlarmCheckTime);
+  g_lockLink = false;
+
+  // start check timer!!
+  // checkTimer = setTimeout("CheckIndexActiveX()",1000);
+  //timerID3 = setTimeout("CheckActiveLive()", 3000);
+
+};
+function StartAlarmWorker()
+{
+  SendHttp(c_iniUrl + "&" + g_AlarmApi, false, SendOK);
+}
+function SendOK()
+{
+  if (g_SubmitHttp.readyState == 4)
+  {
+    if (g_SubmitHttp.status == 200)
+    {
+      try
+      {
+        var txt = g_SubmitHttp.responseText;
+        var ix = txt.indexOf("OK getalarmstatus=");
+        if (ix >= 0)
+        {
+          var code = txt.substring(ix + 18, ix + 22);
+          code = parseInt(code, 16);
+          if (((code & 0x00000003) == 0))
+          {
+            SetLight("alarmIcon", 0);
+          }
+          else
+          {
+            SetLight("alarmIcon", 1);
+          }
+          if (((code & 0x00000004) == 0))
+          {
+            SetLight("recordIcon", 0);
+          }
+          else
+          {
+            SetLight("recordIcon", 1);
+          }
+        }
+      }
+      catch (e)
+      {
+        alert(e)
+      };
+    }
+    timerIDAlarm = setTimeout("StartAlarmWorker()", g_AlarmCheckTime);
+  }
+}
+
+function CheckActiveLive()
+{
+  var isLive = false;
+  if (IsVS())
+  {
+    if (g_CHID == 0)
+    {
+      for ( var i = 1; i <= g_maxCH; i++)
+      {
+        isLive = CheckOneActiveLiveAndStop(i);
+        if (!isLive)
+        {
+          break;
+        }
+      }
+    }
+    else
+    {
+      isLive = CheckOneActiveLiveAndStop(g_CHID);
+    }
+  }
+  else
+  {
+    isLive = CheckOneActiveLiveAndStop();
+  }
+
+  if (!isLive)
+  {
+    if (mCheckConnHttp == null)
+    {
+      //start connection query
+      mCheckConnHttp = InitXHttp();
+      mCheckConnHttp.onreadystatechange = OnReadyCheckConnProcess;
+      try
+      {
+        mCheckConnHttp.open("GET", "datetime.htm?language=" + (new Date()
+            .getTime()), true); // async
+        mCheckConnHttp.send(null);
+      }
+      catch (e)
+      {};
+    }
+  }
+
+  timerID3 = setTimeout("CheckActiveLive()", 3000);
+};
+
+function OnReadyCheckConnProcess()
+{
+  if (mCheckConnHttp.readyState == 4)
+  {
+    if (mCheckConnHttp.status == 200)
+    {
+      //connection back, restart
+      StartRunAx();
+      g_IsAxStoped = false;
+    }
+
+    mCheckConnHttp = null;
+  }
+};
+
+function CheckOneActiveLiveAndStop(id)
+{
+  var res = true;
+  var obj = (id == null) ? GE(AxID) : GE(AxID + id);
+  if (obj != null)
+  {
+    try
+    {
+      //res = (obj.IsAlive == 1);
+      if (!res && !g_IsAxStoped)
+      {
+        g_IsAxStoped = true;
+        //obj.NotifyStop();
+      }
+    }
+    catch (e)
+    {};
+  }
+  return res;
+};
+
+function clearlAllTimer()
+{
+  clearTimeout(timerID);
+  clearTimeout(timerID2);
+  clearTimeout(checkTimer);
+  clearTimeout(timerID3);  
+  clearTimeout(timerIDAlarm);
+};
+
+function MY_ONUNLOAD()
+{
+  ZoomChange(null);
+  clearlAllTimer();
+
+  StopActiveX();
+  var obj = GE("viewCHSel");
+  if (obj != null)
+  {
+    obj.options[0].text = "---";
+  }
+  g_isSupMpeg4 = false;
+};
+
+function MY_ONRESIZE()
+{
+  FixButtonPos();
+};
+
+function GetMPHtml()
+{
+  var o = '';
+  o += '<div id="mpLayer" class="cssViewChLayer">';
+  o += '</div>';
+  return o;
+};
+function GetMPCtx()
+{
+  var o = '';
+  o += "<select onChange='MPChange(this.value)' id='mpSel' class='m1'>";
+  if (g_isSupS1) o += "<option value='1' ><%stream1name%></option>";
+  if (g_isSupS2) o += "<option value='2' ><%stream2name%></option>";
+  if (g_isSupS3) o += "<option value='3' ><%stream3name%></option>";
+  if (g_isSupS4) o += "<option value='4' ><%stream4name%></option>";
+  if (g_isSupS5) o += "<option value='5' ><%stream5name%></option>";
+  if (g_isSupS6) o += "<option value='6' ><%stream6name%></option>";
+  o += "</select>";
+  return o;
+};
+function MPChange()
+{
+  SaveCombo("mpSel", "MP_MODE");
+  mpMode = GetValue("mpSel");
+  var dclMP = eval("DCL_MP1_" + mpMode);
+  clearlAllTimer();
+  // if H.264 force to use ActiveX
+  if (dclMP.codec == V_H264 || dclMP.codec == V_MPEG4||dclMP.codec == V_JPEG)
+  {
+    //force to use ActiveX
+    useActiveX = 1;
+    if (lastUseActiveX == 1)
+    {
+      StopActiveX();
+      g_dmsRun = false;
+      clearTimeout(jpegTimer);
+      jpegTimer = null;
+      WS("");
+      GE("ctrlCtx").innerHTML = GetTagAX1AndFixSize();
+    }
+  }
+  else if (dclMP.codec == V_JPEG)
+  {
+    if (useActiveX != lastUseActiveX)
+    {
+      g_dmsRun = true;
+      GE("ctrlCtx").innerHTML = '<table bordercolor="#99CCFF" border="3"><tr><td>' + imgFetcher
+          .GetDmsImgStr(dclMP.width, dclMP.height) + '</td></tr></table>';
+    }
+    useActiveX = lastUseActiveX;
+  }
+  UpdateViewSize();
+
+  MY_ONLOAD();
+
+  if (mySize.w > 720)
+  {
+    CallOnResize();
+	ZoomChange(99);
+  }
+  else
+  {
+    //CallOnResize();
+	ZoomChange(1);
+	CallOnResize();
+  }
+
+};
+/*
+function GetZoomHtml()
+{
+  var o = '';
+  o += '<div id="zoomLayer" class="cssViewChLayer">';
+  o += '</div>';
+  return o;
+};
+function GetZoomCtx()
+{
+  var o = '';
+  o += GL('zoom') + ': ';
+  o += "<select onChange='ZoomChange(this.value)' id='zoomSel' class='m1'>";
+  if (mySize.w > 720)
+  {
+    o += "<option value='99' selected >scaled 720</option>";
+  }
+  o += "<option value='1' >1X</option>";
+  if (mySize.w < 600)
+  {
+    o += "<option value='2' >2X</option>";
+  }
+  if (mySize.w < 300)
+  {
+    o += "<option value='4' >4X</option>";
+  }
+  o += "</select>";
+  return o;
+};
+*/
+function ZoomChange(z)
+{
+  var tabctrl = GE("theObjTable");
+ // var menuctrl = GE("tabmenu");
+//  var imgctrl = GE("imgbrand");
+  if (z == null)
+  {
+    if (mySize.w > 720)
+    {
+      z = 99;
+    }
+    else
+    {
+      z = 1;
+    }
+  }
+  else
+  {
+    z = parseInt(z);
+  }
+  if (z == 99)
+  {
+    var nX = 720;
+    var nY = (nX * mySize.h) / mySize.w;
+    CtrlSizeChange(0, GetLight("audioBtn"), nX, nY);
+    tabctrl.style.width = "750";
+   // imgctrl.style.width = "750";
+   // menuctrl.style.width = "750";
+  }
+  else
+  {
+	CtrlSizeChange(0, GetLight("audioBtn"), mySize.w * z, mySize.h * z);
+    var w = mySize.w + 30;
+    if (w < 750)
+    {
+      w = 750;
+    }
+    tabctrl.style.width = w;
+   // imgctrl.style.width = w;
+   // menuctrl.style.width = w;
+  }
+};
+
+function CtrlSizeChange(iframe, audio, w, h)
+{
+  var exID = (IsVS() ? "1" : "");
+  var ax = IsUseAx();
+  var needStart = false;
+  try
+  {
+    var obj = GE(AxID + exID);
+
+	obj.width = w;
+    obj.height = h;	
+  }
+  catch (e)
+  {};
+  if (ax && needStart)
+  {
+    if (isPtzAx && !IsPtzOp())
+    {
+      timerID2 = setTimeout("StartActiveXEx(" + iframe + "," + audio + "," + GetCodec() + (IsVS() ? ",g_CHID,1" : "") + ",null,null,9)", 500);
+    }
+    else
+    {
+		  var MP = mpMode;
+		  timerID2 = setTimeout("StartActiveXEx(" + iframe + "," + audio + "," + GetCodec() + (IsVS() ? ",g_CHID,1" : ","+MP) + ")", 500);
+    }
+  }
+};
+function FixZoomPos()
+{
+  GetBaseXY();
+  var obj = GE("zoomLayer");
+  if (obj != null)
+  {
+      obj.style.left = baseX + 450;
+      obj.style.top = 40;
+      obj.innerHTML = GetZoomCtx();
+  }
+};
+
+function FixMPPos()
+{
+  GetBaseXY();
+  var obj = GE("mpLayer");
+  if (obj != null && (g_isMP1 || g_isMP73))
+  {
+    obj.style.left = baseX + 195;
+    obj.style.top = 40;
+    obj.innerHTML = GetMPCtx();
+    // set multi profile value
+    SetValue("mpSel", mpMode);
+  }
+
+}
+function FixButtonPos()
+{
+  GetBaseXY();
+
+
+  if (Chk_Audio())
+  {
+    SetLightPos("audioBtn", baseX + 664, 15);
+  }
+  SetLightPos("alarmIcon", baseX + 580, 10);
+  SetLightPos("recordIcon", baseX + 624, 15);
+  var logo_obj = GE("LOGO_TI");
+  if (logo_obj != null)
+  {
+    logo_obj.style.left = baseX + 0;
+    logo_obj.style.top = 0;
+  }
+  FixZoomPos();
+  if (IsMP())
+  {
+    FixMPPos();
+  }
+};
+
+function LoadClock()
+{
+  xhttp = InitXHttp();
+  xhttp.onreadystatechange = OnReadyClockProcess;
+
+  // prepare the call, http method=GET, false=asynchronous call
+  try
+  {
+    xhttp.open("GET", "datetime.htm?language=" + (new Date().getTime()), true);
+    // finally send the call
+    xhttp.send(null);
+  }
+  catch (e)
+  {};
+
+};
+function OnReadyClockProcess()
+{
+  if (xhttp.readyState == 4 && xhttp.status == 200)
+  {
+    camDate = new Date(xhttp.responseText);
+    RunClock();
+  }
+};
+
+function RunClock()
+{
+  //if (tick > 600)
+  if (tick > 150)
+  {
+    tick = 0;
+    LoadClock();
+  }
+  else
+  {
+    //ShowClock();
+    timerID = setTimeout("RunClock()", 1000);
+    camDate.setTime(camDate.getTime() + 1000);
+  }
+  tick++;
+};
+function ShowClock()
+{
+  var o = GiveMeDateTimeString(camDate, timeFormat, daylight);
+  if (daylight != 1)
+  {
+    o = "    " + o;
+  }
+
+  GE("currentCameraTime").value = o;
+}
+DW(GetMPHtml());
+
+
+
+
+//DW(GetZoomHtml());
+</script>
+<div id="timeLayer" class="cssTimerLayer" align="right"></div>
+<center>
+<script>
+// add control
+
+var o = "";
+if (IsVS())
+{
+  useActiveX = 1;
+}
+
+if (IsUseAx())
+{
+  if (IsVS())
+  {
+    if (g_CHID == 0)
+    {
+      o += "<table><tr><td>";
+      o += GetTagAX1AndFixSize(1);
+      o += "</td><td>";
+      o += GetTagAX1AndFixSize(2);
+      o += "</td></tr><tr><td>";
+      o += GetTagAX1AndFixSize(3);
+      o += "</td><td>";
+      o += GetTagAX1AndFixSize(4);
+      o += "</td></tr></table>";
+    }
+    else
+    {
+      o += "<table ><tr><td height='480' top ='120' valign='middle'>";
+      o += GetTagAX1AndFixSize(1);
+      o += "</td><td></table>";
+    }
+
+  }
+  else
+  {
+    o += "<table ><tr><td height='480' top ='120' valign='middle'>";
+    o += '<div id="ctrlCtx" >';
+    o += GetTagAX1AndFixSize();
+    o += '</div>';
+    o += "</td><td></table>";
+  }
+}
+else
+{
+  DW('<table ><tr><td height="480" top ="120" valign="middle" >');
+  DW('<div id="ctrlCtx" >');
+  DW('<table bordercolor="#99CCFF" border="3"><tr><td>');
+  DW(imgFetcher.GetDmsImgStr("<%jpegxsize%>", "<%jpegysize%>"));
+  DW("</td></tr></table>");
+  DW('</div>');
+  DW("</td></tr></table>");
+}
+DW(o);
+if (g_isShowPtzCtrl)
+{
+  CreatePtzPanel();
+}
+</script>
+<script>ALC();</script>
+<script>
+//WriteBottom();
+if (g_isShowPtzCtrl)
+{
+  CreatePtzButton();
+}
+</script>
+</html>

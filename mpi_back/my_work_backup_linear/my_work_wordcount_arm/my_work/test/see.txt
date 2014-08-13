@@ -1,0 +1,28 @@
+do_work filename is testdata1.txt
+Wordcount: Running...
+do_work filename is testdata2.txt
+Wordcount: Running...
+Wordcount: Calling MapReduce Scheduler Wordcount
+Wordcount: Calling MapReduce Scheduler Wordcount
+Wordcount: MapReduce Completed
+
+Wordcount: Results (TOP 10 of 271):
+Total: 959
+Wordcount: MapReduce Completed
+
+Wordcount: Results (TOP 10 of 294):
+Total: 1015
+do_work filename is testdata3.txt
+Wordcount: Running...
+Wordcount: Calling MapReduce Scheduler Wordcount
+Wordcount: MapReduce Completed
+
+Wordcount: Results (TOP 10 of 294):
+Total: 1015
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   EXIT CODE: 1
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================

@@ -1,0 +1,157 @@
+<script>
+vs_goEn0="<%giooutenable.0%>";
+vs_goEn1="<%giooutenable.1%>";
+vs_giEn1="<%gioinenable.1%>";
+vs_giEn2="<%gioinenable.2%>";
+vs_giEn3="<%gioinenable.3%>";
+vs_giEn4="<%gioinenable.4%>";
+vs_goT0="<%gioouttype.0%>";
+vs_goT1="<%gioouttype.1%>";
+vs_giT1="<%giointype.1%>";
+vs_giT2="<%giointype.2%>";
+vs_giT3="<%giointype.3%>";
+vs_giT4="<%giointype.4%>";
+v_goT="<%gioouttype%>";
+v_giT="<%giointype%>";
+var select="0;1";
+var select1="0;1;2;3;4;5;6;7";
+var value="3;4;5;6;7;8;9;10";
+  CTRLARY={
+  input: new Ctrl_Select("input",value,select1,"input="),
+  goT0:new Ctrl_Select("goT0",GL("check1"),select,"setgioouttype="),
+  //giT:new Ctrl_Select("giT","<%gioinname.all%>",v_giT,"setgiointype="),
+  giT:new Ctrl_Select("giT",GL("check"),select,"setgiointype="),
+  goEn0:new Ctrl_Radio("goEn0",1,"setgiooutenable=","FixStatus()"),
+  giEn:new Ctrl_Radio("giEn",1,"setgioinenable=","FixStatus0()"),
+   yellow_line: new Ctrl_Radio("yellow_line",1,"yellow_line=","FixStatus1()"),
+  red: new Ctrl_Radio("red",1,"red=","FixStatus2()"),
+  superspeed: new Ctrl_Radio("superspeed",1,"superspeed=","FixStatus3()"),
+  di_do_action: new Ctrl_Radio("di_do_action",1,"di_do_action="),
+  yellow_do_action: new Ctrl_Radio("yellow_do_action",1,"yellow_do_action="),
+  red_do_action: new Ctrl_Radio("red_do_action",1,"red_do_action="),
+  sup_do_action: new Ctrl_Radio("sup_do_action",1,"sup_do_action="),
+  di_smtp_action: new Ctrl_Radio("di_smtp_action",1,"di_smtp_action="),
+  yellow_smtp_action: new Ctrl_Radio("yellow_smtp_action",1,"yellow_smtp_action="),
+  red_smtp_action: new Ctrl_Radio("red_smtp_action",1,"red_smtp_action="),
+  sup_smtp_action: new Ctrl_Radio("sup_smtp_action",1,"sup_smtp_action="),
+  di_record_action: new Ctrl_Radio("di_record_action",1,"di_record_action="),
+  yellow_record_action: new Ctrl_Radio("yellow_record_action",1,"yellow_record_action="),
+  red_record_action: new Ctrl_Radio("red_record_action",1,"red_record_action="),
+   sup_record_action: new Ctrl_Radio("sup_record_action",1,"sup_record_action=")
+  };
+  //////////////////////////////////////////////////////
+  function FixStatus0()
+  {
+   var test=GetCCV("giEn");
+   test=1-test;
+   DisableObject("giT",test);
+   DisableObject("di_do_action",test);
+   DisableObject("di_smtp_action",test);
+   DisableObject("di_record_action",test);
+  }
+   function FixStatus1()
+  {
+   var test=GetCCV("yellow_line");
+   test=1-test;
+   DisableObject("yellow_do_action",test);
+   DisableObject("yellow_smtp_action",test);
+   DisableObject("yellow_record_action",test);
+  }
+  function FixStatus2()
+  {
+   var test=GetCCV("red");
+   test=1-test;
+   DisableObject("red_do_action",test);
+   DisableObject("red_smtp_action",test);
+   DisableObject("red_record_action",test);
+  }
+  function FixStatus3()
+  {
+   var test=GetCCV("superspeed");
+   test=1-test;
+   DisableObject("sup_do_action",test);
+   DisableObject("sup_smtp_action",test);
+   DisableObject("sup_record_action",test);
+  }
+  /////////////////////////////////////////////////////
+function MY_ONLOAD()
+{
+   VS_NO_VIEW_ALL();
+   MY_CH_CHANGE();
+   g_lockLink=false;
+}
+function MY_CH_CHANGE()
+{
+  SetCCV("giEn",eval("vs_giEn"+g_CHID));
+  SetCCV("giT",eval("vs_giT"+g_CHID));
+  FixStatus();
+ }
+function MY_SUBMIT_OK()
+{
+  if(IsVS())
+  {
+    eval('vs_giEn'+g_CHID+' = GetCCV("giEn")');
+    eval('vs_giT'+g_CHID+'=GetCCV("giT")');
+   }
+ }
+function FixStatus()
+{
+  DisableObject("giT",(GetCCV("giEn")==0));
+  DisableObject("goT0",(GetCCV("goEn0")==0));
+ }
+function WSI(tid,id)
+{
+  WSIX(tid,WH_(id));
+}
+function WSIX(tid,ctx)
+{
+  WSIXX(GL(tid)+":",ctx);
+}
+function WSIXX(ctx1,ctx2)
+{
+  DW('<tr class="b1"><td width=120 height="30" >');
+  DW(ctx1+'</td><td>'+ctx2+'</td></tr>');
+}
+function WSIXX1(ctx1,ctx2,ctx3)
+{
+  DW('<tr class="b1"><td width=120 height="30" >');
+  DW(ctx1+'</td><td >'+ctx2+'</td><td>'+ctx3+'</td></tr>');
+}
+</script>
+<div align="center">
+	<table width="500" border="1" bordercolor="#FF9900"  style="margin-top:50px;">
+		<tr>
+			<td colspan="2" width="500" height="23" bgcolor="#006699"><font color="#FFFFFF">浜嬩欢璁剧疆</font></td>
+		</tr>
+		<tr>
+		  <td>
+		   <table width="500" border="0" align="center">
+			<script>
+			WSIXX(GL("gio_in")+" :",WH_("giEn")+"&nbsp;&nbsp;"+GL("active_type")+": "+WH_("giT"));  //DI动作
+			WSIXX(GL("gio_out")+" :",WH_("goEn0")+"&nbsp;&nbsp;"+GL("active_type")+": "+WH_("goT0")+"&nbsp;&nbsp;"+GL("out")+WH_("input")+GL("limit")); //DO动作
+			WIP("yellow_line","yellow_line");//压黄线动作
+			WIP("red","red");//闯红灯动作
+			WIP("superspeed","superspeed");//超速动作
+			</script>
+		   	</table>
+		 </td>
+	    </tr>	
+	  	<tr>
+		  <td>
+		   <table width="500" border="0" align="center">
+			<script>
+			WSIXX(" ","&nbsp;&nbsp;&nbsp;&nbsp;"+GL("do_action")+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+GL("smtp_action")+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+GL("record_action"));
+			WSIXX(GL("gio_in1"),WH_("di_do_action")+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+WH_("di_smtp_action")+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+WH_("di_record_action"));
+			WSIXX(GL("yellowevent"),WH_("yellow_do_action")+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+WH_("yellow_smtp_action")+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+WH_("yellow_record_action"));
+			WSIXX(GL("redevent"),WH_("red_do_action")+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+WH_("red_smtp_action")+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+WH_("red_record_action"));
+			WSIXX(GL("superevent"),WH_("sup_do_action")+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+WH_("sup_smtp_action")+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+WH_("sup_record_action"));
+			WIPSubmit();
+			</script>
+			</table>
+		</td>
+	  </tr>
+	</table>
+</div>
+<script>
+ALC();
+</script>

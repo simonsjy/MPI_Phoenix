@@ -1,0 +1,64 @@
+<script>
+var eventLocation=parseInt("<%eventlocation%>");
+var eventPerPage=20;
+var lockThis=false;
+var eventList=new Array("<%event.1%>","<%event.2%>","<%event.3%>","<%event.4%>","<%event.5%>","<%event.6%>","<%event.7%>","<%event.8%>","<%event.9%>","<%event.10%>","<%event.11%>","<%event.12%>","<%event.13%>","<%event.14%>","<%event.15%>","<%event.16%>","<%event.17%>","<%event.18%>","<%event.19%>","<%event.20%>");
+function GoPage(sid)
+{
+if(lockThis)
+     return;
+     lockThis=true;
+     ChangeContent("aevt.htm?eventstart="+sid,false,(sid==0));
+     lockThis=false;
+}
+function GoFirst()
+{
+GoPage(0);
+}
+function GoPre()
+{
+  var newLoc=0;
+  if(eventLocation>eventPerPage)
+  {
+  newLoc=eventLocation-eventPerPage;
+  }
+GoPage(newLoc);
+}
+function GoNext()
+{
+ if(eventList[eventPerPage-1]!="")
+ {
+ GoPage(eventLocation+eventPerPage);
+ }
+}
+function WriteEventList()
+{
+for(var i=0;i<eventPerPage;i++)
+{
+ if(eventList[i]!="")
+ {
+   DW("<tr bgcolor='"+((i%2==0)?"#CCCCCC":"#F6F6F6")+"' >");
+   DW("<td align='center' class='fixsize' >"+(eventLocation+i+1)+".</td>");
+   DW("<td align='left' class='fixsize' >"+eventList[i].substring(0,19)+"</td>");
+   DW("<td align='left' class='fixsize' >"+eventList[i].substring(20)+"</td>");
+   DW("</tr>");
+  }
+ }
+}
+function WEBtn(tid,onClick)
+{
+DW('<input type="button" name="button" value="'+GL(tid)+'" class="m1" onClick="'+onClick+'">&nbsp;&nbsp;');
+}
+WriteSysPH("event_log");
+DW("<center><table width=530 border=0 cellPadding=0 cellSpacing=0>");
+DW('<tr class="sel2" align="center" ><td width="54" height="20" >'+GL("item")+'</td><td width="135" >'+GL("date_and_time")+'</td><td align=left>'+GL("events")+'</td></tr>');
+WriteEventList();
+DW("<tr><td colspan=3 height=30><center>");
+WEBtn("first_page","GoFirst()");
+WEBtn("pre_20","GoPre()");
+WEBtn("next_20","GoNext()");
+DW("</td></tr>");
+WTablePB();
+WriteSysPB();
+ALC();
+</script>

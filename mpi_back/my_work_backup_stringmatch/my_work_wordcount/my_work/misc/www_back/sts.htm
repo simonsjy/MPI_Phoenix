@@ -1,0 +1,74 @@
+<script>
+  CTRLARY = {
+    tsEn: new Ctrl_Check("tsEn", "<%tstampenable%>", "tstampenable=", "FixStatus()"),
+    tsFormat: new Ctrl_Select("tsFormat", "<%tstampformatname.all%>", "<%tstampformat%>", "tstampformat="),
+    //osdstream: new Ctrl_Select("osdstream", "<%osdstreamname.all%>", "<%osdstream%>", "osdstream="),
+    //osdwinnum: new Ctrl_Select("osdwinnum", "<%osdwinnumname.all%>", "<%osdwinnum%>", "osdwinnum="),
+    osdwinnum: new Ctrl_Radio("osdwinnum", "<%osdwinnum%>", "osdwinnum="),
+    osdwin: new Ctrl_Radio("osdwin", "<%osdwin%>", "osdwin="),
+    osdtext: new Ctrl_Text("osdtext", "20", "14", "<%osdtextinfo%>", "osdtextinfo=", gco_engNum, false, false, false)
+    //infoLoc: new Ctrl_Select("infoLoc", "<%tstamppositionname.all%>", "<%tstampinfoposition%>", "tstampinfoposition="),
+    //infoFormat: new Ctrl_Select("infoFormat", "<%tstampinfoformatname.all%>", "<%tstampinfoformat%>", "tstampinfoformat=")
+  };
+  function MY_ONLOAD() {
+    FixStatus();
+	//DisableObject("osdstream", true);
+	//DisableObject("osdwinnum", true);
+	//DisableObject("osdwin", true);
+	//DisableObject("osdtext", true);
+    g_lockLink = false;
+  }
+  function FixStatus() {
+    //DisableObjs(new Array("infoLoc", "infoFormat"), (IsVS() ? (GetCCV("tsEn") == 0) : true));
+    DisableObjs(new Array("tsFormat"), (GetCCV("tsEn") == 0));
+  }
+</script>
+<div align="center">
+	<table width="500" border="1" bordercolor="#FF9900" style="margin-top:50px;">
+		<tr>
+			<td colspan="2" width="500" height="23" bgcolor="#006699"><font color="#FFFFFF">时间日期</font></td>
+		</tr>
+		<tr>
+		  <td>
+		   <table width="500" border="0" align="center">
+			<script>
+			WIP1(WH_("tsEn") + " " + GL("en_ts"));
+			  /*if (IsVS()) {
+			    WIP("info_location", "infoLoc");
+			    WIP("info_format", "infoFormat");
+			  }*/
+			  WIP("ts_format", "tsFormat");
+
+			DW("<tr><td colspan=2>OSD "+GL("Setting")+"</td></tr>");
+
+			DW("<tr><td>"+GL("Logo")+":</td><td>");
+
+
+			var o = '';
+			o += GetRadioCtrlHtml(CTRLARY, "osdwinnum", 0);
+			o += "OFF";
+			o += GetRadioCtrlHtml(CTRLARY, "osdwinnum", 1);
+			o += "ON";
+			DW(o);
+			DW("</td></tr>");
+			DW("<tr><td>"+GL("Text")+":</td><td>");
+			var o = '';
+			o += GetRadioCtrlHtml(CTRLARY, "osdwin", 0);
+			o += "OFF";
+			o += GetRadioCtrlHtml(CTRLARY, "osdwin", 1);
+			o += "ON";
+			DW(o);
+			DW("</td></tr>");
+			DW("<tr><td> </td><td>");
+			WH("osdtext");
+			DW("</td></tr>");
+			WIPSubmit();
+			</script>
+			</table>
+		</td>
+	  </tr>
+	</table>
+</div>
+<script>
+  ALC();
+</script>

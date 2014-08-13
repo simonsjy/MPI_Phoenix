@@ -1,0 +1,227 @@
+<script>
+  g_socketAuthority = parseInt(GV("<%socketauthority%>", 3));
+  var userStr = new Array("<%user.0%>", "<%authority.0%>", "<%user.1%>", "<%authority.1%>", "<%user.2%>", "<%authority.2%>", "<%user.3%>", "<%authority.3%>", "<%user.4%>", "<%authority.4%>", "<%user.5%>", "<%authority.5%>", "<%user.6%>", "<%authority.6%>", "<%user.7%>", "<%authority.7%>", "<%user.8%>", "<%authority.8%>", "<%user.9%>", "<%authority.9%>");
+  var minUserLen = "<%minnamelen%>";
+  var defaultAdminName = userStr[0];
+  var authAdmin = "<%authorityadmin%>";
+  var authOperator = "<%authorityoperator%>";
+  var authViewer = "<%authorityviewer%>";
+  CTRLARY = {
+    delUser: new Ctrl_Text("delUser", "9", "99", "", "deluser="),
+    addUser: new Ctrl_Text("addUser", "9", "99", "", "adduser=")
+  };
+  var V_Username = new V_StrLen(minUserLen, "<%maxnamelen%>", GL("user_name").toLowerCase());
+  var V_Pwd = new V_StrLen(minUserLen, "<%maxpwdlen%>", GL("password").toLowerCase());
+  var c_userName = new Ctrl_Text("username", "12", "<%maxnamelen%>", "", "", new CheckerObj(V_Username, gco_namePass));
+  var c_userPwd = new Ctrl_Text("userpwd", "12", "<%maxpwdlen%>", "", "", new CheckerObj(V_Pwd, gco_namePass), true);
+  var c_userPwd2 = new Ctrl_Text("userpwd2", "12", "<%maxpwdlen%>", "", "", null, true);
+  var c_oldPwd = new Ctrl_Text("oldPwd", "12", "<%maxpwdlen%>", "", "", null, true);
+  var c_auth = new Ctrl_Radio("auth", -1, "");
+  function ShowUserList() {
+    var r;
+    for (var i = 0; i < userStr.length; i = i + 2) {
+      r = "";
+      switch (userStr[i + 1]) {
+      case authAdmin:
+        r = GL("admin");
+        break;
+      case authOperator:
+        r = GL("operator");
+        break;
+      case authViewer:
+        r = GL("viewer");
+        break;
+      }
+      if (r != "") {
+        DW("<option value=" + userStr[i] + ">" + userStr[i] + ":" + r + "</option>")
+      }
+    }
+  }
+  function disableRadioOptions(name, isDisable) {
+    var objs = GES(name);
+    if (objs != null)
+    {
+      for ( var i = 0; i < objs.length; i++)
+      {
+        objs[i].disabled = isDisable;
+      }
+    }
+  }
+  function WriteUserInfoToElm() {
+    var obj = GE("userList");
+    if (obj != null) {
+      var selectIndex = obj.selectedIndex;
+      var name = obj.options[selectIndex].text;
+      SetValue("username", name.substring(0, name.indexOf(":", 0)));
+      SetRadioValue("auth", userStr[selectIndex * 2 + 1]);
+    }
+  }
+  function DelUser() {
+    var tempUserName = c_userName.GV();
+    if (tempUserName == "") {
+      alert(GL("no_user_del"));
+    } else if (tempUserName == defaultAdminName) {
+      alert(GL("cannot_del_admin"));
+    } else {
+      if (!c_userName.IsPass()) return;
+      SetCIA("delUser", true);
+      SetCIA("addUser");
+      SetCCV("delUser", tempUserName);
+      SendHttp(c_iniUrl + GetSetterCmd(CTRLARY["delUser"], GetCCV("delUser")), false, DelUserCallBack);
+      ChangeContent(null, true);
+    }
+  }
+  function DelUserCallBack() {
+    if (g_SubmitHttp.readyState == 4) {
+      WS("");
+      if (g_SubmitHttp.status == 200) {
+        var txt = g_SubmitHttp.responseText;
+        if (txt.indexOf("OK deluser") >= 0) {
+          WS("user deleted");
+        } else if (txt.indexOf("UA deluser") >= 0) {
+          alert("Authority not enough.");
+        } else {
+          alert("Users are not able to delete oneself.");
+        }
+      }
+    }
+  }
+  var USER_NOT_EXIST = 0xF0E;
+  var USER_LIST_FULL = 0xF0F;
+  function checkUserExist(cname) {
+    var retv = USER_LIST_FULL;
+    for (var i = 0; (i*2) < userStr.length; i++) {
+      if (cname == userStr[i*2]) {
+        retv = i; break;
+      } else if ("" == userStr[i*2]) {
+        retv = USER_NOT_EXIST;
+      }
+    }
+    return retv;
+  }
+  function AddUser() {
+    if (!c_userName.IsPass()) return;
+    if (c_userPwd.GV() != c_userPwd2.GV()) {
+      alert(GL("pwd_not_match"));
+      c_userPwd2.SV("");
+      return;
+    }
+    var authValue = c_auth.GV();
+    if (authValue < 0) {
+      alert(GL("sel_user_auth"));
+      return;
+    }
+    var tempUserName = c_userName.GV();
+    if (tempUserName == defaultAdminName) {
+      if (authValue != 0) {
+        alert("Privilege change of "+defaultAdminName+" is not allowed.");
+        return;
+      }
+    }
+    var retv = checkUserExist(tempUserName);
+    if (retv == USER_LIST_FULL) {
+      alert("user list is full, can't create new user");
+      return;
+    } else {
+      if (retv != USER_NOT_EXIST) {
+        var smsg = "";
+        smsg += retv +":"+ tempUserName +":"+ c_oldPwd.GV();
+        SendHttp(c_iniUrl + GetSetterCmdKV("checkpassword", smsg), false, checkPasswdCallBack);
+      }
+      else { sendCmdAddUser(); }
+    }
+  }
+  function checkPasswdCallBack() {
+    if (g_SubmitHttp.readyState == 4) {
+      WS("");
+      if (g_SubmitHttp.status == 200) {
+        var txt = g_SubmitHttp.responseText;
+        if (txt.indexOf("OK checkpassword") >= 0) {
+          WS("Password check OK");
+          if (confirm('Modify existing user "'+c_userName.GV()+'" ?')) {
+            if(c_userPwd.GV() == "") {
+              var tpwd = c_oldPwd.GV();
+              c_userPwd.SV(tpwd);
+              c_userPwd2.SV(tpwd);
+            }
+            sendCmdAddUser();
+          } else { return; }
+        } else if (txt.indexOf("UA checkpassword") >= 0) {
+          alert("Authority not enough.");
+        } else {
+          alert("To modify user data, input old password correctly.");
+          var obj = GE(c_oldPwd.id);
+          if (obj != null) {obj.focus();obj.select();}
+        }
+      }
+    }
+  }
+  function sendCmdAddUser() {
+    if (!c_userPwd.IsPass()) return;
+    SetCIA("delUser");
+    SetCIA("addUser", true);
+    SetCCV("addUser", c_userName.GV() + ":" + c_userPwd.GV() + ":" + c_auth.GV());
+    SendHttp(c_iniUrl + GetSetterCmd(CTRLARY["addUser"], GetCCV("addUser")), false, AddUserCallBack);
+    ChangeContent(null, true);
+  }
+  function AddUserCallBack() {
+    if (g_SubmitHttp.readyState == 4) {
+      WS("");
+      if (g_SubmitHttp.status == 200) {
+        var txt = g_SubmitHttp.responseText;
+        if (txt.indexOf("UA adduser") >= 0) {
+          alert("Authority not enough.");
+        }
+      }
+    }
+  }
+  function WIPX_(tid, ctx)
+{
+  DW('<tr class="b1"><td width=120 height="25" border="0">');
+  DW(GL(tid) + '</td><td border="0">' + ctx + '</td></tr>');
+};
+</script>
+<div align="center">
+<table width="500" height="360" border="1" bordercolor="#FF9900" style="margin-top:50px;">
+  <tr>    
+	<td colspan="2" width="500" height="23" bgcolor="#006699"><font color="#FFFFFF">用户管理</font></td>
+  </tr>
+  <tr>
+    <td >
+    <table width="240" border="0" align="center" height="290">
+	<script>
+	  DW("<div class=cssViewChLayer >" + WH_("delUser") + WH_("addUser") + c_auth.GetHtml( - 1) + "</div>");
+	  DW('<tr><td valign=middle class=m1 >' + GL("user_list") + ':<br><select onclick="WriteUserInfoToElm()" size="8" class="m1" style="width:160px" name="userList" id="userList" >');
+	  ShowUserList();
+	  DW('</select></td></tr><tr><td valign=middle>' + ((g_socketAuthority == 0) ? '<input type=button value="' + GL("del_user") + '" onClick="DelUser()" class=m1 >': '&nbsp;') + '</td></tr>');
+	  //WIP1("<hr>");
+	</script>
+	</table>
+	</td>
+    <td>
+      <table width="240" border="0" align="center"  height="290">
+	  <script>
+	  WIP1(GL("add_modify_user"), "m1");
+	  WIPX("user_name", c_userName.html);
+	  //WIPX("old_password", c_oldPwd.html);
+	  DW('<tr class="b1"><td width=150 height=30>');
+	  DW(GL("old_password") + ':</td><td bgcolor>' + c_oldPwd.html + '</td></tr>');
+	  //WIP1("(Old password is only required to modify existing user data.)");
+	  //DW('<tr class="m3" width=150><td colspan=2 height=30 bgcolor=lightgrey>');
+	  <!--DW('(Old password is only required when you want to modify existing user data.)</td></tr>');-->
+	  WIPX("password1", c_userPwd.html);
+	  WIPX("confirm", c_userPwd2.html);
+	 <!-- WIP1("(Leave " +GL("password")+" and "+GL("confirm")+" blank to keep the old password.)");-->
+	  WIPX_("authority", c_auth.GetHtml(0) + " "+GL("admin"));
+	  WIPX_("" , c_auth.GetHtml(1) + " "+GL("operator"));
+	  WIPX_("", c_auth.GetHtml(2) + " "+GL("viewer"));
+	  WIP1('<tr><td colspan="2"><input type="button"  align="right" style="width=60;height=30;font-size:medium" value="' + GL("submit") + '" class="m1" onClick="AddUser()"></td></tr>');
+	  </script>
+	  </table>
+	</td>
+  </tr>
+</table>
+</div>
+<script>
+  ALC();
+</script>

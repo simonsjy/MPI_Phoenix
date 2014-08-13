@@ -1,0 +1,49 @@
+<script>
+  var v_sntpip = "<%sntpip%>";
+  var v_sntpTimezone = "<%sntptimezone%>";
+  var v_maxDomainName = "<%maxdomainname%>";
+  CTRLARY = {
+    sntpip: new Ctrl_Text("sntpip", "25", v_maxDomainName, v_sntpip, "sntpfqdn=", gco_FQDN),
+    timezone: new Ctrl_Select("timezone", GL("timezone_list"), v_sntpTimezone, "timezone="),
+    daylight: new Ctrl_Check("daylight", "<%daylight%>", "setdaylight="),
+    sntpSwitch:new Ctrl_Check("sntpSwitch",1,"ftpswitch=","FixStatuso()")
+  };
+  function FixStatuso()
+{
+var test=GetCCV("sntpSwitch");
+test=1-test;
+DisableObject("sntpip",test);
+DisableObject("timezone",test);
+DisableObject("daylight",test);
+}
+</script>
+  <table width="500" border="1" align="center" bordercolor="FF9900" style="margin-top:50px;">
+  <tr>
+    <td width="500" bgcolor="#006699" height="23"><font color="#FFFFFF">NTP设置</font></td>
+  </tr>
+  <tr>
+    <td width="200">
+    <script>
+    DW(WH_("sntpSwitch")+GL("sntpSwitch"));
+	</script>	
+	</td> 	
+  </tr>
+  <tr>
+  <td height="100">
+  <table width="500" border="0" align="center">
+    <script>
+      WIP("sntp_server", "sntpip");
+      WIP("time_zone", "timezone");
+      DW("<tr><td></td><td>");
+      WH("daylight");
+      DW("&nbsp;<span class='m1'>" + GL("auto_daylight"));
+      DW('<span></td></tr>');
+      WIPSubmit();
+ 	</script>
+  </table>
+  </td>
+  </tr>
+</table>
+<script>
+  ALC();
+</script>

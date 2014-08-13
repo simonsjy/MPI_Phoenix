@@ -1,0 +1,89 @@
+<script>
+var isDhcpEn="<%dhcpenable%>";
+var v_netip="<%netip%>";
+var v_netmask="<%netmask%>";
+var v_gateway="<%gateway%>";
+var v_dnsip="<%dnsip%>";
+var v_httpPort="<%httpport%>";
+var isDhcpConfig=(GV("<%dhcpconfig%>",0)==1);
+var isDhcpChecked=(isDhcpEn=="1")?true:false;
+function V_HttpPort()
+{
+  this.IsPass=function(val,isQuite){return(CheckHttpPort(val,isQuite));}
+}
+function CheckHttpPort(port,isQuite)
+{
+  var num=parseInt(port);
+  if((num>=1025&&num<=65535)||num==80){return true;}
+  else
+  {
+    if(isQuite!=true)
+       alert("Bad HTTP port:\nOnly 80 or 1025~65535 are acceptable");
+    return false;
+  }
+}
+var gv_httpPort=new V_HttpPort();
+var gco_httpPort=new CheckerObj(gv_httpPort);
+CTRLARY=
+{
+   useDhcp:new Ctrl_Check("useDhcp",isDhcpEn,"dhcp=","switchIPSet()"),
+   netip:new Ctrl_IPAddr("netip",v_netip,"internetip="),
+   netmask:new Ctrl_IPAddr("netmask",v_netmask,"subnetmask="),
+   dnsip:new Ctrl_IPAddr("dnsip",v_dnsip,"dnsip="),
+   gateway:new Ctrl_IPAddr("gateway",v_gateway,"gateway="),
+   httpPort:new Ctrl_Text("httpPort","5","5",v_httpPort,"httpport=",gco_httpPort)
+};
+function MY_ONLOAD()
+{
+  switchIPItems(isDhcpEn==1);
+  if(g_sh_net)
+  {
+    g_sh_net=false;
+    networkMsg();
+  }
+  g_lockLink=false;
+}
+function MY_SUBMIT_OK()
+{
+  ChangeContent();
+}
+function networkMsg()
+{
+  alert(GL("change_ip_warn"));
+}
+function switchIPSet()
+{
+  if(isDhcpConfig){switchIPItems(GetCCV("useDhcp")==1);}
+}
+function switchIPItems(isDisable)
+{
+try
+{CTRLARY["netip"].Disable(isDisable);}
+catch(e){};
+}
+</script>
+<div align="center">
+	<table width="500" border="1" bordercolor="#FF9900" style="margin-top:50px;" >
+		<tr>
+			<td colspan="2" width="500" height="23" bgcolor="#006699"><font color="#FFFFFF">IP设置</font></td>
+		</tr>
+		<tr>
+		  <td>
+		   <table width="500" border="0" align="center">
+				<script>
+				WIP("ip_addr","netip");
+				WIP("netmask","netmask");
+				WIP("def_gateway","gateway");
+				WIP("primary_dns","dnsip");
+				WIP("http_port","httpPort");
+				WIPSubmit(true);
+				</script>
+			</table>
+		</td>
+	  </tr>
+	</table>
+</div>
+<script>
+ALC();
+</script>
+</HTML>

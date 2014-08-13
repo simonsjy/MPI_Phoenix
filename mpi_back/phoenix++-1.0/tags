@@ -1,0 +1,549 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+APPS	tests/Makefile	/^APPS := \\$/;"	m
+AR	Defines.mk	/^AR = ar$/;"	m
+ARCH	Defines.mk	/^ARCH = -DCPU_V9$/;"	m
+ARCH	Defines.mk	/^ARCH = -D__x86_64__$/;"	m
+ARCHTYPE	Defines.mk	/^ARCHTYPE = $(shell uname -p)$/;"	m
+ATOMIC_H	include/atomic.h	32;"	d
+BITS_PER_PIXEL_POS	tests/histogram/histogram.cpp	38;"	d	file:
+CFLAGS	Defines.mk	/^CFLAGS = $(DEBUG) -Wall -O3 $(OS) $(NUMA) -DMMAP_POPULATE -fstrict-aliasing -Wstrict-aliasing $/;"	m
+CFLAGS	Defines.mk	/^CFLAGS = $(DEBUG) -Wall -O3 $(OS) $(NUMA) -D_FILE_OFFSET_BITS=64 $/;"	m
+CFLAGS	Defines.mk	/^CFLAGS = $(DEBUG) -Wall -O3 $(OS)$/;"	m
+CHECK_ERROR	include/stddefines.h	54;"	d
+COMBINER_H_	include/combiner.h	28;"	d
+CONTAINER_H_	include/container.h	28;"	d
+CovMR	tests/pca/pca.cpp	/^    explicit CovMR(int* _matrix, long long const* _means) : $/;"	f	class:CovMR
+CovMR	tests/pca/pca.cpp	/^class CovMR : public MapReduceSort<CovMR, pca_cov_data_t, intptr_t, long long, hash_container<intptr_t, long long, one_combiner, std::tr1::hash<intptr_t>$/;"	c	file:
+DEBUG	Defines.mk	/^DEBUG = -g$/;"	m
+DEFAULT_DISP_NUM	tests/word_count/word_count.cpp	38;"	d	file:
+DEFAULT_UNIT_SIZE	tests/string_match/string_match.cpp	34;"	d	file:
+DEF_DIM	tests/kmeans/kmeans.cpp	40;"	d	file:
+DEF_GRID_SIZE	tests/kmeans/kmeans.cpp	41;"	d	file:
+DEF_GRID_SIZE	tests/pca/pca.cpp	49;"	d	file:
+DEF_NUM_COLS	tests/pca/pca.cpp	51;"	d	file:
+DEF_NUM_MEANS	tests/kmeans/kmeans.cpp	39;"	d	file:
+DEF_NUM_POINTS	tests/kmeans/kmeans.cpp	38;"	d	file:
+DEF_NUM_ROWS	tests/pca/pca.cpp	50;"	d	file:
+Empty	tests/kmeans/kmeans.cpp	/^     static bool Empty(point const& a) { $/;"	f	class:point_combiner
+F	include/combiner.h	/^     static void F(V& a, V const& b) { a += b; }$/;"	f	class:sum_combiner
+F	include/combiner.h	/^     static void F(V& a, V const& b) { a = b; }$/;"	f	class:one_combiner
+F	tests/kmeans/kmeans.cpp	/^     static void F(point& a, point const& b) { $/;"	f	class:point_combiner
+GETENV	include/stddefines.h	/^static inline char const* GETENV(char const* envstr)$/;"	f
+HIST_OBJS	tests/histogram/Makefile	/^HIST_OBJS = histogram.o$/;"	m
+HOME	src/Makefile	/^HOME = ..$/;"	m
+HOME	tests/Makefile	/^HOME = ..$/;"	m
+HOME	tests/histogram/Makefile	/^HOME = ..\/..$/;"	m
+HOME	tests/kmeans/Makefile	/^HOME = ..\/..$/;"	m
+HOME	tests/linear_regression/Makefile	/^HOME = ..\/..$/;"	m
+HOME	tests/matrix_multiply/Makefile	/^HOME = ..\/..$/;"	m
+HOME	tests/pca/Makefile	/^HOME = ..\/..$/;"	m
+HOME	tests/string_match/Makefile	/^HOME = ..\/..$/;"	m
+HOME	tests/word_count/Makefile	/^HOME = ..\/..$/;"	m
+HistogramMR	tests/histogram/histogram.cpp	/^class HistogramMR : public MapReduceSort<HistogramMR, pixel, intptr_t, uint64_t, hash_container<intptr_t, uint64_t, sum_combiner, std::tr1::hash<intptr_t>$/;"	c	file:
+IMG_DATA_OFFSET_POS	tests/histogram/histogram.cpp	37;"	d	file:
+INC_DIR	Defines.mk	/^INC_DIR = include$/;"	m
+Init	include/combiner.h	/^     static void Init(V& a) { a = 0; }$/;"	f	class:sum_combiner
+Init	include/combiner.h	/^     static void Init(V& a) {}$/;"	f	class:one_combiner
+Init	tests/kmeans/kmeans.cpp	/^     static void Init(point& a) { $/;"	f	class:point_combiner
+KCV	include/container.h	/^    typedef std::pair<K, Combiner<V, Allocator> > KCV;$/;"	t	class:hash_container
+KEY_COUNT	tests/linear_regression/linear_regression.cpp	/^    KEY_COUNT$/;"	e	enum:__anon2	file:
+KEY_SX	tests/linear_regression/linear_regression.cpp	/^    KEY_SX = 0,$/;"	e	enum:__anon2	file:
+KEY_SXX	tests/linear_regression/linear_regression.cpp	/^    KEY_SXX,$/;"	e	enum:__anon2	file:
+KEY_SXY	tests/linear_regression/linear_regression.cpp	/^    KEY_SXY,$/;"	e	enum:__anon2	file:
+KEY_SY	tests/linear_regression/linear_regression.cpp	/^    KEY_SY,$/;"	e	enum:__anon2	file:
+KEY_SYY	tests/linear_regression/linear_regression.cpp	/^    KEY_SYY,$/;"	e	enum:__anon2	file:
+KMEANS_OBJS	tests/kmeans/Makefile	/^KMEANS_OBJS = kmeans.o$/;"	m
+KmeansMR	tests/kmeans/kmeans.cpp	/^    KmeansMR(std::vector<point> const& means)$/;"	f	class:KmeansMR
+KmeansMR	tests/kmeans/kmeans.cpp	/^class KmeansMR : public MapReduce<KmeansMR, point, intptr_t, point, hash_container<intptr_t, point, point_combiner, std::tr1::hash<intptr_t>$/;"	c	file:
+L2_CACHE_LINE_SIZE	include/stddefines.h	38;"	d
+LDFLAGS	Defines.mk	/^LDFLAGS =$/;"	m
+LIBS	Defines.mk	/^LIBS = -lm -lrt -lthread -lmtmalloc -llgrp$/;"	m
+LIBS	Defines.mk	/^LIBS = -lpthread -lrt$/;"	m
+LIBS	Defines.mk	/^LIBS = -lpthread$/;"	m
+LIB_DEP	Defines.mk	/^LIB_DEP = $(HOME)\/$(LIB_DIR)\/$(TARGET)$/;"	m
+LIB_DEP	Defines.mk	/^LIB_DEP =$/;"	m
+LIB_DIR	Defines.mk	/^LIB_DIR = lib$/;"	m
+LIB_PHOENIX	Defines.mk	/^LIB_PHOENIX = lib$(PHOENIX)$/;"	m
+LINKAGE	Defines.mk	/^LINKAGE = static$/;"	m
+LOCALITY_H_	include/locality.h	28;"	d
+L_REG_OBJS	tests/linear_regression/Makefile	/^L_REG_OBJS = linear_regression.o$/;"	m
+MAP_REDUCE_H_	include/map_reduce.h	28;"	d
+MAX_REC_LEN	tests/string_match/string_match.cpp	36;"	d	file:
+MM_OBJS	tests/matrix_multiply/Makefile	/^MM_OBJS = matrix_multiply.o$/;"	m
+MR_LOCK_PTMUTEX	include/stddefines.h	39;"	d
+MapReduce	include/map_reduce.h	/^    MapReduce() : threadPool(NULL), taskQueue(NULL) {$/;"	f	class:MapReduce
+MapReduce	include/map_reduce.h	/^class MapReduce$/;"	c
+MapReduceSort	include/map_reduce.h	/^class MapReduceSort : public MapReduce<Impl, D, K, V, Container>$/;"	c
+MatchMR	tests/string_match/string_match.cpp	/^    explicit MatchMR(char* keys, int keys_len, char* encrypt, int encrypt_len, int chunk_size) : keys_file(keys), encrypt_file(encrypt), keys_file_len(keys_len), encrypt_file_len(encrypt_len), splitter_pos(0), chunk_size(chunk_size) {}$/;"	f	class:MatchMR
+MatchMR	tests/string_match/string_match.cpp	/^class MatchMR : public MapReduce<MatchMR, str_map_data_t, int, int>$/;"	c	file:
+MatrixMulMR	tests/matrix_multiply/matrix_multiply.cpp	/^    explicit MatrixMulMR(int* _mA, int* _mB, int size, int* out) : $/;"	f	class:MatrixMulMR
+MatrixMulMR	tests/matrix_multiply/matrix_multiply.cpp	/^class MatrixMulMR : public MapReduce<MatrixMulMR, mm_data_t, int, int>$/;"	c	file:
+MeanMR	tests/pca/pca.cpp	/^    explicit MeanMR(int* _matrix) : matrix(_matrix), row(0) {}$/;"	f	class:MeanMR
+MeanMR	tests/pca/pca.cpp	/^class MeanMR : public MapReduce<MeanMR, pca_map_data_t, int, long long, hash_container<int, long long, one_combiner, std::tr1::hash<int>$/;"	c	file:
+NO_MMAP	tests/word_count/word_count.cpp	158;"	d	file:
+NUM_CORES_PER_CHIP	include/scheduler.h	35;"	d
+NUM_STRANDS_PER_CORE	include/scheduler.h	36;"	d
+OBJS	src/Makefile	/^OBJS := ${SRCS:.cpp=.o}$/;"	m
+OFFSET	tests/string_match/string_match.cpp	37;"	d	file:
+OS	Defines.mk	/^OS =  -D_SOLARIS_$/;"	m
+OS	Defines.mk	/^OS = -D_CYGWIN_$/;"	m
+OS	Defines.mk	/^OS = -D_DARWIN_$/;"	m
+OS	Defines.mk	/^OS = -D_LINUX_$/;"	m
+OSTYPE	Defines.mk	/^OSTYPE = $(shell uname)$/;"	m
+PCA_OBJS	tests/pca/Makefile	/^PCA_OBJS = pca.o$/;"	m
+PHOENIX	Defines.mk	/^PHOENIX = phoenix$/;"	m
+POINT_T	tests/linear_regression/linear_regression.cpp	/^struct POINT_T {$/;"	s	file:
+PROCESSOR_H_	include/processor.h	28;"	d
+PROGS	tests/histogram/Makefile	/^PROGS = histogram$/;"	m
+PROGS	tests/kmeans/Makefile	/^PROGS = kmeans$/;"	m
+PROGS	tests/linear_regression/Makefile	/^PROGS = linear_regression$/;"	m
+PROGS	tests/matrix_multiply/Makefile	/^PROGS = matrix_multiply$/;"	m
+PROGS	tests/pca/Makefile	/^PROGS = pca$/;"	m
+PROGS	tests/string_match/Makefile	/^PROGS = string_match$/;"	m
+PROGS	tests/word_count/Makefile	/^PROGS := word_count$/;"	m
+RANLIB	Defines.mk	/^RANLIB = ranlib$/;"	m
+SALT_SIZE	tests/string_match/string_match.cpp	35;"	d	file:
+SCHEDULER_H_	include/scheduler.h	28;"	d
+SRCS	src/Makefile	/^SRCS := \\$/;"	m
+SRC_DIR	Defines.mk	/^SRC_DIR = src$/;"	m
+STDDEFINES_H_	include/stddefines.h	28;"	d
+STR_MATCH_OBJS	tests/string_match/Makefile	/^STR_MATCH_OBJS = string_match.o$/;"	m
+SYNCH_H_	include/synch.h	28;"	d
+TARGET	Defines.mk	/^TARGET = $(LIB_PHOENIX).a$/;"	m
+TARGET	Defines.mk	/^TARGET = $(LIB_PHOENIX).so$/;"	m
+TASK_Q_	include/task_queue.h	28;"	d
+TESTS_DIR	Defines.mk	/^TESTS_DIR = tests$/;"	m
+TPOOL_H_	include/thread_pool.h	28;"	d
+WC_OBJS	tests/word_count/Makefile	/^WC_OBJS := word_count.o$/;"	m
+WordsMR	tests/word_count/word_count.cpp	/^    explicit WordsMR(char* _data, uint64_t length, uint64_t _chunk_size) :$/;"	f	class:WordsMR
+WordsMR	tests/word_count/word_count.cpp	/^class WordsMR : public MapReduceSort<WordsMR, wc_string, wc_word, uint64_t, fixed_hash_container<wc_word, uint64_t, sum_combiner, 32768, wc_word_hash$/;"	c	file:
+_GNU_SOURCE	include/processor.h	32;"	d
+_empty	include/combiner.h	/^        bool _empty;$/;"	m	class:associative_combiner::combined
+_empty	include/combiner.h	/^    bool _empty;$/;"	m	class:associative_combiner
+a	include/container.h	/^        hash_table const* a;$/;"	m	class:hash_table::const_iterator
+ac	include/container.h	/^        array_container<K, V, Combiner, N, Allocator> const* ac;$/;"	m	class:array_container::iterator
+ac	include/container.h	/^        common_array_container<K, V, Combiner, N, Allocator> const* ac;$/;"	m	class:common_array_container::iterator
+ac	include/container.h	/^        hash_container<K, V, Combiner, Hash, Allocator> const* ac;$/;"	m	class:hash_container::iterator
+acquire	include/synch.h	/^    void acquire(int thread) {$/;"	f	class:lock
+add	include/combiner.h	/^        void add(Impl const* c) {$/;"	f	class:associative_combiner::combined
+add	include/combiner.h	/^        void add(V const& v) { Impl::F(m, v); _empty = false; }$/;"	f	class:associative_combiner::combined
+add	include/combiner.h	/^        void add(associative_combiner<Impl, V, Allocator> const* c) {$/;"	f	class:associative_combiner::combined
+add	include/combiner.h	/^        void add(buffer_combiner<V, Allocator> const* c) {$/;"	f	class:buffer_combiner::combined
+add	include/combiner.h	/^    void add(V const& v) {$/;"	f	class:associative_combiner
+add	include/combiner.h	/^    void add(V const& v) {$/;"	f	class:buffer_combiner
+add	include/container.h	/^    void add(uint64_t in_index, input_type const& j)$/;"	f	class:array_container
+add	include/container.h	/^    void add(uint64_t in_index, input_type const& j)$/;"	f	class:common_array_container
+add	include/container.h	/^    void add(uint64_t in_index, input_type const& j)$/;"	f	class:fixed_hash_container
+add	include/container.h	/^    void add(uint64_t in_index, input_type const& j)$/;"	f	class:hash_container
+args	include/thread_pool.h	/^    void            **args;$/;"	m	class:thread_pool
+array_container	include/container.h	/^    array_container() : vals(NULL), in_size(0), out_size(0) {}$/;"	f	class:array_container
+array_container	include/container.h	/^class array_container$/;"	c
+associative_combiner	include/combiner.h	/^    associative_combiner() : _empty(true) {Impl::Init(data);}$/;"	f	class:associative_combiner
+associative_combiner	include/combiner.h	/^    associative_combiner() : data(new std::vector<V, Allocator<V> >) {}$/;"	f	class:associative_combiner
+associative_combiner	include/combiner.h	/^class associative_combiner$/;"	c
+atomic_read	include/atomic.h	/^static inline uintptr_t atomic_read(void* addr) { return *((uintptr_t*)addr); }$/;"	f
+atomic_read	include/atomic.h	/^static inline uintptr_t atomic_read(void* addr)$/;"	f
+atomic_xchg	include/atomic.h	/^static inline uintptr_t atomic_xchg(uintptr_t n, uintptr_t* v)$/;"	f
+b	tests/histogram/histogram.cpp	/^    unsigned char b;$/;"	m	struct:pixel	file:
+begin	include/container.h	/^    const_iterator begin() const {$/;"	f	class:hash_table
+begin	include/container.h	/^    iterator begin(uint64_t out_index)$/;"	f	class:array_container
+begin	include/container.h	/^    iterator begin(uint64_t out_index)$/;"	f	class:common_array_container
+begin	include/container.h	/^    iterator begin(uint64_t out_index)$/;"	f	class:fixed_hash_container
+begin	include/container.h	/^    iterator begin(uint64_t out_index)$/;"	f	class:hash_container
+begin	src/thread_pool.cpp	/^int thread_pool::begin()$/;"	f	class:thread_pool
+begin_idx	include/container.h	/^        uint64_t begin_idx;$/;"	m	class:fixed_hash_container::iterator
+buckets	include/container.h	/^        hash_bucket** buckets;$/;"	m	class:fixed_hash_container::hash_table
+buffer_combiner	include/combiner.h	/^    buffer_combiner() : data(new std::vector<V, Allocator<V> >) {}$/;"	f	class:buffer_combiner
+buffer_combiner	include/combiner.h	/^class buffer_combiner$/;"	c
+chunk_size	tests/string_match/string_match.cpp	/^    int splitter_pos, chunk_size;    $/;"	m	class:MatchMR	file:
+chunk_size	tests/word_count/word_count.cpp	/^    uint64_t chunk_size;$/;"	m	class:WordsMR	file:
+clear	include/combiner.h	/^        void clear() {$/;"	f	class:associative_combiner::combined
+clear	include/combiner.h	/^        void clear() {$/;"	f	class:buffer_combiner::combined
+cluster	tests/kmeans/kmeans.cpp	/^    int cluster;  \/\/ Cluster id or cluster point count (for means)$/;"	m	struct:point	file:
+cmp_and_swp	include/atomic.h	/^static inline int cmp_and_swp(uintptr_t v, uintptr_t* cmper, uintptr_t matcher)$/;"	f
+col	tests/pca/pca.cpp	/^    int col;$/;"	m	class:CovMR	file:
+col_num	tests/pca/pca.cpp	/^    int col_num;$/;"	m	struct:__anon4	file:
+combined	include/combiner.h	/^        combined() : current_list(0), current_index(0) {}$/;"	f	class:buffer_combiner::combined
+combined	include/combiner.h	/^        combined() : done(false) {}$/;"	f	class:associative_combiner::combined
+combined	include/combiner.h	/^        combined() : i(0), _empty(true) {Impl::Init(m);}$/;"	f	class:associative_combiner::combined
+combined	include/combiner.h	/^    class combined$/;"	c	class:associative_combiner
+combined	include/combiner.h	/^    class combined$/;"	c	class:buffer_combiner
+combined	include/container.h	/^            Allocator<std::pair<const K, output_type> > > combined;$/;"	m	class:hash_container::iterator
+combined	include/container.h	/^        std::tr1::unordered_map<K, output_type, Hash> combined;$/;"	m	class:fixed_hash_container::iterator
+combineinto	include/combiner.h	/^    void combineinto(combined& m) const {$/;"	f	class:associative_combiner
+combineinto	include/combiner.h	/^    void combineinto(combined& m) const {$/;"	f	class:buffer_combiner
+common_array_container	include/container.h	/^    common_array_container() : vals(NULL), in_size(0), out_size(0) {}$/;"	f	class:common_array_container
+common_array_container	include/container.h	/^class common_array_container$/;"	c
+compute_hashes	tests/string_match/string_match.cpp	/^void compute_hashes(char const* word, unsigned int length, char* final_word)$/;"	f
+constKCV	include/container.h	/^    typedef std::pair<const K, Combiner<V, Allocator> > constKCV;$/;"	t	class:hash_container
+const_iterator	include/container.h	/^        const_iterator(hash_table const& a, int index)$/;"	f	class:hash_table::const_iterator
+const_iterator	include/container.h	/^    class const_iterator {$/;"	c	class:hash_table
+container	include/map_reduce.h	/^    container_type container; $/;"	m	class:MapReduce
+container_type	include/map_reduce.h	/^    typedef Container container_type;$/;"	t	class:MapReduce
+cpu	include/stddefines.h	/^    int cpu;$/;"	m	struct:thread_loc
+current_index	include/combiner.h	/^        mutable unsigned int current_list, current_index;$/;"	m	class:buffer_combiner::combined
+current_list	include/combiner.h	/^        mutable unsigned int current_list, current_index;$/;"	m	class:buffer_combiner::combined
+d	tests/kmeans/kmeans.cpp	/^    int* d;$/;"	m	struct:point	file:
+data	include/combiner.h	/^    V data;$/;"	m	class:associative_combiner
+data	include/combiner.h	/^    std::vector<V, Allocator<V> >* data;$/;"	m	class:associative_combiner
+data	include/combiner.h	/^    std::vector<V, Allocator<V> >* data;$/;"	m	class:buffer_combiner
+data	include/task_queue.h	/^        uint64_t        data;$/;"	m	struct:task_queue::task_t
+data	tests/word_count/word_count.cpp	/^    char* data;$/;"	m	class:WordsMR	file:
+data	tests/word_count/word_count.cpp	/^    char* data;$/;"	m	struct:wc_string	file:
+data	tests/word_count/word_count.cpp	/^    char* data;$/;"	m	struct:wc_word	file:
+data_size	tests/word_count/word_count.cpp	/^    uint64_t data_size;$/;"	m	class:WordsMR	file:
+data_type	include/map_reduce.h	/^    typedef D data_type;$/;"	t	class:MapReduce
+dequeue	src/task_queue.cpp	/^int task_queue::dequeue (task_t& task, thread_loc const& loc)$/;"	f	class:task_queue
+die	include/thread_pool.h	/^    int             die;$/;"	m	class:thread_pool
+dim	tests/kmeans/kmeans.cpp	/^int dim;         \/\/ Dimension of each vector$/;"	v
+done	include/combiner.h	/^        mutable bool done;$/;"	m	class:associative_combiner::combined
+dprintf	include/stddefines.h	41;"	d
+dump	tests/kmeans/kmeans.cpp	/^    void dump() {$/;"	f	struct:point
+dump_points	tests/pca/pca.cpp	/^void dump_points(int *vals, int rows, int cols)$/;"	f
+emit_intermediate	include/map_reduce.h	/^    void emit_intermediate(typename container_type::input_type& i, $/;"	f	class:MapReduce
+empty	include/combiner.h	/^    bool empty() const {$/;"	f	class:associative_combiner
+empty	include/combiner.h	/^    bool empty() const {$/;"	f	class:buffer_combiner
+encrypt_file	tests/string_match/string_match.cpp	/^    char *keys_file, *encrypt_file;$/;"	m	class:MatchMR	file:
+encrypt_file	tests/string_match/string_match.cpp	/^  char *encrypt_file;$/;"	m	struct:__anon1	file:
+encrypt_file_len	tests/string_match/string_match.cpp	/^    int keys_file_len, encrypt_file_len;$/;"	m	class:MatchMR	file:
+end	include/container.h	/^    const_iterator end() const {$/;"	f	class:hash_table
+end_idx	include/container.h	/^        uint64_t end_idx;$/;"	m	class:fixed_hash_container::iterator
+enqueue	src/task_queue.cpp	/^void task_queue::enqueue (const task_t& task, thread_loc const& loc, int total_tasks, int lgrp)$/;"	f	class:task_queue
+enqueue_seq	src/task_queue.cpp	/^void task_queue::enqueue_seq (const task_t& task, int total_tasks, int lgrp)$/;"	f	class:task_queue
+entry	include/container.h	/^    typedef std::pair<K, V> entry;$/;"	t	class:hash_table
+fc	include/container.h	/^        fixed_hash_container<K, V, Combiner, N, Hash, Allocator> const* fc;$/;"	m	class:fixed_hash_container::iterator
+fetch_and_inc	include/atomic.h	/^static inline unsigned int fetch_and_inc(unsigned int* n)$/;"	f
+final_vals	include/map_reduce.h	/^    std::vector<keyval>* final_vals;    \/\/ Array to send to merge task.    $/;"	m	class:MapReduce
+fixed_hash_container	include/container.h	/^    fixed_hash_container() : hash_tables(NULL), in_size(0), out_size(0) {}$/;"	f	class:fixed_hash_container
+fixed_hash_container	include/container.h	/^class fixed_hash_container$/;"	c
+flush	include/atomic.h	/^static inline void flush(void* addr) {asm("":::"memory");}$/;"	f
+flush	include/atomic.h	/^static inline void flush(void* addr)$/;"	f
+full_cs	include/processor.h	/^static cpu_set_t    full_cs;$/;"	v
+g	tests/histogram/histogram.cpp	/^    unsigned char g;$/;"	m	struct:pixel	file:
+generate	tests/kmeans/kmeans.cpp	/^    void generate() {$/;"	f	struct:point
+generate_points	tests/pca/pca.cpp	/^void generate_points(int *pts, int rows, int cols) $/;"	f
+get	include/container.h	/^    input_type get(uint64_t in_index)$/;"	f	class:array_container
+get	include/container.h	/^    input_type get(uint64_t in_index)$/;"	f	class:common_array_container
+get	include/container.h	/^    input_type get(uint64_t in_index)$/;"	f	class:fixed_hash_container
+get	include/container.h	/^    input_type get(uint64_t in_index)$/;"	f	class:hash_container
+get_time	include/stddefines.h	/^static inline timespec get_time()$/;"	f
+get_time	include/stddefines.h	/^static inline void get_time (timespec& ts)$/;"	f
+grid_size	tests/kmeans/kmeans.cpp	/^int grid_size; \/\/ size of each dimension of vector space$/;"	v
+grid_size	tests/pca/pca.cpp	/^int grid_size;$/;"	v
+hash_bucket	include/container.h	/^        Allocator< std::pair<K, Combiner<V, Allocator> > > > hash_bucket;$/;"	t	class:fixed_hash_container
+hash_container	include/container.h	/^    hash_container() : vals(NULL), in_size(0), out_size(0) {}$/;"	f	class:hash_container
+hash_container	include/container.h	/^class hash_container$/;"	c
+hash_table	include/container.h	/^        hash_table() $/;"	f	class:fixed_hash_container::hash_table
+hash_table	include/container.h	/^    class hash_table$/;"	c	class:fixed_hash_container
+hash_table	include/container.h	/^    hash_table()$/;"	f	class:hash_table
+hash_table	include/container.h	/^class hash_table$/;"	c
+hash_tables	include/container.h	/^    hash_table* hash_tables;$/;"	m	class:fixed_hash_container
+head	include/synch.h	/^        mcs_lock_priv    *head;$/;"	m	struct:lock::mcs_lock
+i	include/combiner.h	/^        mutable int i;$/;"	m	class:associative_combiner::combined
+i	include/container.h	/^        typename std::tr1::unordered_map<K, output_type, Hash >::const_iterator i;$/;"	m	class:hash_container::iterator
+i	include/container.h	/^        typename std::tr1::unordered_map<K, output_type, Hash>::const_iterator i;$/;"	m	class:fixed_hash_container::iterator
+i	include/container.h	/^        uint64_t index, i;$/;"	m	class:array_container::iterator
+i	include/container.h	/^        uint64_t index, i;$/;"	m	class:common_array_container::iterator
+id	include/task_queue.h	/^        uint64_t        id;$/;"	m	struct:task_queue::task_t
+in_size	include/container.h	/^    uint64_t in_size, out_size;$/;"	m	class:array_container
+in_size	include/container.h	/^    uint64_t in_size, out_size;$/;"	m	class:common_array_container
+in_size	include/container.h	/^    uint64_t in_size, out_size;$/;"	m	class:fixed_hash_container
+in_size	include/container.h	/^    uint64_t in_size, out_size;$/;"	m	class:hash_container
+index	include/container.h	/^        uint64_t index, i;$/;"	m	class:array_container::iterator
+index	include/container.h	/^        uint64_t index, i;$/;"	m	class:common_array_container::iterator
+index	include/container.h	/^        uint64_t index;$/;"	m	class:hash_container::iterator
+index	include/container.h	/^        uint64_t index;$/;"	m	class:hash_table::const_iterator
+init	include/container.h	/^    void init(uint64_t in_size, uint64_t out_size)$/;"	f	class:array_container
+init	include/container.h	/^    void init(uint64_t in_size, uint64_t out_size)$/;"	f	class:common_array_container
+init	include/container.h	/^    void init(uint64_t in_size, uint64_t out_size)$/;"	f	class:fixed_hash_container
+init	include/container.h	/^    void init(uint64_t in_size, uint64_t out_size)$/;"	f	class:hash_container
+input_type	include/container.h	/^    typedef Combiner<V, Allocator>* input_type;$/;"	t	class:array_container
+input_type	include/container.h	/^    typedef Combiner<V, Allocator>* input_type;$/;"	t	class:common_array_container
+input_type	include/container.h	/^    typedef hash_table input_type;$/;"	t	class:fixed_hash_container
+input_type	include/container.h	/^    typedef hash_table<K, Combiner<V, Allocator>, Hash, Allocator > input_type;$/;"	t	class:hash_container
+items	include/combiner.h	/^            Allocator<std::vector<V, Allocator<V> >* > > items;$/;"	m	class:associative_combiner::combined
+items	include/combiner.h	/^            Allocator<std::vector<V, Allocator<V> >* > > items;$/;"	m	class:buffer_combiner::combined
+iterator	include/container.h	/^        iterator(array_container const* ac, uint64_t index) : $/;"	f	class:array_container::iterator
+iterator	include/container.h	/^        iterator(common_array_container const* ac, uint64_t index) : $/;"	f	class:common_array_container::iterator
+iterator	include/container.h	/^        iterator(fixed_hash_container const* fc, uint64_t index) : fc(fc)$/;"	f	class:fixed_hash_container::iterator
+iterator	include/container.h	/^        iterator(hash_container const* ac, uint64_t index) : ac(ac), index(index) $/;"	f	class:hash_container::iterator
+iterator	include/container.h	/^    class iterator$/;"	c	class:array_container
+iterator	include/container.h	/^    class iterator$/;"	c	class:common_array_container
+iterator	include/container.h	/^    class iterator$/;"	c	class:fixed_hash_container
+iterator	include/container.h	/^    class iterator$/;"	c	class:hash_container
+key	include/map_reduce.h	/^        key_type key;$/;"	m	struct:MapReduce::keyval
+key1	tests/string_match/string_match.cpp	/^ char const* key1 = "Helloworld";$/;"	v
+key1_final	tests/string_match/string_match.cpp	/^ char *key1_final;$/;"	v
+key2	tests/string_match/string_match.cpp	/^ char const* key2 = "howareyou";$/;"	v
+key2_final	tests/string_match/string_match.cpp	/^ char *key2_final;$/;"	v
+key3	tests/string_match/string_match.cpp	/^ char const* key3 = "ferrari";$/;"	v
+key3_final	tests/string_match/string_match.cpp	/^ char *key3_final;$/;"	v
+key4	tests/string_match/string_match.cpp	/^ char const* key4 = "whotheman";$/;"	v
+key4_final	tests/string_match/string_match.cpp	/^ char *key4_final;$/;"	v
+key_type	include/container.h	/^    typedef K key_type;$/;"	t	class:array_container
+key_type	include/container.h	/^    typedef K key_type;$/;"	t	class:common_array_container
+key_type	include/container.h	/^    typedef K key_type;$/;"	t	class:fixed_hash_container
+key_type	include/container.h	/^    typedef K key_type;$/;"	t	class:hash_container
+key_type	include/map_reduce.h	/^    typedef K key_type;$/;"	t	class:MapReduce
+keys	tests/string_match/string_match.cpp	/^  char *keys;$/;"	m	struct:__anon1	file:
+keys_file	tests/string_match/string_match.cpp	/^    char *keys_file, *encrypt_file;$/;"	m	class:MatchMR	file:
+keys_file_len	tests/string_match/string_match.cpp	/^    int keys_file_len, encrypt_file_len;$/;"	m	class:MatchMR	file:
+keys_len	tests/string_match/string_match.cpp	/^  int keys_len;$/;"	m	struct:__anon1	file:
+keyval	include/map_reduce.h	/^    struct keyval$/;"	s	class:MapReduce
+keyval	include/map_reduce.h	/^    typedef typename MapReduce<Impl, D, K, V, Container>::keyval keyval;$/;"	t	class:MapReduceSort
+kh	include/container.h	/^    Hash kh;$/;"	m	class:hash_table
+l	include/synch.h	/^    mcs_lock l;$/;"	m	class:lock
+len	include/task_queue.h	/^        uint64_t        len;$/;"	m	struct:task_queue::task_t
+len	tests/word_count/word_count.cpp	/^    uint64_t len;$/;"	m	struct:wc_string	file:
+lgrp	include/stddefines.h	/^    int lgrp;$/;"	m	struct:thread_loc
+load	include/container.h	/^    uint64_t load;$/;"	m	class:hash_table
+loc	include/thread_pool.h	/^        thread_loc      loc;$/;"	m	struct:thread_pool::thread_arg_t
+loc_get_lgrp	include/locality.h	/^inline int loc_get_lgrp ()$/;"	f
+loc_get_num_lgrps	include/locality.h	/^inline int loc_get_num_lgrps ()$/;"	f
+loc_mem_to_lgrp	include/locality.h	/^inline int loc_mem_to_lgrp (void const* addr)$/;"	f
+locate	include/map_reduce.h	/^    void* locate(data_type* data, uint64_t) const {$/;"	f	class:MapReduce
+locate	tests/kmeans/kmeans.cpp	/^    void* locate(data_type* d, uint64_t len) const$/;"	f	class:KmeansMR
+locate	tests/matrix_multiply/matrix_multiply.cpp	/^    void* locate(mm_data_t* d, uint64_t len) const$/;"	f	class:MatrixMulMR
+locate	tests/pca/pca.cpp	/^    void* locate(data_type* d, uint64_t len) const$/;"	f	class:CovMR
+locate	tests/pca/pca.cpp	/^    void* locate(data_type* d, uint64_t len) const$/;"	f	class:MeanMR
+locate	tests/string_match/string_match.cpp	/^    void *locate (data_type *data, uint64_t len) const$/;"	f	class:MatchMR
+locate	tests/word_count/word_count.cpp	/^    void* locate(data_type* str, uint64_t len) const$/;"	f	class:WordsMR
+lock	include/synch.h	/^    lock(int threads) {$/;"	f	class:lock
+lock	include/synch.h	/^class lock$/;"	c
+locked	include/synch.h	/^        uintptr_t        locked;$/;"	m	struct:lock::mcs_lock_priv
+locks	include/task_queue.h	/^    lock**          locks;$/;"	m	class:task_queue
+loop	src/thread_pool.cpp	/^void* thread_pool::loop(void* arg)$/;"	f	class:thread_pool
+lrMR	tests/linear_regression/linear_regression.cpp	/^class lrMR : public MapReduce<lrMR, POINT_T, unsigned char, uint64_t, hash_container< unsigned char, uint64_t, sum_combiner, std::tr1::hash<unsigned char>$/;"	c	file:
+m	include/combiner.h	/^        V m;$/;"	m	class:associative_combiner::combined
+m	include/synch.h	/^    pthread_mutex_t m;$/;"	m	class:lock
+main	tests/histogram/histogram.cpp	/^int main(int argc, char *argv[]) {$/;"	f
+main	tests/kmeans/kmeans.cpp	/^int main(int argc, char **argv)$/;"	f
+main	tests/linear_regression/linear_regression.cpp	/^int main(int argc, char *argv[]) {$/;"	f
+main	tests/matrix_multiply/matrix_multiply.cpp	/^int main(int argc, char *argv[]) {$/;"	f
+main	tests/pca/pca.cpp	/^int main(int argc, char **argv)$/;"	f
+main	tests/string_match/string_match.cpp	/^int main(int argc, char *argv[]) {$/;"	f
+main	tests/word_count/word_count.cpp	/^int main(int argc, char *argv[]) $/;"	f
+map	include/map_reduce.h	/^    void map(data_type const& a, map_container& m) const {}$/;"	f	class:MapReduce
+map	tests/histogram/histogram.cpp	/^    void map(data_type const& p, map_container& out) const {$/;"	f	class:HistogramMR
+map	tests/kmeans/kmeans.cpp	/^    void map(data_type& p, map_container& out) const$/;"	f	class:KmeansMR
+map	tests/linear_regression/linear_regression.cpp	/^    void map(data_type const& p, map_container& out) const$/;"	f	class:lrMR
+map	tests/matrix_multiply/matrix_multiply.cpp	/^    void map(mm_data_t const& data, map_container& out) const$/;"	f	class:MatrixMulMR
+map	tests/pca/pca.cpp	/^    void map(data_type const& data, map_container& out) const$/;"	f	class:CovMR
+map	tests/pca/pca.cpp	/^    void map(data_type const& data, map_container& out) const$/;"	f	class:MeanMR
+map	tests/string_match/string_match.cpp	/^    void map(data_type& data, map_container& out) const$/;"	f	class:MatchMR
+map	tests/word_count/word_count.cpp	/^    void map(data_type const& s, map_container& out) const$/;"	f	class:WordsMR
+map_callback	include/map_reduce.h	/^    static void map_callback(void* arg, thread_loc const& loc) { $/;"	f	class:MapReduce
+map_container	include/map_reduce.h	/^    typedef typename container_type::input_type map_container;$/;"	t	class:MapReduce
+map_worker	include/map_reduce.h	/^map_worker(thread_loc const& loc, double& time, double& user_time, int& tasks)$/;"	f	class:MapReduce
+matrix	tests/pca/pca.cpp	/^    int *matrix;$/;"	m	class:CovMR	file:
+matrix	tests/pca/pca.cpp	/^    int *matrix;$/;"	m	class:MeanMR	file:
+matrix	tests/pca/pca.cpp	/^    int const* matrix;$/;"	m	struct:__anon3	file:
+matrix	tests/pca/pca.cpp	/^    int const* matrix;$/;"	m	struct:__anon4	file:
+matrix_A	tests/matrix_multiply/matrix_multiply.cpp	/^    int *matrix_A, *matrix_B;$/;"	m	class:MatrixMulMR	file:
+matrix_A	tests/matrix_multiply/matrix_multiply.cpp	/^    int *matrix_A;$/;"	m	struct:mm_data_t	file:
+matrix_B	tests/matrix_multiply/matrix_multiply.cpp	/^    int *matrix_A, *matrix_B;$/;"	m	class:MatrixMulMR	file:
+matrix_B	tests/matrix_multiply/matrix_multiply.cpp	/^    int *matrix_B;$/;"	m	struct:mm_data_t	file:
+matrix_len	tests/matrix_multiply/matrix_multiply.cpp	/^    int matrix_len;$/;"	m	struct:mm_data_t	file:
+matrix_size	tests/matrix_multiply/matrix_multiply.cpp	/^    int matrix_size;$/;"	m	class:MatrixMulMR	file:
+mcs_head	include/synch.h	/^        mcs_lock  *mcs_head;$/;"	m	struct:lock::mcs_lock_priv
+mcs_lock	include/synch.h	/^    struct mcs_lock {$/;"	s	class:lock
+mcs_lock_priv	include/synch.h	/^    struct mcs_lock_priv {$/;"	s	class:lock
+means	tests/kmeans/kmeans.cpp	/^    std::vector<point> const& means;$/;"	m	class:KmeansMR::std	file:
+means	tests/pca/pca.cpp	/^    long long const* means;$/;"	m	class:CovMR	file:
+means	tests/pca/pca.cpp	/^    long long const* means;$/;"	m	struct:__anon4	file:
+merge_callback	include/map_reduce.h	/^    static void merge_callback(void* arg, thread_loc const& loc) { $/;"	f	class:MapReduce
+merge_worker	include/map_reduce.h	/^    virtual void merge_worker (thread_loc const& loc, double& time, $/;"	f	class:MapReduceSort
+merge_worker	include/map_reduce.h	/^merge_worker (thread_loc const& loc, double& time, double& user_time, int& tasks)$/;"	f	class:MapReduce
+mm_data_t	tests/matrix_multiply/matrix_multiply.cpp	/^struct mm_data_t {$/;"	s	file:
+modified	tests/kmeans/kmeans.cpp	/^int modified;$/;"	v
+mr	include/map_reduce.h	/^        MapReduce* mr;$/;"	m	struct:MapReduce::thread_arg_t
+mrs	include/map_reduce.h	/^        MapReduceSort* mrs;$/;"	m	struct:MapReduceSort::sort_functor
+next	include/combiner.h	/^        bool next(V& v) const {$/;"	f	class:associative_combiner::combined
+next	include/combiner.h	/^        bool next(V& v) const {$/;"	f	class:buffer_combiner::combined
+next	include/container.h	/^        bool next(K& key, output_type& values)$/;"	f	class:array_container::iterator
+next	include/container.h	/^        bool next(K& key, output_type& values)$/;"	f	class:common_array_container::iterator
+next	include/container.h	/^        bool next(K& key, output_type& values)$/;"	f	class:fixed_hash_container::iterator
+next	include/container.h	/^        bool next(K& key, output_type& values)$/;"	f	class:hash_container::iterator
+next	include/synch.h	/^        mcs_lock_priv    *next;$/;"	m	struct:lock::mcs_lock_priv
+normalize	tests/kmeans/kmeans.cpp	/^    point& normalize() {$/;"	f	struct:point
+num_chips_per_sys	include/scheduler.h	/^    int     num_chips_per_sys;$/;"	m	class:sched_policy
+num_cols	tests/pca/pca.cpp	/^int num_cols;$/;"	v
+num_cpus	include/scheduler.h	/^    int     num_cpus;$/;"	m	class:sched_policy
+num_map_tasks	include/map_reduce.h	/^    uint64_t num_map_tasks;$/;"	m	class:MapReduce
+num_means	tests/kmeans/kmeans.cpp	/^int num_means; \/\/ number of clusters$/;"	v
+num_points	tests/kmeans/kmeans.cpp	/^int num_points; \/\/ number of vectors$/;"	v
+num_pts	tests/kmeans/kmeans.cpp	/^int num_pts = 0;$/;"	v
+num_queues	include/task_queue.h	/^    int             num_queues;$/;"	m	class:task_queue
+num_reduce_tasks	include/map_reduce.h	/^    uint64_t num_reduce_tasks;$/;"	m	class:MapReduce
+num_rows	tests/pca/pca.cpp	/^int num_rows;$/;"	v
+num_threads	include/map_reduce.h	/^    uint64_t num_threads;               \/\/ # of threads to run.$/;"	m	class:MapReduce
+num_threads	include/task_queue.h	/^    int             num_threads;$/;"	m	class:task_queue
+num_threads	include/thread_pool.h	/^    int             num_threads;$/;"	m	class:thread_pool
+num_workers	include/thread_pool.h	/^    int             num_workers;$/;"	m	class:thread_pool
+num_workers_done	include/thread_pool.h	/^    unsigned int    num_workers_done;$/;"	m	class:thread_pool
+occupied	include/container.h	/^    std::vector< bool, Allocator<bool> > occupied;$/;"	m	class:hash_table
+offset	include/scheduler.h	/^    int        offset;$/;"	m	class:sched_policy
+one_combiner	include/combiner.h	/^class one_combiner : public associative_combiner<one_combiner<V, Allocator>, V, Allocator> $/;"	c
+operator !=	include/container.h	/^        bool operator !=(const_iterator const& other) const {$/;"	f	class:hash_table::const_iterator
+operator ()	include/map_reduce.h	/^        bool operator()(keyval const& a, keyval const& b) const { $/;"	f	struct:MapReduceSort::sort_functor
+operator ()	tests/word_count/word_count.cpp	/^    size_t operator()(wc_word const& key) const$/;"	f	struct:wc_word_hash
+operator *	include/container.h	/^        entry const& operator*() {$/;"	f	class:hash_table::const_iterator
+operator ++	include/container.h	/^        const_iterator& operator++() {$/;"	f	class:hash_table::const_iterator
+operator <	tests/word_count/word_count.cpp	/^    bool operator<(wc_word const& other) const {$/;"	f	struct:wc_word
+operator ==	tests/word_count/word_count.cpp	/^    bool operator==(wc_word const& other) const {$/;"	f	struct:wc_word
+operator []	include/container.h	/^        Combiner<V, Allocator>& operator[] (K const& key) $/;"	f	class:fixed_hash_container::hash_table
+operator []	include/container.h	/^    V& operator[] (K const& key) $/;"	f	class:hash_table
+out_size	include/container.h	/^    uint64_t in_size, out_size;$/;"	m	class:array_container
+out_size	include/container.h	/^    uint64_t in_size, out_size;$/;"	m	class:common_array_container
+out_size	include/container.h	/^    uint64_t in_size, out_size;$/;"	m	class:fixed_hash_container
+out_size	include/container.h	/^    uint64_t in_size, out_size;$/;"	m	class:hash_container
+output	tests/matrix_multiply/matrix_multiply.cpp	/^    int *output;$/;"	m	class:MatrixMulMR	file:
+output	tests/matrix_multiply/matrix_multiply.cpp	/^    int* output;$/;"	m	struct:mm_data_t	file:
+output_type	include/container.h	/^    typedef typename Combiner<V, Allocator>::combined output_type;$/;"	t	class:array_container
+output_type	include/container.h	/^    typedef typename Combiner<V, Allocator>::combined output_type;$/;"	t	class:common_array_container
+output_type	include/container.h	/^    typedef typename Combiner<V, Allocator>::combined output_type;$/;"	t	class:fixed_hash_container
+output_type	include/container.h	/^    typedef typename Combiner<V, Allocator>::combined output_type;$/;"	t	class:hash_container
+pad	include/stddefines.h	/^    char pad[L2_CACHE_LINE_SIZE-4*sizeof(int)];$/;"	m	struct:thread_loc
+pad	include/synch.h	/^        char pad[L2_CACHE_LINE_SIZE-3*sizeof(uintptr_t)];$/;"	m	struct:lock::mcs_lock_priv
+pad	include/task_queue.h	/^        uint64_t        pad;$/;"	m	struct:task_queue::task_t
+parse_args	tests/kmeans/kmeans.cpp	/^void parse_args(int argc, char **argv) $/;"	f
+parse_args	tests/pca/pca.cpp	/^void parse_args(int argc, char **argv) $/;"	f
+pca_cov_data_t	tests/pca/pca.cpp	/^} pca_cov_data_t;$/;"	t	typeref:struct:__anon4	file:
+pca_map_data_t	tests/pca/pca.cpp	/^} pca_map_data_t;$/;"	t	typeref:struct:__anon3	file:
+pixel	tests/histogram/histogram.cpp	/^struct pixel {$/;"	s	file:
+point	tests/kmeans/kmeans.cpp	/^    point() { d = NULL; cluster = -1; }$/;"	f	struct:point
+point	tests/kmeans/kmeans.cpp	/^    point(int* d, int cluster) { this->d = d; this->cluster = cluster; }$/;"	f	struct:point
+point	tests/kmeans/kmeans.cpp	/^struct point$/;"	s	file:
+point_combiner	tests/kmeans/kmeans.cpp	/^class point_combiner : public associative_combiner<point_combiner<V, Allocator>, V, Allocator> $/;"	c	file:
+pool	include/thread_pool.h	/^        thread_pool*    pool;$/;"	m	struct:thread_pool::thread_arg_t
+post	include/synch.h	/^    void post()$/;"	f	class:semaphore
+print_time	include/stddefines.h	/^static inline void print_time (char const* prompt, double diff)$/;"	f
+print_time	include/stddefines.h	/^static inline void print_time (char const* prompt, timespec const& begin, timespec const& end)$/;"	f
+print_time_elapsed	include/stddefines.h	/^static inline void print_time_elapsed (char const* prompt, timespec const& begin)$/;"	f
+privs	include/synch.h	/^    mcs_lock_priv* privs;$/;"	m	class:lock
+proc_bind_thread	include/processor.h	/^inline int proc_bind_thread (int cpu_id)$/;"	f
+proc_get_cpuid	include/processor.h	/^inline int proc_get_cpuid (void)$/;"	f
+proc_get_full_set	include/processor.h	/^static cpu_set_t* proc_get_full_set(void)$/;"	f
+proc_get_num_cpus	include/processor.h	/^inline int proc_get_num_cpus (void)$/;"	f
+proc_unbind_thread	include/processor.h	/^inline int proc_unbind_thread ()$/;"	f
+queues	include/task_queue.h	/^    std::deque<task_t>* queues;$/;"	m	class:task_queue
+r	tests/histogram/histogram.cpp	/^    unsigned char r;$/;"	m	struct:pixel	file:
+reduce	include/map_reduce.h	/^    void reduce(key_type const& key, reduce_iterator const& values, $/;"	f	class:MapReduce
+reduce	tests/histogram/histogram.cpp	/^    void reduce(key_type const& key, reduce_iterator const& values, std::vector<keyval>& out) const {$/;"	f	class:HistogramMR
+reduce_callback	include/map_reduce.h	/^    static void reduce_callback(void* arg, thread_loc const& loc) { $/;"	f	class:MapReduce
+reduce_iterator	include/map_reduce.h	/^    typedef typename container_type::output_type reduce_iterator; $/;"	t	class:MapReduce
+reduce_worker	include/map_reduce.h	/^void MapReduce<Impl, D, K, V, Container>::reduce_worker ($/;"	f	class:MapReduce
+rehash	include/container.h	/^    void rehash(uint64_t newsize) {$/;"	f	class:hash_table
+release	include/synch.h	/^    void release(int thread) {$/;"	f	class:lock
+reset	include/combiner.h	/^        void reset() {$/;"	f	class:associative_combiner::combined
+reset	include/combiner.h	/^        void reset() {$/;"	f	class:buffer_combiner::combined
+row	tests/matrix_multiply/matrix_multiply.cpp	/^    int row;$/;"	m	class:MatrixMulMR	file:
+row	tests/pca/pca.cpp	/^    int row;$/;"	m	class:CovMR	file:
+row	tests/pca/pca.cpp	/^    int row;$/;"	m	class:MeanMR	file:
+row_num	tests/matrix_multiply/matrix_multiply.cpp	/^    int row_num;$/;"	m	struct:mm_data_t	file:
+row_num	tests/pca/pca.cpp	/^    int row_num;$/;"	m	struct:__anon3	file:
+row_num	tests/pca/pca.cpp	/^    int row_num;$/;"	m	struct:__anon4	file:
+rows	tests/matrix_multiply/matrix_multiply.cpp	/^    int rows;$/;"	m	struct:mm_data_t	file:
+run	include/map_reduce.h	/^run (D *data, uint64_t count, std::vector<keyval>& result)$/;"	f	class:MapReduce
+run	include/map_reduce.h	/^run (std::vector<keyval>& result)$/;"	f	class:MapReduce
+run_map	include/map_reduce.h	/^run_map (data_type* data, uint64_t count)$/;"	f	class:MapReduce
+run_merge	include/map_reduce.h	/^    virtual void run_merge ()$/;"	f	class:MapReduceSort
+run_merge	include/map_reduce.h	/^void MapReduce<Impl, D, K, V, Container>::run_merge ()$/;"	f	class:MapReduce
+run_reduce	include/map_reduce.h	/^void MapReduce<Impl, D, K, V, Container>::run_reduce ()$/;"	f	class:MapReduce
+sched_policy	include/scheduler.h	/^    sched_policy(int offset = 0) : offset(offset) $/;"	f	class:sched_policy
+sched_policy	include/scheduler.h	/^class sched_policy$/;"	c
+sched_policy_chip_fill	include/scheduler.h	/^    sched_policy_chip_fill(int offset = 0) : sched_policy(offset) {}$/;"	f	class:sched_policy_chip_fill
+sched_policy_chip_fill	include/scheduler.h	/^class sched_policy_chip_fill : public sched_policy$/;"	c
+sched_policy_core_fill	include/scheduler.h	/^    sched_policy_core_fill(int offset = 0) : sched_policy(offset) {}$/;"	f	class:sched_policy_core_fill
+sched_policy_core_fill	include/scheduler.h	/^class sched_policy_core_fill : public sched_policy$/;"	c
+sched_policy_strand_fill	include/scheduler.h	/^    sched_policy_strand_fill(int offset = 0) : sched_policy(offset) {}$/;"	f	class:sched_policy_strand_fill
+sched_policy_strand_fill	include/scheduler.h	/^class sched_policy_strand_fill : public sched_policy$/;"	c
+seed	include/stddefines.h	/^    mutable unsigned int seed;      \/\/ thread-local random number seed$/;"	m	struct:thread_loc
+sem	include/synch.h	/^    semaphore_t sem;$/;"	m	class:semaphore
+sem_all_workers_done	include/thread_pool.h	/^    semaphore       sem_all_workers_done;$/;"	m	class:thread_pool
+sem_run	include/thread_pool.h	/^        semaphore       sem_run;$/;"	m	struct:thread_pool::thread_arg_t
+semaphore	include/synch.h	/^    semaphore(int initialValue=0)$/;"	f	class:semaphore
+semaphore	include/synch.h	/^class semaphore$/;"	c
+set	src/thread_pool.cpp	/^int thread_pool::set(thread_func thread_func, void** args, int num_workers)$/;"	f	class:thread_pool
+setThreads	include/map_reduce.h	/^    MapReduce& setThreads(int num_threads, sched_policy const* policy = NULL) {$/;"	f	class:MapReduce
+set_and_flush	include/atomic.h	42;"	d
+size	include/combiner.h	/^        int size() const {$/;"	f	class:associative_combiner::combined
+size	include/combiner.h	/^        int size() const {$/;"	f	class:buffer_combiner::combined
+size	include/container.h	/^    uint64_t size;$/;"	m	class:hash_table
+sort	include/map_reduce.h	/^    bool sort(keyval const& a, keyval const& b) const { return a.key < b.key; }$/;"	f	class:MapReduceSort
+sort	tests/word_count/word_count.cpp	/^    bool sort(keyval const& a, keyval const& b) const$/;"	f	class:WordsMR
+sort_functor	include/map_reduce.h	/^        sort_functor(MapReduceSort* mrs) : mrs(mrs) {}$/;"	f	struct:MapReduceSort::sort_functor
+sort_functor	include/map_reduce.h	/^    struct sort_functor {$/;"	s	class:MapReduceSort
+spin_wait	include/atomic.h	/^static inline void spin_wait(int n)$/;"	f
+split	include/map_reduce.h	/^    int split(data_type &a) { return 0; }$/;"	f	class:MapReduce
+split	tests/matrix_multiply/matrix_multiply.cpp	/^    int split(mm_data_t& out)$/;"	f	class:MatrixMulMR
+split	tests/pca/pca.cpp	/^    int split(pca_cov_data_t& out)$/;"	f	class:CovMR
+split	tests/pca/pca.cpp	/^    int split(pca_map_data_t& out)$/;"	f	class:MeanMR
+split	tests/string_match/string_match.cpp	/^    int split(str_map_data_t& out)$/;"	f	class:MatchMR
+split	tests/word_count/word_count.cpp	/^    int split(wc_string& out)$/;"	f	class:WordsMR
+splitter_pos	tests/string_match/string_match.cpp	/^    int splitter_pos, chunk_size;    $/;"	m	class:MatchMR	file:
+splitter_pos	tests/word_count/word_count.cpp	/^    uint64_t splitter_pos;$/;"	m	class:WordsMR	file:
+sq_dist	tests/kmeans/kmeans.cpp	/^    unsigned int sq_dist(point const& p)$/;"	f	struct:point
+start_workers	include/map_reduce.h	/^void MapReduce<Impl, D, K, V, Container>::start_workers (void (*func)(void*, thread_loc const&), int num_threads, char const* stage)$/;"	f	class:MapReduce
+str_map_data_t	tests/string_match/string_match.cpp	/^} str_map_data_t;$/;"	t	typeref:struct:__anon1	file:
+sum_combiner	include/combiner.h	/^class sum_combiner : public associative_combiner<sum_combiner<V, Allocator>, V, Allocator> $/;"	c
+table	include/container.h	/^    std::vector< entry, Allocator<entry> > table;$/;"	m	class:hash_table
+taskQueue	include/map_reduce.h	/^    task_queue* taskQueue;              \/\/ Queues of tasks.$/;"	m	class:MapReduce
+task_queue	include/task_queue.h	/^class task_queue$/;"	c
+task_queue	src/task_queue.cpp	/^task_queue::task_queue(int sub_queues, int num_threads)$/;"	f	class:task_queue
+task_t	include/task_queue.h	/^    struct task_t {$/;"	s	class:task_queue
+tasks	include/map_reduce.h	/^        int tasks;$/;"	m	struct:MapReduce::thread_arg_t
+test_and_set	include/atomic.h	/^static inline int test_and_set(uintptr_t* n)$/;"	f
+test_endianess	tests/histogram/histogram.cpp	/^bool test_endianess() {$/;"	f
+thr_to_cpu	include/scheduler.h	/^    int thr_to_cpu(int thr) const$/;"	f	class:sched_policy_chip_fill
+thr_to_cpu	include/scheduler.h	/^    int thr_to_cpu(int thr) const$/;"	f	class:sched_policy_core_fill
+thr_to_cpu	include/scheduler.h	/^    int thr_to_cpu(int thr) const$/;"	f	class:sched_policy_strand_fill
+thread	include/stddefines.h	/^    int thread;$/;"	m	struct:thread_loc
+threadPool	include/map_reduce.h	/^    thread_pool* threadPool;            \/\/ Thread pool.$/;"	m	class:MapReduce
+thread_arg_t	include/map_reduce.h	/^    struct thread_arg_t$/;"	s	class:MapReduce
+thread_arg_t	include/thread_pool.h	/^    struct thread_arg_t {$/;"	s	class:thread_pool
+thread_args	include/thread_pool.h	/^    thread_arg_t    *thread_args;$/;"	m	class:thread_pool
+thread_func	include/thread_pool.h	/^typedef void (*thread_func)(void *, thread_loc const& loc);$/;"	t
+thread_function	include/thread_pool.h	/^    thread_func     thread_function;$/;"	m	class:thread_pool
+thread_loc	include/stddefines.h	/^struct thread_loc$/;"	s
+thread_offset	include/map_reduce.h	/^    uint64_t thread_offset;             \/\/ cores to skip when assigning threads.$/;"	m	class:MapReduce
+thread_pool	include/thread_pool.h	/^class thread_pool$/;"	c
+thread_pool	src/thread_pool.cpp	/^thread_pool::thread_pool(int num_threads, sched_policy const* policy)$/;"	f	class:thread_pool
+threads	include/thread_pool.h	/^    pthread_t       *threads;$/;"	m	class:thread_pool
+time	include/map_reduce.h	/^        double time;        $/;"	m	struct:MapReduce::thread_arg_t
+time_diff	include/stddefines.h	/^static inline double time_diff ($/;"	f
+time_elapsed	include/stddefines.h	/^static inline double time_elapsed(timespec const& begin)$/;"	f
+user_time	include/map_reduce.h	/^        double user_time;$/;"	m	struct:MapReduce::thread_arg_t
+val	include/map_reduce.h	/^        value_type val;$/;"	m	struct:MapReduce::keyval
+vals	include/container.h	/^    Combiner<V, Allocator>* vals;$/;"	m	class:array_container
+vals	include/container.h	/^    Combiner<V, Allocator>* vals;$/;"	m	class:common_array_container
+vals	include/container.h	/^    std::vector< KCV, Allocator<KCV> >* vals; $/;"	m	class:hash_container
+value_type	include/container.h	/^    typedef V value_type;$/;"	t	class:array_container
+value_type	include/container.h	/^    typedef V value_type;$/;"	t	class:common_array_container
+value_type	include/container.h	/^    typedef V value_type;$/;"	t	class:fixed_hash_container
+value_type	include/container.h	/^    typedef V value_type;$/;"	t	class:hash_container
+value_type	include/map_reduce.h	/^    typedef V value_type;$/;"	t	class:MapReduce
+wait	include/synch.h	/^    void wait()$/;"	f	class:semaphore
+wait	src/thread_pool.cpp	/^int thread_pool::wait()$/;"	f	class:thread_pool
+wc_string	tests/word_count/word_count.cpp	/^struct wc_string {$/;"	s	file:
+wc_word	tests/word_count/word_count.cpp	/^struct wc_word {$/;"	s	file:
+wc_word_hash	tests/word_count/word_count.cpp	/^struct wc_word_hash$/;"	s	file:
+x	tests/linear_regression/linear_regression.cpp	/^    char x;$/;"	m	struct:POINT_T	file:
+y	tests/linear_regression/linear_regression.cpp	/^    char y;$/;"	m	struct:POINT_T	file:
+~MapReduce	include/map_reduce.h	/^    virtual ~MapReduce() {$/;"	f	class:MapReduce
+~array_container	include/container.h	/^    virtual ~array_container() $/;"	f	class:array_container
+~common_array_container	include/container.h	/^    virtual ~common_array_container() $/;"	f	class:common_array_container
+~fixed_hash_container	include/container.h	/^    virtual ~fixed_hash_container() $/;"	f	class:fixed_hash_container
+~hash_container	include/container.h	/^    virtual ~hash_container() $/;"	f	class:hash_container
+~hash_table	include/container.h	/^        ~hash_table()$/;"	f	class:fixed_hash_container::hash_table
+~hash_table	include/container.h	/^    ~hash_table()$/;"	f	class:hash_table
+~iterator	include/container.h	/^        ~iterator()$/;"	f	class:fixed_hash_container::iterator
+~lock	include/synch.h	/^    ~lock() {$/;"	f	class:lock
+~sched_policy	include/scheduler.h	/^    virtual ~sched_policy() {}$/;"	f	class:sched_policy
+~task_queue	src/task_queue.cpp	/^task_queue::~task_queue()$/;"	f	class:task_queue
+~thread_pool	src/thread_pool.cpp	/^thread_pool::~thread_pool()$/;"	f	class:thread_pool

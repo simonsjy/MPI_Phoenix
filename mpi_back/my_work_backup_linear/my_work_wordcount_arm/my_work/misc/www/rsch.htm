@@ -1,0 +1,342 @@
+<html xmlns:v=urn:schemas-microsoft-com:vml>
+<style>v\:* {behavior:url(#default#VML) }</style>
+<body> 
+<script>
+var oneDay=new Date(2000,0,2,0,0,0)-new Date(2000,0,1,0,0,0);
+var oneDayLess=new Date(2000,0,1,23,59,59)-new Date(2000,0,1,0,0,0);
+var schList=new Array("<%schedule.0%>","<%schedule.1%>","<%schedule.2%>","<%schedule.3%>","<%schedule.4%>","<%schedule.5%>","<%schedule.6%>","<%schedule.7%>");
+var DAYS=GL("sch_day_name_list");
+var dayC1="#ccccff";
+var dayC2="#ffccff";
+var timeC1="#e4e4ff";
+var timeC2="#ffe4ff";
+var barCols=new Array("#0000cc","#00cc33","#9900cc","#ff3333","#00cccc","#006600","#cc6600");
+var barColDisable="#888888";
+var dayYBase=450;
+var dayYGap=450;
+var dayW=700;
+var timeW=370;
+var minW=timeW/60;
+var timeTW=timeW*24;
+var txtYBase=100;
+var days=DAYS.split(";");
+var schObjList=new Array(new ScheduleObj(0),new ScheduleObj(1),new ScheduleObj(2),new ScheduleObj(3),new ScheduleObj(4),new ScheduleObj(5),new ScheduleObj(6));
+var o='CTRLARY = {';
+for(var i=0;i<7;i++)
+{
+o+='schedule'+i+' : new Ctrl_Text("schedule'+i+'",1,20,"","schedule=")'+(i==6?"":",");
+}
+o+='};';
+eval(o);
+o='DELCTRLARY = {';
+o+='delSch : new Ctrl_Text("delSch",1,20,"","delschedule=")';
+o+='};';
+eval(o);
+o='';
+for(var i=0;i<7;i++)
+{
+o+='var schEn'+i+' = new Ctrl_Check("schEn'+i+'",0,"","CheckSchEn('+i+')");';
+o+='var schDay'+i+' = new Ctrl_Select("schDay'+i+'",GL("sch_day_fullname_list"),0,"","FixDays('+i+')");';
+o+='var schSH'+i+' = new Ctrl_SelectNum("schSH'+i+'",0,23,1,0,"","FixSchdule('+i+')",null,2);';
+o+='var schEH'+i+' = new Ctrl_SelectNum("schEH'+i+'",0,23,1,0,"","FixSchdule('+i+')",null,2);';
+o+='var schSM'+i+' = new Ctrl_SelectNum("schSM'+i+'",0,59,1,0,"","FixSchdule('+i+')",null,2);';
+o+='var schEM'+i+' = new Ctrl_SelectNum("schEM'+i+'",0,59,1,0,"","FixSchdule('+i+')",null,2);';
+if(IsVS())
+{
+for(var j=0;j<4;j++)
+{
+o+='var schEnCh'+i+'_'+j+' = new Ctrl_Check("schEnCh'+i+'_'+j+'",0,"","FixVSStatus('+i+');FixSchdule('+i+');");';
+}
+}
+}
+eval(o);
+function MY_ONLOAD()
+{
+for(var i=0;i<schObjList.length;i++)
+{
+var obj=schObjList[i];
+obj.SV(schList[i]);
+SetSchToBar(obj);
+if(obj.status>0)
+{eval("schEn"+i+".SV(1)");}
+SetSchToCtrl(obj);
+CheckSchEn(i);
+}
+g_lockLink=false;
+}
+function MY_BEFORE_SUBMIT()
+{
+if(IsVS())
+{
+for(var i=0;i<7;i++)
+{FixVSStatus(i);}
+}
+for(var i=0;i<7;i++)
+{
+SetCCV("schedule"+i,schObjList[i].GV());}
+}
+function FixVSStatus(ix)
+{
+var s=0;
+if(eval("schEn"+ix+".GV()")==1)
+{
+for(var j=3;j>=0;j--)
+{
+var v=parseInt(eval("schEnCh"+ix+"_"+j+".GV()"));
+s+=v;
+if(j!=0)s<<=1;
+}
+}
+schObjList[ix].status=s;
+}
+function FetchSchObj(ix)
+{
+var ss=parseInt(eval("schDay"+ix+".GV()"))+1;
+if(ss==7)ss=0;
+if(ss==8)ss=7;
+schObjList[ix].showDay=ss;
+schObjList[ix].sHour=parseInt(eval("schSH"+ix+".GV()"));
+schObjList[ix].sMin=parseInt(eval("schSM"+ix+".GV()"));
+schObjList[ix].eHour=parseInt(eval("schEH"+ix+".GV()"));
+schObjList[ix].eMin=parseInt(eval("schEM"+ix+".GV()"));
+}
+function FixDays(ix)
+{
+if(schObjList[ix].showDay==7)
+           ResetSchBar(ix);
+           FetchSchObj(ix);
+           SetSchToBar(schObjList[ix]);
+}
+function FixSchdule(ix)
+{
+FetchSchObj(ix);
+var obj=schObjList[ix];
+if(obj.eHour<obj.sHour)
+{
+eval("schEH"+ix+".SV("+obj.sHour+")");
+obj.eHour=obj.sHour;
+}
+if(obj.eHour==obj.sHour&&obj.eMin<obj.sMin)
+{
+eval("schEM"+ix+".SV("+obj.sMin+")");
+obj.eMin=obj.sMin;
+}
+SetSchToBar(obj);
+}
+function CheckSchEn(ix)
+{
+var dis=(eval("schEn"+ix+".GV()")==0);
+DisableObjs(new Array("schDay"+ix,"schSH"+ix,"schEH"+ix,"schSM"+ix,"schEM"+ix),dis);
+if(IsVS())
+{
+for(var i=0;i<g_maxCH;i++)
+{DisableObject("schEnCh"+ix+"_"+i,dis);}
+}
+GE("schbar_"+ix).FillColor=((dis)?barColDisable:barCols[ix]);
+if(!IsVS())
+{schObjList[ix].status=(dis)?0:1;}
+SetSchToBar(schObjList[ix]);
+}
+function GetScheduleTable()
+{
+var o='<div id="schLayer" ><v:group style="width:500px;height:200px;position:relative;" CoordOrig="0,0" CoordSize="10000,4000">';
+o+='<v:RoundRect style="width:9600;height:3900" FillColor="#99ff99" >';
+o+='<v:shadow on="T" type="single" color="#b3b3b3" offset="5px,5px"/>';
+o+='</v:RoundRect>';
+for(var i=0;i<7;i++)
+{
+   var yy=dayYBase+(i*dayYGap);
+   o+='<v:Rect style="top:'+yy+';left:0;width:'+dayW+';height:'+dayYGap+'" FillColor="'+((i%2==0)?dayC1:dayC2)+'"><div class="m1" style="Text-align:center;margin-top:4pt;" >'+days[i]+'</div></v:Rect>';
+   o+='<v:Rect style="top:'+yy+';left:'+dayW+';width:'+timeTW+';height:'+dayYGap+'" FillColor="'+((i%2==0)?timeC1:timeC2)+'"/>';}
+for(var i=0;i<24;i++)
+{
+o+='<v:shape strokecolor="none" filled="False" style="top:'+txtYBase+';left:'+(dayW+(i*timeW))+';width:'+timeW+';height:'+(dayYBase-txtYBase)+';z-index:9" inset="1px,1px,1px,1px" ><div class="m1" style="Text-align:center;" >'+i+'</div></v:shape>';
+o+='<v:line from="'+(dayW+(i*timeW))+','+dayYBase+'" to="'+(dayW+(i*timeW))+','+(dayYBase+dayYGap*7)+'" />';
+}
+for(var i=0;i<7;i++)
+{
+o+='<v:Rect id="schbar_'+i+'" style="top:0;left:0;width:0;height:0;filter:alpha(opacity=50);-moz-opacity:0.5;opacity:0.5;" FillColor="'+(barCols[i])+'" ><div id="schbarTxt_'+i+'" class="m1" style="Text-align:center;margin-top:4pt;color:white;" ></div></v:Rect>';
+}
+o+='</v:group></div>';
+return o;
+}
+function ScheduleObj(id)
+{
+this.id=id;
+this.status=0;
+this.day=0;
+this.sHour=0;
+this.sMin=0;
+this.sSec=0;
+this.eHour=0;
+this.eMin=0;
+this.eSec=0;
+this.showDay=0;
+this.GT_S=function()
+{
+return new Date(2000,0,1,this.sHour,this.sMin,this.sSec);
+};
+this.GT_E=function()
+{
+return new Date(2000,0,1,this.eHour,this.eMin,this.eSec);
+};
+this.GetDuration=function()
+{
+if(this.status>0&&this.sHour==0&&this.sMin==0&&this.sSec==0&&this.eHour==0&&this.eMin==0&&this.eSec==0)
+{return(oneDay);}
+ return(this.GT_E().getTime()-this.GT_S().getTime());
+};
+this.SV=function(data)
+{
+var res=false;
+if(data.length>=15)
+{
+this.status=parseInt(data.substr(0,1),16);
+this.day=parseInt(data.substr(1,2),10);
+this.showDay=this.day;
+if(this.day==7)this.showDay=0;
+if(this.day==8)this.showDay=7;
+this.sHour=parseInt(data.substr(3,2),10);
+this.sMin=parseInt(data.substr(5,2),10);
+this.sSec=parseInt(data.substr(7,2),10);
+var tH=parseInt(data.substr(9,2),10);
+var tM=parseInt(data.substr(11,2),10);
+var tS=parseInt(data.substr(13,2),10);
+var tmpTime2=new Date(2000,0,1,this.sHour+tH,this.sMin+tM,this.sSec+tS);
+var iniDate=new Date(2000,0,1,0,0,0);
+if((tmpTime2-iniDate)==oneDayLess)
+{tmpTime2=iniDate;}
+this.eHour=tmpTime2.getHours();
+this.eMin=tmpTime2.getMinutes();
+this.eSec=tmpTime2.getSeconds();
+res=true;
+}
+return res;
+};
+this.GV=function()
+{
+var o='';
+o+=FixNum(this.id,2);
+o+=this.status.toString(16);
+this.day=this.showDay;
+if(this.showDay==0)this.day=7;
+if(this.showDay==7)this.day=8;
+o+=FixNum(this.day,2);
+o+=FixNum(this.sHour,2);
+o+=FixNum(this.sMin,2);
+o+=FixNum(this.sSec,2);
+var diffTime=this.GetDuration();
+if(diffTime==oneDay){o+="235959";}
+else
+{
+var dd=new Date(2000,0,1,0,0,0);
+var nn=new Date(dd.getTime()+diffTime);
+o+=FixNum(nn.getHours(),2);
+o+=FixNum(nn.getMinutes(),2);
+o+=FixNum(nn.getSeconds(),2);
+}
+return o;
+};
+}
+function ResetSchBar(id)
+{
+SetPos("schbar_"+id,0,0,0,0);
+SetSchTxt("schbarTxt_"+id,"");
+}
+function SetSchTxt(id,txt)
+{
+var obj=GE(id);
+if(obj!=null)
+  {obj.innerHTML=txt;}
+}
+function SetSchToCtrl(schObj)
+{
+if(IsVS())
+ {
+ var s=schObj.status;
+ for(var j=0;j<4;j++)
+ {
+   eval("schEnCh"+schObj.id+"_"+j+".SV("+(s%2)+")");s>>=1;
+ }
+ }
+var ss=schObj.showDay-1;
+if(ss==6)ss=7;
+if(ss==-1)ss=6;
+eval("schDay"+schObj.id+".SV("+ss+")");
+eval("schSH"+schObj.id+".SV("+(schObj.sHour)+")");
+eval("schSM"+schObj.id+".SV("+(schObj.sMin)+")");
+eval("schEH"+schObj.id+".SV("+(schObj.eHour)+")");
+eval("schEM"+schObj.id+".SV("+(schObj.eMin)+")");
+}
+function SetSchToBar(schObj)
+{
+var day=schObj.showDay;
+var txt=FixNum(schObj.sHour,2)+":"+FixNum(schObj.sMin,2)+" - "+FixNum(schObj.eHour,2)+":"+FixNum(schObj.eMin,2);
+if(day<7)
+{
+SetPos("schbar_"+schObj.id,dayW+(schObj.sHour*timeW)+(schObj.sMin*minW),dayYBase+(dayYGap*day),schObj.GetDuration()*minW/60000,dayYGap);
+}
+else
+{
+SetPos("schbar_"+schObj.id,dayW+(schObj.sHour*timeW)+(schObj.sMin*minW),dayYBase,schObj.GetDuration()*minW/60000,(dayYGap*7));
+}
+if(schObj.GetDuration()<=0)
+{
+SetSchTxt("schbarTxt_"+schObj.id,"");
+}
+else
+{
+SetSchTxt("schbarTxt_"+schObj.id,txt);
+}
+}
+function RemoveAllSch()
+{
+SetCtrlValue(DELCTRLARY,"delSch","1");
+for(var i=0;i<7;i++)
+{
+var obj=schObjList[i];
+obj.SV("000000000000000");
+SetSchToBar(obj);
+eval("schEn"+i+".SV(0)");
+SetSchToCtrl(obj);
+CheckSchEn(i);
+}
+ValidateCtrlAndSubmit(DELCTRLARY);
+}
+function WriteSchCtrl(ix)
+{
+var o='';
+o+='<tr ><td >'+eval("schEn"+ix+".html")+'</td><td valign=middle><v:Rect style="top:0;left:0;width:10;height:10" FillColor="'+barCols[ix]+'"/></td>';
+if(IsVS())
+{
+for(var i=0;i<4;i++)
+{
+o+='<td>'+eval('schEnCh'+ix+'_'+i+'.html')+'</td>';
+}
+}
+o+='<td width='+((IsVS())?540:415)+'>'+eval('schDay'+ix+'.html')+" "+GL('sch_from')+" "+eval('schSH'+ix+'.html')+" : "+eval('schSM'+ix+'.html')+" "+GL('sch_to')+" "+eval('schEH'+ix+'.html')+" : "+eval('schEM'+ix+'.html')+'</td>';
+o+='</tr>';
+DW(o);
+}
+function WSI1(ctx)
+{
+DW("<tr><td colspan="+(IsVS()?7:3)+" height=30 align=center >"+ctx+"</td></tr>");
+}
+WriteAppPH("rec_schedule");
+DW("<div class=cssViewChLayer >");
+for(var i=0;i<7;i++)
+{WH('schedule'+i);}
+DW('<br>'+GetCtrlHtml(DELCTRLARY,'delSch'));
+DW("</div>");
+WTablePH((IsVS())?580:480);
+DW("<tr><td></td><td></td>"+(IsVS()?"<td>CH1</td><td>CH2</td><td>CH3</td><td>CH4</td>":"")+"<td></td></tr>");
+for(var i=0;i<7;i++)
+{WriteSchCtrl(i);}
+WSI1(GetScheduleTable());
+WSI1("<br><center>"+CreateSubmitButton_()+"&nbsp;&nbsp;&nbsp;<input type=button class=m1 value='"+GL("remove_all_sch")+"' onClick='RemoveAllSch()'>");
+WTablePB();
+WriteAppPB();
+ALC();
+</script>
+</body>
+</html>

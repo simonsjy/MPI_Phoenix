@@ -1,0 +1,27 @@
+< >
+
+MRU project directory:
+
+1) include , the include header file directory
+
+2) driver , the hardware and system driver file directory
+
+3) lib , the satic library and dynamic library directory
+
+4) misc , the already compiled file dirctory
+
+5) src , the source of the project 
+
+6) test , user test program directory
+
+MRU project compile:
+
+1) ./reconf install_dir (install_dir is the install directory when excute "make install" cmd )
+
+eg ./reconf /opt/nfs/opt/mru_install
+
+2) make clean
+
+3) make 
+
+4) make install

@@ -1,0 +1,328 @@
+libi2c.o libi2c.o: libi2c.c ../include/system_debug.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/stdio.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/features.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/predefs.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/cdefs.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/wordsize.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/gnu/stubs.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../lib/gcc/armv5tl-montavista-linux-gnueabi/4.2.0/include/stddef.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/types.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/typesizes.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/libio.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/_G_config.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/wchar.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/wchar.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/gconv.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../lib/gcc/armv5tl-montavista-linux-gnueabi/4.2.0/include/stdarg.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/stdio_lim.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/sys_errlist.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/stdio.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/stdlib.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/types.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/time.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/endian.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/endian.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/select.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/select.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/sigset.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/time.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/sysmacros.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/pthreadtypes.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/alloca.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/string.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/string.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/string2.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/poll.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/poll.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/stat.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/stat.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/fcntl.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/fcntl.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/unistd.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/posix_opt.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/confname.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/getopt.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/errno.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/errno.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/linux/errno.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/asm/errno.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/asm-generic/errno.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/asm-generic/errno-base.h \
+  ../include/system_includes.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/ioctl.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/ioctls.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/asm/ioctls.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/asm/ioctl.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/asm-generic/ioctl.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/ioctl-types.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/ttydefaults.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/pthread.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sched.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/sched.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/signal.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/setjmp.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/socket.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/uio.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/uio.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/socket.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../lib/gcc/armv5tl-montavista-linux-gnueabi/4.2.0/include-fixed/limits.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../lib/gcc/armv5tl-montavista-linux-gnueabi/4.2.0/include-fixed/syslimits.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/limits.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/posix1_lim.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/local_lim.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/linux/limits.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/posix2_lim.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/sockaddr.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/asm/socket.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/asm/sockios.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/netinet/in.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/stdint.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/in.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/byteswap.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/arpa/inet.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/signum.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/siginfo.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/sigaction.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/sigcontext.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/asm/sigcontext.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/sigstack.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/sigthread.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/un.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/mman.h \
+  /opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/mman.h \
+  ../include/physaddr.h ../include/libi2c.h ../include/parameter.h \
+  ../include/parametertype.hin \
+  ../include/parameters/parameter_gbshm_mutex.h \
+  ../include/parameters/parameter_video_enc_param.h \
+  ../include/parameters/parameter_audio_param.h \
+  ../include/parameters/parameter_net_param.h \
+  ../include/parameters/parameter_alert_di_param.h \
+  ../include/parameters/parameter_alert_vloss_param.h \
+  ../include/parameters/parameter_alert_motion_param.h \
+  ../include/parameters/parameter_storage_setting_param.h \
+  ../include/parameters/parameter_ad_setting_param.h \
+  ../include/parameters/parameter_time_setting_param.h \
+  ../include/parameters/parameter_rs485_setting_param.h \
+  ../include/parameters/parameter_end_param.h \
+  ../include/parameters/parameter_runtime_device_status.h \
+  ../include/parameters/parameter_runtime_device_version.h
+
+../include/system_debug.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/stdio.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/features.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/predefs.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/cdefs.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/wordsize.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/gnu/stubs.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../lib/gcc/armv5tl-montavista-linux-gnueabi/4.2.0/include/stddef.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/types.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/typesizes.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/libio.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/_G_config.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/wchar.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/wchar.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/gconv.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../lib/gcc/armv5tl-montavista-linux-gnueabi/4.2.0/include/stdarg.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/stdio_lim.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/sys_errlist.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/stdio.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/stdlib.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/types.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/time.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/endian.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/endian.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/select.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/select.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/sigset.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/time.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/sysmacros.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/pthreadtypes.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/alloca.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/string.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/string.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/string2.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/poll.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/poll.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/stat.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/stat.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/fcntl.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/fcntl.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/unistd.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/posix_opt.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/confname.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/getopt.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/errno.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/errno.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/linux/errno.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/asm/errno.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/asm-generic/errno.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/asm-generic/errno-base.h:
+
+../include/system_includes.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/ioctl.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/ioctls.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/asm/ioctls.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/asm/ioctl.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/asm-generic/ioctl.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/ioctl-types.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/ttydefaults.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/pthread.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sched.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/sched.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/signal.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/setjmp.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/socket.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/uio.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/uio.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/socket.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../lib/gcc/armv5tl-montavista-linux-gnueabi/4.2.0/include-fixed/limits.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../lib/gcc/armv5tl-montavista-linux-gnueabi/4.2.0/include-fixed/syslimits.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/limits.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/posix1_lim.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/local_lim.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/linux/limits.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/posix2_lim.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/sockaddr.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/asm/socket.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/asm/sockios.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/netinet/in.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/stdint.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/in.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/byteswap.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/arpa/inet.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/signum.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/siginfo.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/sigaction.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/sigcontext.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/asm/sigcontext.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/sigstack.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/sigthread.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/un.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/sys/mman.h:
+
+/opt/mv_install/montavista/pro/devkit/arm/v5t_le/bin/../target/usr/include/bits/mman.h:
+
+../include/physaddr.h:
+
+../include/libi2c.h:
+
+../include/parameter.h:
+
+../include/parametertype.hin:
+
+../include/parameters/parameter_gbshm_mutex.h:
+
+../include/parameters/parameter_video_enc_param.h:
+
+../include/parameters/parameter_audio_param.h:
+
+../include/parameters/parameter_net_param.h:
+
+../include/parameters/parameter_alert_di_param.h:
+
+../include/parameters/parameter_alert_vloss_param.h:
+
+../include/parameters/parameter_alert_motion_param.h:
+
+../include/parameters/parameter_storage_setting_param.h:
+
+../include/parameters/parameter_ad_setting_param.h:
+
+../include/parameters/parameter_time_setting_param.h:
+
+../include/parameters/parameter_rs485_setting_param.h:
+
+../include/parameters/parameter_end_param.h:
+
+../include/parameters/parameter_runtime_device_status.h:
+
+../include/parameters/parameter_runtime_device_version.h:

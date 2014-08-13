@@ -1,0 +1,597 @@
+
+<script>
+  var isNoShowWaitImg = (parseInt(GV("<%waitserver%>", "0")) == 0);
+  var timerID, reloadCount;
+  var useActiveX = GV("<%layoutnum.0%>", 1);
+  var mpegstate = GV("<%supportmpeg4%>", 0);
+  var ww = "<%motionylimit%>";
+  var mpeg4CustomEnable = "<%mpeg4cenable%>";
+  var mpeg4CustomValue = "<%mpeg4cvalue%>";
+  var c_MaxTitleLen = parseInt("<%maxtitlelen%>");
+  
+  if (IsVS()) {
+    useActiveX = 1;
+  }
+  var codecRes = parseInt("<%videocodecres%>");
+  var codecMode = parseInt("<%videocodecmode%>");
+  var img2amode = parseInt("<%img2a%>");
+  var img2atypemode = parseInt("<%img2atype%>");
+ // var democfgmode = parseInt("<%democfg%>");
+  var mirctrlmode = parseInt("<%mirctrl%>");
+//  var fdetectmode = parseInt("<%fdetect%>");
+  var rateConNow = parseInt("<%ratecontrol%>");
+  var advmodeNow = parseInt("<%advmode%>");
+  var preprocessNow = parseInt("<%preprocess%>");
+  var noisefiltNow = parseInt("<%noisefilt%>");
+  /*var g_h264Status = parseInt(GetCookie("VideoMode"));
+  if (isNaN(g_h264Status)) {
+    g_h264Status = 1;
+  }
+  g_h264Status = UpdateGSize(g_h264Status);*/
+  UpdateGSizeLite();
+  var DCL = {
+    title: GV("<%title%>", g_deviceName),
+    mpeg4Res: "<%mpeg4resolution%>",
+    jpegRes: "<%liveresolution%>",
+    mpeg4Qa: "<%mpeg4quality%>",
+    jpegQa: "<%livequality%>",
+    customQa: "<%mpeg4cvalue%>",
+    m42Res: "<%mpeg42resolution%>",
+    customQa2: "<%mpeg42cvalue%>",
+    regusr: "<%regusrname%>",
+    rate: "<%mpeg4framerate%>"
+  };
+  var DCL_1 = {
+    chTitle: GV("<%title.1%>", "CH1"),
+    jpegRes: "<%liveresolution.1%>",
+    jpegQa: "<%livequality.1%>"
+  };
+  var DCL_2 = {
+    chTitle: GV("<%title.2%>", "CH2"),
+    jpegRes: "<%liveresolution.2%>",
+    jpegQa: "<%livequality.2%>"
+  };
+  var DCL_3 = {
+    chTitle: GV("<%title.3%>", "CH3"),
+    jpegRes: "<%liveresolution.3%>",
+    jpegQa: "<%livequality.3%>"
+  };
+  var DCL_4 = {
+    chTitle: GV("<%title.4%>", "CH4"),
+    jpegRes: "<%liveresolution.4%>",
+    jpegQa: "<%livequality.4%>"
+  };
+  var v_titleLen = new V_StrLen(1, c_MaxTitleLen, GL("title"));
+  var v_titleChar = new V_StrEnglishAndNumber(GL("title_char"));
+  var v_valueRange = new V_NumRange(64, 16000, GL("custom_qa"));
+  var v_valueRange2 = new V_NumRange(64, 8000, GL("custom_qa"));
+  var co_titleChecker = new CheckerObj(v_titleLen, new CheckerObj(v_titleChar));
+  var codecResNameAry = "<%videocodecresname.all%>".split("@");
+  var codecNumber="Single;Dual;Triple";
+  var codecResNameThirdAry0=codecResNameAry[0]+"@"+codecResNameAry[1]+"@"+codecResNameAry[2];
+  var codecResNameThirdAry1=codecResNameAry[3]+"@"+codecResNameAry[4]+"@"+codecResNameAry[5]+"@"+codecResNameAry[6]+"@"+codecResNameAry[7];
+  var codecResNameThirdAry2=codecResNameAry[8]+"@"+codecResNameAry[9];
+  var codecResNameSubStr="<%videocodecmodename%>".split(";");
+  var codecResNameSubString=codecResNameSubStr[0]+";"+codecResNameSubStr[1]+";"+codecResNameSubStr[2]+"@"+codecResNameSubStr[3]+";"+codecResNameSubStr[4]+";"+codecResNameSubStr[5]+";"+codecResNameSubStr[6]+";"+codecResNameSubStr[7]+"@"+codecResNameSubStr[8]+";"+codecResNameSubStr[9];
+  var codecResNameSubAry=codecResNameSubString.split("@");
+  var codecNumberOption;
+  var codecMenuOption;
+    if (codecMode==0||codecMode==1||codecMode==2)
+	{
+		codecNumberOption=0;
+		codecMenuOption=codecMode;
+	}
+	if (codecMode==3||codecMode==4||codecMode==5||codecMode==6||codecMode==7)
+	{
+		codecNumberOption=1;
+		codecMenuOption=codecMode-3;
+	}
+	if (codecMode==8||codecMode==9)
+	{
+		codecNumberOption=2;
+		codecMenuOption=codecMode-8;
+	}
+  CTRLARY = {
+    devTitle: new Ctrl_Text("devTitle", c_MaxTitleLen + 5, c_MaxTitleLen, DCL["title"], "cameratitle=", co_titleChecker),
+    chTitle: new Ctrl_Text("chTitle", c_MaxTitleLen + 5, c_MaxTitleLen, "", "cameratitle", co_titleChecker, false, null, (!IsVS())),
+    fdregusr: new Ctrl_Text("fdregusr", c_MaxTitleLen + 5, c_MaxTitleLen, DCL["regusr"], "regusrname=", co_titleChecker, false, null),
+    qaJpeg: new Ctrl_Select("qaJpeg", "<%qualityname.all%>", DCL["jpegQa"], "quality"),
+    m4CustomVal: new Ctrl_Text("m4CustomVal", "5", 5, DCL["customQa"], "mpeg4cvalue", new CheckerObj(v_valueRange), false, "CheckMpeg4CustomValue()"),
+    codecNumber: new Ctrl_Select("codecNumber",codecNumber,codecNumberOption,"codecnumber=","FixRes0()"),
+	codecMenu  : new Ctrl_Select("codecMenu","None","0","codecmenu=","FixRes2()"),
+	resMenu :new Ctrl_Select("resMenu","None","0","resmenu=","0"),
+    //vCodec: new Ctrl_Select("vCodec", "<%videocodecmodename.all%>", "<%videocodecmode%>", "videocodecmode=", "FixRes()"),
+    //vCodecRes: new Ctrl_Select("vCodecRes", "NONE", "0", "videocodecres="),
+    m42CustomVal: new Ctrl_Text("m42CustomVal", "4", 4, DCL["customQa2"], "mpeg42cvalue", new CheckerObj(v_valueRange2), false, "CheckMpeg42CustomValue()"),
+    img2a: new Ctrl_Select("img2a", "<%img2aname.all%>", "<%img2a%>", "img2a="),
+    img2atype: new Ctrl_Select("img2atype", "<%img2atypename.all%>", "<%img2atype%>", "img2atype="),
+    mirctrl: new Ctrl_Select("mirctrl", "<%mirctrlname.all%>", "<%mirctrl%>", "mirctrl="),
+    imgSrc: new Ctrl_Radio("imgSrc", "<%imagesource%>", "setimagesource="),
+    //advMode: new Ctrl_Radio("advMode", "<%advmode%>", "advmode="),
+	//advMode: new Ctrl_Select("advMode", "<%advfeaturename.all%>", "<%advmode%>", "advmode="),
+	preProc: new Ctrl_Select("preProc", "<%preprocessname.all%>", "<%preprocess%>", "preprocess="),
+	nFilter: new Ctrl_Select("nFilter", "<%noisefiltname.all%>", "<%noisefilt%>", "noisefilt="),
+	//m41sfeature: new Ctrl_Select("m41sfeature", "<%advfeaturename.all%>", "<%m41sfeature%>", "m41sfeature="),
+	//m42sfeature: new Ctrl_Select("m42sfeature", "<%advfeaturename.all%>", "<%m42sfeature%>", "m42sfeature="),
+	//jpgsfeature: new Ctrl_Select("jpgsfeature", "<%advfeaturename.all%>", "<%jpgsfeature%>", "jpgsfeature="),
+    rateCtrl: new Ctrl_Select("rateCtrl", "<%ratecontrolname.all%>", "<%ratecontrol%>", "ratecontrol="),
+    frmJpeg: new Ctrl_Select("frmJpeg", "<%jpegframeratename.all%>", "<%jpegframerate%>", "jpegframerate="),
+    frmM4: new Ctrl_Select("frmM4", "<%mpeg4frameratename.all%>", "<%mpeg4framerate%>", "mpeg4framerate="),
+    frmM42: new Ctrl_Select("frmM42", "<%mpeg42frameratename.all%>", "<%mpeg42framerate%>", "mpeg42framerate=")
+  };
+function FixRes0()
+{
+  var i = GE("codecNumber").selectedIndex;
+  if (i<codecResNameSubAry.length)
+  {
+    var obj=GE("codecMenu");
+    if(obj!=null)
+    {
+      obj.length=0;
+      var v=codecResNameSubAry[i].split(";");
+      for (var j=0;j<v.length;j++)
+      {
+        obj.options[j] = new Option(v[j],j);
+      }
+      obj.selectedIndex = 0;
+	  FixRes2();
+	}
+  }
+}
+
+function FixRes2()
+{
+  var i = GE("codecMenu").selectedIndex;
+  var k=GE("codecNumber").selectedIndex;
+  //choice=i;
+  if (k==0)
+    var   codecResRealName=codecResNameThirdAry0.split("@");
+  if(k==1)
+  		var   codecResRealName=codecResNameThirdAry1.split("@");
+  if(k==2)
+  		var   codecResRealName=codecResNameThirdAry2.split("@");
+  if (i<codecResRealName.length)
+  {
+    var obj=GE("resMenu");
+    if(obj!=null)
+    {
+      obj.length=0;
+      var v=codecResRealName[i].split(";");
+      for (var j=0;j<v.length;j++)
+      {
+        obj.options[j] = new Option(v[j],j);
+      }
+      obj.selectedIndex = 0;
+    }
+  }
+  var q = GE("codecNumber").selectedIndex;
+  if (q == 0&&i==2) {
+      DisableObject("preProc", true);
+      DisableObject("nFilter", true);
+	} else {
+      DisableObject("preProc", false);
+      DisableObject("nFilter", false);
+	}
+}
+
+  /*function FixRes() {
+    var i = GE("vCodec").selectedIndex;
+    if (i < codecResNameAry.length) {
+      var obj = GE("vCodecRes");
+      if (obj != null) {
+        obj.length = 0;
+        var v = codecResNameAry[i].split(";");
+        for (var j = 0; j < v.length; j++) {
+          obj.options[j] = new Option(v[j], j);
+        }
+        obj.selectedIndex = 0;
+      }
+    }
+	if (i == 2) {
+      DisableObject("advMode", true);
+	} else {
+      DisableObject("advMode", false);
+	}
+  }*/
+  function CheckMpeg4CustomValue() {
+    CTRLARY["m4CustomVal"].IsPass();
+  }
+  function CheckMpeg42CustomValue() {
+    CTRLARY["m42CustomVal"].IsPass();
+  }
+  function MY_ONUNLOAD() {
+    clearTimeout(timerID);
+    StopActiveX();
+  }
+  function MY_ONLOAD() {
+    ImageOnLoad(isNoShowWaitImg, useActiveX, Get9001FirstCodec());
+    g_lockLink = false;
+	FixRes0();
+    //SetValue("vCodecRes", codecRes);
+	if (codecMode==0||codecMode==1||codecMode==2)
+			SetValue("codecMenu", codecMode);
+	if (codecMode==3||codecMode==4||codecMode==5||codecMode==6||codecMode==7)
+			SetValue("codecMenu", codecMode-3);
+	if (codecMode==8||codecMode==9)
+		SetValue("codecMenu", codecMode-8);
+	FixRes2();
+	SetValue("resMenu", codecRes);
+	//DisableObject("democfg", true);
+	DisableObject("fdregusr", true);
+  }
+  function MY_CH_CHANGE() {
+    StartActiveXEx(0, 0, Get9001FirstCodec(), g_CHID, 1);
+    var dcl = eval("DCL_" + g_CHID);
+    SetCCV("chTitle", dcl.chTitle);
+    SetCCV("resolution", dcl.jpegRes);
+    SetCCV("quality", dcl.jpegQa);
+  }
+  function MY_BEFORE_SUBMIT() {
+    var isQuadModeChg = (g_isSupportMQ && (g_quadMode != GetCCV("quadSel")));
+    if (parseInt(GV("<%pppoeenable%>", 0)) > 0 && (g_videoFormat != GetCCV("format") || isQuadModeChg)) {
+      return confirm(GL("ip_change_notify"));
+    }
+    return true;
+  }
+  function MY_SUBMIT_OK() {
+    if (IsVS()) {
+      var dcl = eval("DCL_" + g_CHID);
+      dcl.chTitle = GetCCV("chTitle");
+      dcl.jpegRes = GetCCV("resolution");
+      dcl.jpegQa = GetCCV("quality");
+    }
+    var obj = GE("devTitleLayer");
+    if (obj != null) {
+      obj.innerHTML = GetCCV("devTitle");
+    }
+    var flagRestart = false;
+    var newimg2a = GetCCV("img2a");
+    var newimg2atype = GetCCV("img2atype");
+	if (img2amode != newimg2a) {
+      if ((img2amode == 0 || img2amode == 1) && (newimg2a == 2 || newimg2a == 3)) {
+        flagRestart = true;
+      } else if ((img2amode == 2 || img2amode == 3) && newimg2a == 1) {
+        flagRestart = true;
+      } else {
+        flagRestart = false;
+      }
+    }
+    /*20090520 Add Restart conditions*/
+	if (mirctrlmode != GetCCV("mirctrl") || rateConNow != GetCCV("rateCtrl") ||
+        preprocessNow != GetCCV("preProc"))
+	{
+	  flagRestart = true;
+	}
+	var newnoisefilt = GetCCV("nFilter");
+
+	if((noisefiltNow != newnoisefilt))
+	{
+		if(noisefiltNow == 0)
+		{
+			flagRestart = true;
+		}
+		if(newnoisefilt == 0)
+		{
+			flagRestart = true;
+		}
+	}
+
+    if (codecRes != GetCCV("resMenu") || codecNumberOption!=GetCCV("codecNumber") || codecMenuOption != GetCCV("codecMenu") || flagRestart) {
+      StopActiveX();
+      try {
+        GE("imgAX").innerHTML = "<img id='sampleimg' name='sampleimg' src='/loading.gif' width=352 height='240' border=2>";
+      } catch(e) {};
+      reloadCount = 10;
+      DisableObject("smbtn_", true);
+      ChangeMode("change_format");
+    } else {
+      ChangeContent(null, true);
+    }
+  }
+  function ChangeMode(msgKey) {
+    g_lockLink = true;
+    WS(GL(msgKey, {1 : reloadCount}));
+    reloadCount--;
+    if (reloadCount > 0) {
+      timerID = setTimeout("ChangeMode('" + msgKey + "')", 1000);
+    } else {
+      WS("");
+      g_lockLink = false;
+      location.href = "/image.htm";
+    }
+  }
+  
+ //WriteImageTxtPH(GL("image") + (IsVS() ? (" " + GetChannelTextPanelHTML(g_CHID)) : ""), useActiveX, isNoShowWaitImg);
+ </script>
+<div align="center">
+<table width="600" height="460" border="1" bordercolor="#FF9900" style="margin-top:50px;">
+	<tr>
+		<td width="500" bgcolor="#006699" height="23"><font color="#FFFFFF">视频设置</font></td>
+  <tr>
+    <td width="400" height="30">
+    &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp{$device_title}:&nbsp &nbsp &nbsp &nbsp
+	<script>
+        WH("devTitle");
+        if (IsVS()) {
+          var o = '</td></tr><tr><td>';
+          o += GL("channel_title")+':';
+          o += ':</td><td>';
+          DW(o);
+          WH("chTitle");
+        }
+    </script>
+    </td>
+  </tr>
+  <tr>
+    <td height="100"><table width="500" border="0" align="center">
+      <tr>
+        <td>
+		  <script>
+          var o=GL("Stream")+':';
+          DW(o);
+          </script>
+        </td>
+        <td>
+	         <script>
+	         WH("codecNumber");
+	         </script>
+        </td>
+        <td>
+			  <script>
+	          var o=GL("Codec_Combo")+':';
+	          DW(o);
+	          </script>
+        </td>
+        <td>
+	         <script>
+	         WH("codecNumber");
+         	 </script>
+        </td>
+      </tr>
+      <tr>
+        <td>
+			<script>
+	        var o=GL("Codec_Combo")+':';
+	        DW(o);
+	        </script>
+        </td>
+        <td>
+	        <script>
+	        WH("codecMenu");
+	        </script>
+        </td>
+        <td>  
+			<script>
+	        var o=GL("Codec_Resolution")+':';
+	        DW(o);
+	        </script>
+        </td>
+	    <td>
+	        <script>
+	        WH("resMenu");
+	        </script>
+        </td>
+      </tr>
+      <tr>
+        <td>
+	        <script>
+	        var o=GL("Engine")+':';
+	        DW(o);
+	        </script>
+        </td>
+        <td>
+	        <script>
+	        WH("img2a");
+	        </script>
+        </td>
+        <td>
+	 		<script>
+	   		var o=GL("Type")+':';
+	   		DW(o);
+	   		</script>
+        </td>
+   		<td>
+	      	<script>
+	        WH("img2atype");
+	      	</script>
+        </td>
+      </tr>
+    </table>
+   </td>
+  </tr>
+  <tr>
+    <td height="100"><table width="500" border="0" align="center">
+      <tr>
+	        <td>
+	        <script>
+	        DW(GL("Color_System")+':');
+			</script>
+	        </td>
+	        <td>
+	        <script>
+	    	var o = '';
+	    	o += GetRadioCtrlHtml(CTRLARY, "imgSrc", 0);
+	    	o += "NTSC/60Hz";
+	    	o += GetRadioCtrlHtml(CTRLARY, "imgSrc", 1);
+	    	o += "PAL/50Hz";
+	    	DW(o);
+	  		</script>
+	        </td>
+	        <td>
+	        &nbsp;
+	        </td>
+      </tr>
+      <tr>
+	        <td>
+	        <script>
+		    DW(GL("Rate_Control")+':');
+			</script>
+	        </td>
+	        <td>
+	        <script>
+	    	WH("rateCtrl");
+	  		</script>
+	        </td>
+	        <td>
+	        <script>
+	        DW(GL("Preprocess")+':');
+			</script>
+			</td>
+	        <td>
+	        <script>
+	  		WH("preProc");
+			</script>
+	        </td>
+      </tr>
+      <tr>
+	        <td>
+	        <script>
+	        DW(GL("Noise Filter")+':');
+			</script>
+	        </td>
+	        <td>
+	        <script>
+			WH("nFilter");
+			</script>
+	        </td>
+	        <td> 
+	        <script>
+	   		var o=GL("Mirror")+':';
+	   		DW(o);
+	   		</script>
+	        </td>
+	        <td>
+	        <script>
+	        WH("mirctrl");
+	        </script>
+	        </td>
+       </tr>
+    </table>
+    </td>
+  </tr>
+  <tr>
+    <td height="200"><table width="500" border="0" align="center">
+      <tr>
+        <td colspan="4" class="m1" height="20">
+         <script> 
+         DW(((g_isSupS5)?'H.264':'MPEG4')+GL("Setting")+':');
+		 </script>
+        </td>
+        </tr>
+      <tr>
+        <td width="50">
+        <script> 
+        var o=GL("Bitrate")+':';
+        DW(o);
+		</script>
+        </td>
+        <td width="200">
+        <script>
+        WH("m4CustomVal");
+        </script>
+        kbps
+        </td>
+        <td width="80">
+		<script>
+        DW(GL("Frame Rate")+':');
+		</script>
+        </td>
+        <td>
+        <script>
+        WH("frmM4");
+        </script>
+        </td>
+      </tr>
+       
+       <tr>
+	        <td colspan="4" class="m1" height="20">
+	         <script> 
+	         DW(((g_isSupS6)?'H.264':'MPEG4')+GL("Setting")+':');
+			 </script>
+	        </td>
+       </tr>
+      <tr>
+        <td width="50">
+        <script> 
+        var o=GL("Bitrate")+':';
+        DW(o);
+		</script>
+        </td>
+        <td width="200">
+        <script>
+        WH("m42CustomVal");
+        </script>
+        kbps
+        </td>
+        <td width="80">
+		<script>
+        DW(GL("Frame Rate")+':');
+		</script>
+        </td>
+        <td>
+        <script>
+        WH("frmM42");
+        </script>
+        </td>
+      </tr>
+
+       <tr>
+	        <td colspan="4" class="m1" height="20">
+	         <script> 
+	         DW('JPEG'+GL("Setting")+':');
+			 </script>
+	        </td>
+       </tr>
+      <tr>
+	        <td width="50">
+	        <script> 
+	        var o=GL("Quality")+':';
+	        DW(o);
+			</script>
+	        </td>
+	        <td width="200">
+	        <script>
+	        WH("qaJpeg");
+	        </script>
+	        kbps
+	        </td>
+	        <td width="80">
+			<script>
+	        DW(GL("Frame Rate")+':');
+			</script>
+	        </td>
+	        <td>
+	        <script>
+	        WH("frmJpeg");
+	        </script>
+        	</td>
+      </tr>
+      <tr>
+	      	<td border="0">
+	      	</td>
+	      	<td border="0">
+	      	</td>
+	      	<td border="0">
+	      	</td>
+	      	<td border="0">
+	      	</td>
+	      	<td colspan="4" align="right">
+	        <script>
+	        CreateSubmitButton();
+	        </script>
+	      	</td>
+      </tr>
+      
+    </table>
+    </td>
+  </tr>
+</table>
+</div>
+<script>
+  //WriteImagePB();
+  if (!isNoShowWaitImg) {
+    ChangeMode("change_format");
+  }
+  ALC();
+</script>
+

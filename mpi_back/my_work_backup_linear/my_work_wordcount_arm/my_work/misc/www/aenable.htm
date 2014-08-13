@@ -1,0 +1,161 @@
+<script>
+  var ISSD = (g_defaultStorage == 1);
+  var v_AftpEnable = "<%aftpenable%>";
+  var v_ACardEn = (ISSD) ? "<%sdaenable%>": "<%cfaenable%>";
+  var v_ASmtpEnable = "<%asmtpenable%>";
+  var serviceFtpON = (parseInt("<%serviceftpclient%>") == 1);
+  var serviceSmtpON = (parseInt("<%servicesmtpclient%>") == 1);
+  var v_alarmLostNet = "<%lostalarm%>";
+  var vsAGio1T = "<%gioouttype.0%>";
+  var vsAGio2T = "<%gioouttype.1%>";
+  var triList = "<%eventlist.all%>";
+  var b_SDInsert = (parseInt("<%sdinsert%>") == 3);
+  if (!b_SDInsert) v_ACardEn = "0";
+  var DCL_1 = {
+    gio1T: "<%gio0alerttrigger.1%>",
+    gio2T: "<%gio1alerttrigger.1%>",
+    cardT: "<%sdalerttrigger.1%>",
+    ftpT: "<%ftpalerttrigger.1%>",
+    smtpT: "<%smtpalerttrigger.1%>"
+  };
+  var DCL_2 = {
+    gio1T: "<%gio0alerttrigger.2%>",
+    gio2T: "<%gio1alerttrigger.2%>",
+    cardT: "<%sdalerttrigger.2%>",
+    ftpT: "<%ftpalerttrigger.2%>",
+    smtpT: "<%smtpalerttrigger.2%>"
+  };
+  var DCL_3 = {
+    gio1T: "<%gio0alerttrigger.3%>",
+    gio2T: "<%gio1alerttrigger.3%>",
+    cardT: "<%sdalerttrigger.3%>",
+    ftpT: "<%ftpalerttrigger.3%>",
+    smtpT: "<%smtpalerttrigger.3%>"
+  };
+  var DCL_4 = {
+    gio1T: "<%gio0alerttrigger.4%>",
+    gio2T: "<%gio1alerttrigger.4%>",
+    cardT: "<%sdalerttrigger.4%>",
+    ftpT: "<%ftpalerttrigger.4%>",
+    smtpT: "<%smtpalerttrigger.4%>"
+  };
+  CTRLARY = {
+    alarmNet: new Ctrl_Check("alarmNet", v_alarmLostNet, "lostalarm=", "FixStatus()"),
+    alarmFtp: new Ctrl_Check("alarmFtp", v_AftpEnable, "aftpenable=", "FixStatus()"),
+    alarmSmtp: new Ctrl_Check("alarmSmtp", v_ASmtpEnable, "asmtpenable=", "FixStatus()"),
+    alarmCard: new Ctrl_Check("alarmCard", v_ACardEn, ((ISSD) ? "setsdaenable=": "setcfaenable"), "FixStatus()"),
+    alarmDuration: new Ctrl_Select("alarmDuration", "<%recordduration.all%>", "<%alarmduration%>", "alarmduration="),
+    triGio1: new Ctrl_Select("triGio1", triList, 0, "setgio0alerttrigger"),
+    triGio2: new Ctrl_Select("triGio2", triList, 0, "setgio1alerttrigger"),
+    triCard: new Ctrl_Select("triCard", triList, 0, "setsdalerttrigger"),
+    triSmtp: new Ctrl_Select("triSmtp", triList, 0, "setsmtpalerttrigger"),
+    triFtp: new Ctrl_Select("triFtp", triList, 0, "setftpalerttrigger")
+  };
+  if (IsVS()) {
+    SetCIA("alarmNet");
+    SetCIA("alarmFtp");
+    SetCIA("alarmSmtp");
+    SetCIA("alarmCard");
+  }
+  else {
+    SetCIA("triGio1");
+    SetCIA("triGio2");
+    SetCIA("triCard");
+    SetCIA("triSmtp");
+    SetCIA("triFtp");
+  }
+  if (ISNOSTORE) {
+    SetCIA("alarmCard");
+    SetCIA("triCard");
+  }
+  function MY_ONLOAD() {
+    VS_NO_VIEW_ALL();
+    MY_CH_CHANGE();
+    FixStatus();
+    g_lockLink = false;
+  }
+  function FixStatus() {}
+  function MY_CH_CHANGE() {
+    if (!IsVS()) return;
+    var dcl = eval("DCL_" + g_CHID);
+    SetCCV("triGio1", dcl.gio1T);
+    SetCCV("triGio2", dcl.gio2T);
+    SetCCV("triSmtp", dcl.smtpT);
+    SetCCV("triFtp", dcl.ftpT);
+    if (!ISNOSTORE) {
+      SetCCV("triCard", dcl.cardT);
+    }
+    FixStatus();
+  }
+  function MY_SUBMIT_OK() {
+    SaveDCL();
+  }
+  function SaveDCL() {
+    if (IsVS()) {
+      var dcl = eval("DCL_" + g_CHID);
+      dcl.gio1T = GetCCV("triGio1");
+      dcl.gio2T = GetCCV("triGio2");
+      dcl.smtpT = GetCCV("triSmtp");
+      dcl.ftpT = GetCCV("triFtp");
+      if (!ISNOSTORE) {
+        dcl.cardT = GetCCV("triCard");
+      }
+    }
+  }
+  WriteAppTxtPH(GL("alarm_app_en_set") + (IsVS() ? (" " + GetChannelTextPanelHTML(g_CHID)) : ""));
+  WTablePH();
+  if (!IsVS()) {
+    WIApp("alarmNet", "enable_alarm", GL("trigger_net_lost"));
+  }
+  /*if (! (IsMpeg4()) && serviceFtpON) {
+    WIApp(IsVS() ? "": "alarmFtp", "enable_alarm", GL("upload_via") + " " + GetContentLink("nftp", "nftp.htm"));
+    if (IsVS()) WIApp1(GL("trigger_by") + ":&nbsp;" + WH_("triFtp"));
+  }
+  else {
+    SetCIA("alarmFtp");
+  }*/
+  if (b_SDInsert && (!g_isSupS1)) {
+    SetCIA("alarmFtp");
+    DW("<tr><td height=30 class='m3'>");
+    DW(GetHtmlbyId("alarmFtp") + " " + GL("msg_jpg_up_only") + " - " + GL("upload_via") + " " + GetContentLink("nftp", "nftp.htm"));
+    DW("</td></tr>");
+  } else {
+    WIApp("alarmFtp", "enable_alarm", GL("upload_via") + " " + GetContentLink("nftp", "nftp.htm"));
+  }
+  if (b_SDInsert) {
+    WIApp(IsVS() ? "": "alarmCard", "enable_alarm", GL("save_into") + " " + GetContentLink(((ISSD) ? "app_sd_card": "app_cf_card"), "setcard.htm"));
+    if (IsVS()) WIApp1(GL("trigger_by") + ":&nbsp;" + WH_("triCard"));
+  } else {
+    SetCIA("alarmCard");
+    DW("<tr><td height=30 class='m3'>");
+    DW(GetHtmlbyId("alarmCard") + " " + GL("msg_insert_card") + " - " + GL("save_into") + " " + GetContentLink("app_sd_card", "setcard.htm"));
+    DW("</td></tr>");
+  }
+  /*if (! (IsMpeg4()) && serviceSmtpON) {
+    WIApp(IsVS() ? "": "alarmSmtp", "enable_alarm", GL("upload_via") + " " + GetContentLink("nsmtp", "nsmtp.htm"));
+    if (IsVS()) WIApp1(GL("trigger_by") + ":&nbsp;" + WH_("triSmtp"));
+  }
+  else {
+    SetCIA("alarmSmtp");
+  }*/
+  if (b_SDInsert && (!g_isSupS1)) {
+    SetCIA("alarmSmtp");
+    DW("<tr><td height=30 class='m3'>");
+    DW(GetHtmlbyId("alarmSmtp") + " " + GL("msg_jpg_up_only") + " - " + GL("upload_via") + " " + GetContentLink("nsmtp", "nsmtp.htm"));
+    DW("</td></tr>");
+  } else {
+    WIApp("alarmSmtp", "enable_alarm", GL("upload_via") + " " + GetContentLink("nsmtp", "nsmtp.htm"));
+  }
+  if (IsVS()) {
+    WIApp("", "enable_alarm", GetContentLink("gio_out", "sdigital.htm") + " 1&nbsp;&nbsp;" + GL("active_type") + " : " + GL((vsAGio1T == 0) ? "low": "high"));
+    WIApp1(GL("trigger_by") + ":&nbsp;" + WH_("triGio1"));
+    WIApp("", "enable_alarm", GetContentLink("gio_out", "sdigital.htm") + " 2&nbsp;&nbsp;" + GL("active_type") + " : " + GL((vsAGio2T == 0) ? "low": "high"));
+    WIApp1(GL("trigger_by") + ":&nbsp;" + WH_("triGio2"));
+  }
+  DW("<tr><td></td></tr>");
+  DW("<tr><td height=30><span class='b1' >" + GL("alarm_duration") + ":&nbsp;&nbsp;&nbsp;</span>" + WH_("alarmDuration") + ((IsVS()) ? ("( " + GL("apply_all_ch") + " )") : "") + "</td></tr>");
+  WIAppSubmit();
+  WTablePB();
+  WriteAppPB();
+  ALC();
+</script>

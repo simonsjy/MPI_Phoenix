@@ -1,0 +1,35 @@
+<script>
+var v_maxAudioVol=parseInt("<%audioinmax%>");
+var V_AudVol=new V_NumRange(0,v_maxAudioVol,GL("audio_volume").toLowerCase());
+CTRLARY={
+audioEn:new Ctrl_Radio("audioEn","<%audioenable%>","audioenable=","FixStatus()"),
+audioVol:new Ctrl_Text("audioVol","1","1","<%audioinvolume%>","audioinvolume=",new CheckerObj(V_AudVol))
+};
+function MY_ONLOAD()
+{
+FixStatus();
+g_lockLink=false;
+}
+function FixStatus(){}
+</script>
+<div align="center">
+	<table width="500" border="1" bordercolor="#FF9900" style="margin-top:50px;">
+		<tr>
+			<td colspan="2" width="500" height="23" bgcolor="#006699"><font color="#FFFFFF">IP设置</font></td>
+		</tr>
+		<tr>
+		  <td>
+		   <table width="500" border="0" align="center">
+				<script>
+				WIP("audio_recording","audioEn");
+				WIPX("audio_volume",WH_("audioVol")+" ( "+GL("audio_vol_range",{1:v_maxAudioVol})+" )");
+				WIPSubmit();
+				</script>
+			</table>
+		</td>
+	  </tr>
+	</table>
+</div>
+<script>
+ALC();
+</script>

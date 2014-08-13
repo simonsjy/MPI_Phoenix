@@ -1,0 +1,28 @@
+#!/bin/sh
+
+rm -f config.cache
+rm -f acconfig.h
+# touch acconfig.h
+echo "- aclocal..."
+aclocal 
+echo "- autoconf..."
+autoconf
+echo "- autoheader..."
+# acconfig
+echo "- automake..."
+automake --add-missing
+echo "- ready!"
+if [ $# -ge 2 ]; then
+ if [ $2 = --enable-pcdebug ]; then
+	echo enter pcdebug
+	./configure --enable-pcdebug --prefix=$1 CFLAGS="-O3 -g -Wall"
+	exit 1
+ fi
+fi
+echo enter !pcdebug
+#./configure  --host=arm-none-linux-gnueabi --prefix=$1
+#./configure  --host=arm_v5t_le --prefix=$1
+./configure --prefix=$1
+exit
+
+

@@ -1,0 +1,15 @@
+[Add.Code]
+MFCActivex.ocx = MFCActivex.ocx
+codec.dll = codec.dll
+
+[MFCActivex.ocx]
+file-win32-x86=thiscab
+RegisterServer=yes
+clsid={2A7EB0E1-7CF0-468B-B936-33091E67CEE3}
+FileVersion=2,0,0,16
+
+[codec.dll]
+file=thiscab
+FileVersion=1,0,0,1
+
+
