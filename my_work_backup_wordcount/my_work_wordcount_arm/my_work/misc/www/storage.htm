@@ -1,0 +1,70 @@
+<script>
+//var event_storage=parseInt("<%event_storage_switch%>"); 
+//var time_storage_set=parseInt("<%storage_time_set%>"); 
+
+CTRLARY=
+{
+	StorageSwitch: new Ctrl_Radio("StorageSwitch","<%EventStorageSwitch%>","SetEventStorageSwitch="),
+	StorageTimeSet: new Ctrl_Radio("StorageTimeSet","<%StorageTime%>","StorageTimeSet=")
+	};
+  function MY_ONUNLOAD() {
+    clearTimeout(timerID);
+    //StopActiveX();
+  }
+  function MY_ONLOAD() {
+   g_lockLink = false;
+  }
+  function MY_CH_CHANGE() {
+  }
+  function MY_BEFORE_SUBMIT() {
+    return true;
+  }
+  function MY_SUBMIT_OK() {
+   return true;
+  }
+
+</script>
+<div align="center">
+<table width="500" border="1" bordercolor="#FF9900" style="margin-top:50px;">
+		<tr>
+			<td colspan="2" width="500" height="23" bgcolor="#006699"><font color="#FFFFFF">存储设置</font></td>
+		</tr>
+		<tr>
+		  <td>
+
+			
+		  </td>
+		</tr>
+
+
+		
+		<tr>
+		  <td>
+			<table width="500" border="0" align="center">
+				<script>
+					WIP("event_storage_switch","StorageSwitch");  
+					
+                    DW('<tr><td>'+GL("setting_storage_time")+':</td><td>');
+				    var o = '';
+				    o += GetRadioCtrlHtml(CTRLARY, "StorageTimeSet", 0);
+				    o += "5 min";
+				    o += GetRadioCtrlHtml(CTRLARY, "StorageTimeSet", 1);
+				    o += "10 min";
+				    o += GetRadioCtrlHtml(CTRLARY, "StorageTimeSet", 2);
+				    o += "30 min";
+				    o += GetRadioCtrlHtml(CTRLARY, "StorageTimeSet", 3);
+				    o += "60 min";
+			    
+				    DW(o);
+				    DW('</td></tr>');
+
+					WIPSubmit();
+				</script>
+			</table>
+		</td>
+	  </tr>
+</table>
+</div>
+<script>
+ALC();
+</script>

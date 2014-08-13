@@ -1,0 +1,82 @@
+<script>
+var v_ftpip="<%ftpip%>";
+var v_ftpPort="<%ftppiport%>";
+var v_ftpUser="<%ftpuser%>";
+var v_ftpPwd="<%ftppassword%>";
+var v_ftpPath="<%ftppath%>";
+var v_maxFQDNLen="<%maxfqdnlen%>";
+var v_FTPPathChar=new V_StrFTPPath(GL("file_update_path"));
+CTRLARY=
+{
+ftpip:new Ctrl_Text("ftpip","25",v_maxFQDNLen,v_ftpip,"ftpfqdn=",gco_empty),
+ftpPort:new Ctrl_Text("ftpPort","5","5",v_ftpPort,"ftpport=",gco_ipPort),
+ftpUser:new Ctrl_Text("ftpUser","25","<%maxftpuserlen%>",v_ftpUser,"ftpuser=",gco_namePass),
+ftpPwd:new Ctrl_Text("ftpPwd","25","<%maxftppwdlen%>",v_ftpPwd,"ftppassword=",gco_namePass,true),
+ftpPath:new Ctrl_Text("ftpPath","25","<%maxftppathlen%>",v_ftpPath,"ftppath=",new CheckerObj(v_FTPPathChar,gco_empty)),
+//ftpSwitch:new Ctrl_Radio("ftpSwitch",1,"ftpswitch=","FixStatus()")
+ftpSwitch:new Ctrl_Check("ftpSwitch",1,"ftpswitch=","FixStatus()")
+};
+////////////////////////////////////////////////////////////////////
+function FixStatus()
+{
+var test=GetCCV("ftpSwitch");
+test=1-test;
+DisableObject("ftpip",test);
+DisableObject("ftpPort",test);
+DisableObject("ftpUser",test);
+DisableObject("ftpPwd",test);
+DisableObject("ftpPath",test);
+}
+////////////////////////////////////////////////////////////////////
+function FtpLogin()
+{
+  var o='ftp://';
+  o+=GetCCV('ftpUser')+":"+GetCCV('ftpPwd')+"@"+GetCCV('ftpip')+GetCCV('ftpPath');
+  WindowOpen(o,"","width=800,height=660,left=200,scrollbars=1");
+}
+</script>
+
+<div align="center">
+  <table width="500" border="1" bordercolor="#FF9900" style="margin-top:50px;">
+    <tr>
+      <td width="500" height="23" bgcolor="#006699"><font color="#FFFFFF">FTP设置</font></td>
+    </tr>
+    
+    <tr>
+      <td height="20" align="left" width="100" border="0">
+      <script>
+	  DW(WH_("ftpSwitch")+GL("ftpSwitch"));
+	  </script>
+      </td>
+      </tr>
+      <tr>
+      <td>
+      <table width="500" border="0" align="center">
+      	<script>
+        DW("<tr><td>"+GL("ftp_server")+":</td><td>");
+        WH("ftpip");
+        DW("&nbsp;"+GL("port")+":&nbsp;");
+        WH("ftpPort");
+        DW("</td></tr>");
+        WIP("user_name","ftpUser");
+        WIP("password","ftpPwd");
+        WIP("file_update_path","ftpPath");
+        WIPSubmit();
+        </script>
+      </table>
+      </td>
+    </tr>
+  </table>
+</div>
+</script>
+<tr><td>
+</td><td><br><br><br><br>
+<p align="left" class="m1">
+<script>
+DW('<span class="menuLink">'+'</span>');
+</script>
+</p>
+</td></tr>
+<script>
+ALC();
+</script>

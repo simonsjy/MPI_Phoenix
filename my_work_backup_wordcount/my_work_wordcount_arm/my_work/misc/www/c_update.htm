@@ -1,0 +1,61 @@
+<div align="center">
+	<table width="600" border="1" align="center" bordercolor="#FF9900" style="margin-top:50px;">
+		<tr>
+			<td colspan="2" width="660" height="23" bgcolor="#006699"><font color="#FFFFFF">版本更新</font></td>
+		</tr>
+<tr><td><table width="500" border="0" align="center">
+	<script>
+	WIP1(GL("ver_desc"));
+	WIPX("ver_kernel","<%KernelVersion%>");
+	WIPX("ver_bios","<%biosversion%>");
+	WIPX("ver_soft","<%SoftwareVersion%>");
+	WIPX("ver_html",webPageVersion+"."+webPageSubVersion);
+	WIPX("ver_ax",AxVer);
+	function ClickRestart(){SendHttp(c_iniUrl+GetSetterCmdKV("ipcamrestartcmd","1"),false);}
+	</script>
+	<tr><td colspan=2>
+		<br>{$update_describe}
+			<form action="/update.cgi"method="post"enctype="multipart/form-data">
+			<input class="m1"type="file"name="upfile">
+			<span class="m1">{$update_and_click}</span>
+			<input class="m1"type="submit"value="{$update}">
+			</form>
+		<span class="m3">{$update_note}:</span>
+		<span class="m1">{$update_note_describe}</span>
+	</td></tr>
+	<tr><td colspan=2 align=center>
+		<div style="border:0px solid gray; padding:5px;">
+		<input type="button"value={$start} class="m1"onClick="ClickRestart()">
+		<br><span class="m3">{$warn}:</span>
+		<span class="m1">{$ipcam}</span>
+		</div>
+		</td></tr>
+	
+		<!--
+		<form method = post action = "/test_cgi.cgi">
+		<p>
+		<input name = "user" id = "user">
+		<br>
+		<input name = "pasw" type = password id = "pasw">
+		<br>
+		<textarea name = "textarea"></textarea>
+		</p>
+		<p>
+		<input type = "checkbox" name = "checkbox" value = "10">
+		<input type = "radio" name = "radiobutton" value = "11">
+		<select name = "select">
+		<option value = "1">one</option>
+		<option value = "2">two</option>
+		</select>
+		</p>
+		<p>
+		<input class = "m1" type="submit" value = "执行">
+		<input type = "reset" value = "取消">
+		</form>
+		-->
+</table></td></tr>
+</table>
+</div>
+<script>
+ALC();
+</script>

@@ -1,0 +1,81 @@
+<script>
+var v_smtpip="<%smtpip%>";
+var v_emailUser="<%emailuser%>";
+var v_maxFQDNLen="<%maxfqdnlen%>";
+CTRLARY={
+smtpip:new Ctrl_Text("smtpip","25",v_maxFQDNLen,v_smtpip,"smtpfqdn=",gco_empty),
+smtpAuth:new Ctrl_Check("smtpAuth","<%smtpauth%>","smtpauth=","FixStatus()"),
+smtpUser:new Ctrl_Text("smtpUser","20","<%maxsmtpuser%>","<%smtpuser%>","smtpuser=",gco_empty),
+smtpPwd:new Ctrl_Text("smtpPwd","20","<%maxsmtppwd%>","<%smtppwd%>","smtppwd=",gco_empty,true),
+smtpSender:new Ctrl_Text("smtpSender","25","<%maxsmtpsender%>","<%smtpsender%>","smtpsender="),
+smtpMail:new Ctrl_Text("smtpMail","25","<%maxemailuserlen%>",v_emailUser,"smtpto=",gco_email),
+smtpSwitch:new Ctrl_Check("smtpSwitch",1,"ftpswitch=","FixStatuse()")
+};
+////////////////////////////////////////////////////
+function FixStatuse()
+{
+var test=GetCCV("smtpSwitch");
+test=1-test;
+DisableObject("smtpip",test);
+DisableObject("smtpUser",test);
+DisableObject("smtpPwd",test);
+DisableObject("smtpSender",test);
+DisableObject("smtpMail",test);
+}
+////////////////////////////////////////////////////
+function MY_ONLOAD()
+{
+  FixStatus();
+  g_lockLink=false;
+}
+function FixStatus()
+{
+  if(g_isSupportSmtpAuth)
+  {
+  var authDis=(GetCCV("smtpAuth")==0);
+  DisableObject("smtpUser",authDis);
+  DisableObject("smtpPwd",authDis);
+  }
+  else
+  {
+  SetCIA("smtpAuth",false);
+  SetCIA("smtpUser",false);
+  SetCIA("smtpPwd",false);
+  }
+}
+</script>
+<div align="center">
+<table width="500" border="1" align="center" bordercolor="FF9900" style="margin-top:50px;">
+  <tr>
+    <td width="500" bgcolor="#006699" height="23"><font color="#FFFFFF">SMTP设置</font></td>
+  </tr>
+  <tr>
+    <td width="200" height="30">
+	    <script>
+	    DW(WH_("smtpSwitch")+GL("smtpSwitch"));
+	    </script>
+	</td>
+  </tr>
+  <tr>
+    <td height="200">
+	    <table width="500" border="0" align="center">
+	     <script>
+			 if(g_isSupportSmtpAuth)
+			 {
+			WIP1(WH_("smtpAuth")+" "+GL("smtp_server_req_auth"));
+			WIP("smtp_user","smtpUser");
+			WIP("smtp_pwd","smtpPwd");
+			}
+			WIP("smtp_sender","smtpSender");
+			WIP("smtp_server","smtpip");
+			WIP("email_addr","smtpMail");
+			WIPSubmit();
+		</script>
+	    </table>
+    </td>
+  </tr>
+</table>
+</div>
+<script>
+ALC();
+</script>

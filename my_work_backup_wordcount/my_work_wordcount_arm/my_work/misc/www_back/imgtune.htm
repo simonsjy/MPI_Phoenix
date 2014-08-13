@@ -1,0 +1,421 @@
+<script>
+  function Ctrl_Invisible(id,val,setcmd,checker,inactive) {
+    this.type = "invisible";
+    this.active = !(inactive==true);
+    this.id = id;
+    this.value = val;
+    this.setcmd = setcmd;
+    this.checker = checker;
+    this.GV = function (){ return this.value; };
+    this.SV = function (val){ this.value = val; };
+    this.IsPass = function (isQuite){ return CPASS(this,isQuite);};
+  }
+  function refreshMinMidMax(key) {
+    var v = parseInt(GetCCV(key));
+    var i_mmm = GE(key+"_MMM");
+    if (i_mmm != null) {
+      if (v > 128) i_mmm.value = "Max";
+      else if (v < 128) i_mmm.value = "Min";
+      else i_mmm.value = "Mid";
+    }
+  }
+  function MinMidMaxEditor(key) {
+    var v = parseInt(GetCCV(key));
+    var t = '';
+    if (v > 128) t = 'Max';
+    else if (v < 128) t = 'Min';
+    else t = 'Mid';
+    var o = '';
+    if (key != null) {
+      o += '<input id=DBN_' + key + ' type=button value="<" style="height:20px;width:20px" notabstop onClick="MinMidMaxAdjDn(\'' + key + '\');">';
+      o += '<input id="'+key+'_MMM" class="m1" type="text" size="3" readOnly="true" value="'+t+'">';
+      o += '<input id=IBN_' + key + ' type=button value=">" style="height:20px;width:20px" notabstop onClick="MinMidMaxAdjUp(\'' + key + '\');">';
+    }
+    DW(o);
+  }
+  function MinMidMaxAdjDn(key) {
+    var v = parseInt(GetCCV(key));
+    var n = (v>128)?128:127;
+    if (n!=v)
+    { SetCCV(key,n);
+      refreshMinMidMax(key); }
+  }
+  function MinMidMaxAdjUp(key) {
+    var v = parseInt(GetCCV(key));
+    var n = (v<128)?128:129;
+    if (n!=v)
+    { SetCCV(key,n);
+      refreshMinMidMax(key); }
+  }
+  var isNoShowWaitImg = (parseInt(GV("<%waitserver%>", "0")) == 0);
+  var useActiveX = GV("<%layoutnum.0%>", 1);
+  var s_agc = "<%supportagc%>";
+  var v_agc = "<%agc%>";
+  var s_dan = "1";
+  var v_dan = "<%colorkiller%>";
+  var v_flu = "<%fluorescent%>";
+  var v_mir = "<%mirror%>";
+  var v_blc = "<%blc%>";
+  var v_histogram = "<%histogram%>";
+  var v_gbce = "<%gbce%>";
+  var v_kelvin = "<%kelvin%>";
+  var s_bright = "1";
+  var s_contrast = "1";
+  var s_hue = "<%supporthue%>";
+  var s_sat = "1";
+  var s_exp = "<%supportexposure%>";
+  var s_blc = "1";
+  var s_sharp = "1";
+  var s_flu = "<%supportfluorescent%>";
+  var s_mir = "<%supportmirros%>";
+  var s_kelvin = "<%supportkelvin%>";
+  var v_senseup = "<%senseup%>";
+  var s_senseup = parseInt("<%supportsenseup%>");
+  var isSupportMaxAgcGain = (parseInt("<%supportmaxagcgain%>") == 1);
+  var s_blcmode = parseInt("<%supportblcmode%>");
+  var v_blcmode = "<%blcmode%>";
+  var s_hss = parseInt("<%supporthspeedshutter%>");
+  var v_hss = "<%hspeedshutter%>";
+  var vTV = "<%tvcable%>";
+  var vBine = "<%binning%>";
+  var codecMode = parseInt("<%videocodecmode%>");
+  var codecRes = parseInt("<%videocodecres%>");
+  if (IsVS()) {
+    useActiveX = 1;
+  }
+  var binskipNow = parseInt("<%binning%>");
+  UpdateGSizeLite();
+  CTRLARY = {
+    dan: new Ctrl_Select("dan", "<%daynightname.all%>", v_dan, "colorkiller", "SCR(this.id)"),
+    blc: new Ctrl_Radio("blc", v_blc, "setblc", "CheckBackLight()"),
+    //backlight: new Ctrl_Text("backlight", "3", "3", "<%backlight%>", "setbacklight", gco_byte, false, "ImgSet(this.id)", false, "CheckKey(this.id,event)"),
+    backlight: new Ctrl_Invisible("backlight", "<%backlight%>", "setbacklight", gco_byte),
+    brightness: new Ctrl_Text("brightness", "3", "3", "<%brightness%>", "brightness", gco_byte, false, "ImgSet(this.id)", false, "CheckKey(this.id,event)"),
+    contrast: new Ctrl_Text("contrast", "3", "3", "<%contrast%>", "contrast", gco_byte, false, "ImgSet(this.id)", false, "CheckKey(this.id,event)"),
+    saturation: new Ctrl_Text("saturation", "3", "3", "<%saturation%>", "saturation", gco_byte, false, "ImgSet(this.id)", false, "CheckKey(this.id,event)"),
+    sharpness: new Ctrl_Text("sharpness", "3", "3", "<%sharpness%>", "sharpness", gco_byte, false, "ImgSet(this.id)", false, "CheckKey(this.id,event)"),
+    histogram:new Ctrl_Radio("histogram","<%histogram%>","histogram="),
+    gbce:new Ctrl_Radio("gbce","<%gbce%>","gbce="),
+	tvcable: new Ctrl_Radio("tvcable", vTV, "tvcable", "SCR(this.id)"),
+    binning: new Ctrl_Select("binning", "<%binningname.all%>", vBine, "binning", "SCR(this.id)")
+  };
+  var DCL_1 = {
+    brightness: "<%brightness.1%>",
+    contrast: "<%contrast.1%>",
+    saturation: "<%saturation.1%>",
+    hue: "<%hue.1%>"
+  };
+  var DCL_2 = {
+    brightness: "<%brightness.2%>",
+    contrast: "<%contrast.2%>",
+    saturation: "<%saturation.2%>",
+    hue: "<%hue.2%>"
+  };
+  var DCL_3 = {
+    brightness: "<%brightness.3%>",
+    contrast: "<%contrast.3%>",
+    saturation: "<%saturation.3%>",
+    hue: "<%hue.3%>"
+  };
+  var DCL_4 = {
+    brightness: "<%brightness.4%>",
+    contrast: "<%contrast.4%>",
+    saturation: "<%saturation.4%>",
+    hue: "<%hue.4%>"
+  };
+  function MY_ONUNLOAD() {
+    StopActiveX();
+  }
+  function MY_ONLOAD() {
+    CheckBackLight();
+    ImageOnLoad(isNoShowWaitImg, useActiveX, Get9001FirstCodec());
+	//GE("backlight").readOnly = 'true';
+	GE("brightness").readOnly = 'true';
+	GE("contrast").readOnly = 'true';
+	GE("saturation").readOnly = 'true';
+	GE("sharpness").readOnly = 'true';
+    g_lockLink = false;
+  }
+  function MY_CH_CHANGE() {
+    StartActiveXEx(0, 0, Get9001FirstCodec(), g_CHID, 1);
+    var dcl = eval("DCL_" + g_CHID);
+    if (s_bright == 1) SetCCV("brightness", dcl.brightness);
+    if (s_contrast == 1) SetCCV("contrast", dcl.contrast);
+    if (s_sat == 1) SetCCV("saturation", dcl.saturation);
+    if (s_hue == 1) SetCCV("hue", dcl.hue);
+  }
+  function SaveDCL() {
+    if (IsVS()) {
+      var dcl = eval("DCL_" + g_CHID);
+      if (s_bright == 1) dcl.brightness = GetCCV("brightness");
+      if (s_contrast == 1) dcl.contrast = GetCCV("contrast");
+      if (s_sat == 1) dcl.saturation = GetCCV("saturation");
+      if (s_hue == 1) dcl.hue = GetCCV("hue");
+    }
+  }
+  function ImgEditor(key) {
+    var o = '';
+    if (key != null) {
+      o += '<input id=DBN_' + key + ' type=button value="<" style="height:20px;width:20px" notabstop onClick="ImgSetDecJump(\'' + key + '\',8);" onDblClick="ImgSetDecJump(\'' + key + '\',16);">';
+      o += WH_(key);
+      o += '<input id=IBN_' + key + ' type=button value=">" style="height:20px;width:20px" notabstop onClick="ImgSetIncJump(\'' + key + '\',8);" onDblClick="ImgSetIncJump(\'' + key + '\',16);">';
+      o += '(0~255)';
+    }
+    DW(o);
+  }
+  function ImgSetDecJump(key, gap) {
+    var ctrl = CTRLARY[key];
+    if (ctrl != null && ctrl.IsPass()) {
+	  if ((v = parseInt(GetCCV(key))) == 255)
+	  { v = 248; }
+	  else
+      { v -= gap; }
+      if (v < 0) v = 0;
+      SetCCV(key, v);
+      SaveDCL();
+      SCR(key);
+    }
+  }
+  function ImgSetIncJump(key, gap) {
+    var ctrl = CTRLARY[key];
+    if (ctrl != null && ctrl.IsPass()) {
+      var v = parseInt(GetCCV(key)) + gap;
+      if (v > 255) v = 255;
+      SetCCV(key, v);
+      SaveDCL();
+      SCR(key);
+    }
+  }
+  function ImgSet(key) {
+    var ctrl = CTRLARY[key];
+    if (ctrl != null && ctrl.IsPass()) {
+      SaveDCL();
+      SCR(key);
+    }
+  }
+  function CheckKey(key, evt) {
+    var code = evt.keyCode;
+    if (code == 13 || code == 10) {
+      ImgSet(key);
+    }
+  }
+  function DisableImgProp(n, isDis) {
+    var obj = GE(n);
+    if (obj == null) obj=GE(n+"_MMM");
+    obj.disabled = isDis;
+    GE("IBN_" + n).disabled = isDis;
+    GE("DBN_" + n).disabled = isDis;
+  }
+  function ClickDefault() {
+    SendHttp(c_iniUrl + GetSetterCmdKV("imagedefault", "1"), false);
+    ChangeContent();
+  }
+  function CheckBackLight() {
+    var vv;
+    vv = GetCCV("blc");
+    DisableImgProp("backlight", vv == 0);
+  }
+  function SCR(key) {
+    return;
+  }
+  function MY_BEFORE_SUBMIT() {
+    return true;
+  }
+  function MY_SUBMIT_OK() {
+    var flagBinning = false;
+    var newBinskip = GetCCV("binning");
+    if (binskipNow != newBinskip) {
+      if (binskipNow == 2 || newBinskip == 2) {
+        flagBinning = true;
+      } else {
+        flagBinning = false;
+      }
+    }
+    if (flagBinning) {
+      StopActiveX();
+      try {
+        GE("imgAX").innerHTML = "<img id='sampleimg' name='sampleimg' src='/loading.gif' width=352 height='240' border=2>";
+      } catch(e) {};
+      reloadCount = 10;
+      ChangeMode("change_format");
+    }
+  }
+  function ChangeMode(msgKey) {
+    g_lockLink = true;
+    WS(GL(msgKey, {
+      1 : reloadCount
+    }));
+    reloadCount--;
+    if (reloadCount > 0) {
+      timerID = setTimeout("ChangeMode('" + msgKey + "')", 1000);
+    } else {
+      WS("");
+      g_lockLink = false;
+      ChangeContent(null, true);
+    }
+  }
+    var T_RADIO = 1;
+    var T_EDITOR = 2;
+    var T_MMM = 3;
+    function W_CC(tid, id, type) {
+      DW("<td width='80'>" + GL(tid) + ":</td><td>");
+      switch (type) {
+      case T_MMM:
+        MinMidMaxEditor(id);
+        break;
+      case T_EDITOR:
+        ImgEditor(id);
+        break;
+      default:
+        WH(id);
+        break;
+      }
+      DW("</td>");
+    }
+    function W_CI(tid, id) {
+      W_CC(tid, id);
+    }
+    function W_CRI(tid, id) {
+      W_CC(tid, id, T_RADIO);
+    }
+    function W_CIIE(tid, id) {
+      if (CTRLARY[id].type == "invisible") W_CC(tid, id, T_MMM);
+      else W_CC(tid, id, T_EDITOR);
+    }
+</script>
+ <table align="center" style="width:600px; height: 280px;" border="1" bordercolor="#FF9900" style="margin-top:50px;">
+        <tr>
+            <td  bgcolor="#006699" height="23"><font color="#ffffff">2A设置</font></td>
+        </tr>
+        <tr>
+            <td>
+                <table align="center" style="width:500px; height: 50px;">
+	                 <tr>
+	                   <script>
+	                   if (isSupportMaxAgcGain) {
+	                      W_CI("max_agc_gain", "maxAgcGain");
+	                   }
+	                   if (s_flu == 1) {
+	                      W_CRI("flicker_less", "fluorescent");
+	                   }
+	                   if (s_agc == 1) {
+	                      W_CRI("agc", "agc");
+	                   }
+	                   if (s_dan == 1) {
+	                      W_CRI("day_night", "dan");
+	                   }
+	                   if (s_mir == 1) {
+	                      W_CRI("mirror", "mirror");
+	                   }
+	                   if (s_hss == 1) {
+	                      W_CRI("high_speed_shutter", "hspeedshutter");
+	                   }
+	                   
+	                    DW("<td width='100'>"+GL("Sence")+":</td><td>");
+	                   if ((codecMode == 2) || (codecMode == 0 && codecRes == 1) || (codecMode == 0 && codecRes == 3)
+	                    || (codecMode == 1 && codecRes == 1) || (codecMode == 1 && codecRes == 3))
+	                   { DW(GL("not_supported")) }
+	                   else { WH("binning"); }
+	                   DW("</td>");
+	                   </script>
+	                  </tr>
+	                  <tr>
+	                   <script>
+	                     DW("<td width='100'>"+GL("Histogram")+":</td><td>");
+		                 var o='';
+		                 o+=GetRadioCtrlHtml(CTRLARY,"histogram",0);
+		                 o+="OFF";
+		                 o+=GetRadioCtrlHtml(CTRLARY,"histogram",1);
+		                 o+="ON";
+		                 DW(o);
+		                 DW("</td>");
+		                 DW("<td width='100'>GBCE:</td><td>");
+		                 var o='';
+		                 o+=GetRadioCtrlHtml(CTRLARY,"gbce",0);
+		                 o+="OFF";
+		                 o+=GetRadioCtrlHtml(CTRLARY,"gbce",1);
+		                 o+="ON";
+		                 DW(o);
+		                 DW("</td>");
+		               </script>
+	                  </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table align="center" style="width:500px; height: 130px;">
+                    <tr>
+                      <script>
+                        if (s_blcmode == 1) {
+                        W_CI("blc_mode", "blcmode");
+                        }
+                        else if (s_blc == 1) {
+                        W_CRI("blc", "blc");
+                        }
+                      </script>
+                    </tr>
+                    <tr>
+                      <script>
+                        if (s_blc == 1 || s_blcmode == 1) {
+                         W_CIIE("backlight", "backlight");
+                        }
+                        if (s_bright == 1) {
+                         W_CIIE("brightness", "brightness");
+                        }
+                      </script>
+                    </tr>
+                    <tr>
+                     <script>
+                      if (s_contrast == 1) {
+                      W_CIIE("contrast", "contrast");
+                     }
+                      if (s_hue == 1) {
+                      W_CIIE("hue", "hue");
+                     }
+                     </script>
+                    </tr>
+                    <tr>
+                     <script>
+                      if (s_sat == 1) {
+                      W_CIIE("saturation", "saturation");
+                      }
+                     if (s_exp == 1) {
+                      W_CIIE("exposure", "exposure");
+                      }
+                     </script>
+                    </tr>
+                    <tr>
+                     <script>
+                       if (s_sharp == 1) {
+                        W_CIIE("sharpness", "sharpness");
+                       }
+                       if (s_senseup == 1) {
+                        W_CRI("sense_up", "senseup");
+                       }
+                     </script>
+                    </tr>
+                    <tr>
+                    <script>
+                    if (s_kelvin == 1) {
+                    W_CI("temperature", "colortemp");
+                    }
+                    </script>
+                    </tr>
+                    <tr>
+                    </tr>
+                    <tr>
+			            <td align=right colspan="4">
+			              <script>
+			                CreateSubmitButton();
+			             </script>
+			            </td>
+      				</tr>
+                </table>
+            </td>
+        </tr>        
+    </table>
+<script>
+  //WriteImagePB();
+  ALC();
+</script>

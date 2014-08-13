@@ -1,0 +1,142 @@
+<script>
+var select_temp="H264;mpeg4;jpeg";
+CTRLARY=
+{
+//storageresolution: new Ctrl_Select("storageresolution",5,5,seletc_temp,"storageresolution="),
+delaytime: new Ctrl_Text("delaytime",5,5," ","delaytime="),
+pretime: new Ctrl_Text("pretime",5,5," ","pretime="),
+schSH1s: new Ctrl_SelectNum("schSH1s",0,23,1,0,"schSH1s="),schSM1s: new Ctrl_SelectNum("schSM1s",0,59,1,0,"schSM1s="),schSS1s: new Ctrl_SelectNum("schSS1s",0,59,1,0,"schSS1s="),
+schSH2s: new Ctrl_SelectNum("schSH2s",0,23,1,0,"schSH2s="),schSM2s: new Ctrl_SelectNum("schSM2s",0,59,1,0,"schSM2s="),schSS2s: new Ctrl_SelectNum("schSS2s",0,59,1,0,"schSS2s="),
+schSH3s: new Ctrl_SelectNum("schSH3s",0,23,1,0,"schSH3s="),schSM3s: new Ctrl_SelectNum("schSM3s",0,59,1,0,"schSM3s="),schSS3s: new Ctrl_SelectNum("schSS3s",0,59,1,0,"schSS3s="),
+schSH4s: new Ctrl_SelectNum("schSH4s",0,23,1,0,"schSH4s="),schSM4s: new Ctrl_SelectNum("schSM4s",0,59,1,0,"schSM4s="),schSS4s: new Ctrl_SelectNum("schSS4s",0,59,1,0,"schSS4s="),
+schSH1e: new Ctrl_SelectNum("schSH1e",0,23,1,0,"schSH1e="),schSM1e: new Ctrl_SelectNum("schSM1e",0,59,1,0,"schSM1e="),schSS1e: new Ctrl_SelectNum("schSS1e",0,59,1,0,"schSS1e="),
+schSH2e: new Ctrl_SelectNum("schSH2e",0,23,1,0,"schSH2e="),schSM2e: new Ctrl_SelectNum("schSM2e",0,59,1,0,"schSM2e="),schSS2e: new Ctrl_SelectNum("schSS2e",0,59,1,0,"schSS2e="),
+schSH3e: new Ctrl_SelectNum("schSH3e",0,23,1,0,"schSH3e="),schSM3e: new Ctrl_SelectNum("schSM3e",0,59,1,0,"schSM3e="),schSS3e: new Ctrl_SelectNum("schSS3e",0,59,1,0,"schSS3e="),
+schSH4e: new Ctrl_SelectNum("schSH4e",0,23,1,0,"schSH4e="),schSM4e: new Ctrl_SelectNum("schSM4e",0,59,1,0,"schSM4e="),schSS4e: new Ctrl_SelectNum("schSS4e",0,59,1,0,"schSS4e="),
+schDay: new Ctrl_Select("schDay",GL("sch_day_fullname_list"),0,"schday=","FixState4()"),
+storageswitch: new Ctrl_Radio("storageswitch",1,"storageswitch=","FixState1()"),
+time_storage_switch: new Ctrl_Radio("time_storage_switch",1,"time_storage_switch=","FixState2()"),
+event_storage_switch: new Ctrl_Radio("event_storage_switch",1,"event_storage_switch=","FixState3()"),
+perstorage: new Ctrl_Radio("perstorage",0,"perstorage=")
+}
+
+
+function Check()
+{
+var temp1s=GE("schSH1s").value*24*60+GE("schSM1s").value*60+GE("schSS1s").value;
+var temp1e=GE("schSH1e").value*24*60+GE("schSM1e").value*60+GE("schSS1e").value;
+var temp2s=GE("schSH2s").value*24*60+GE("schSM2s").value*60+GE("schSS2s").value;
+var temp2e=GE("schSH2e").value*24*60+GE("schSM2e").value*60+GE("schSS2e").value;
+var temp3s=GE("schSH3s").value*24*60+GE("schSM3s").value*60+GE("schSS3s").value;
+var temp3e=GE("schSH3e").value*24*60+GE("schSM3e").value*60+GE("schSS3e").value;
+var temp4s=GE("schSH4s").value*24*60+GE("schSM4s").value*60+GE("schSS4s").value;
+var temp4e=GE("schSH4e").value*24*60+GE("schSM4e").value*60+GE("schSS4e").value;
+
+}
+function FixState1()
+{
+   var test=GetCCV("storageswitch");
+   test=1-test;
+   DisableObject("perstorage",test);
+}
+function FixState2()
+{
+   var test=GetCCV("time_storage_switch");
+   test=1-test;
+   DisableObject("schSH",test);
+   DisableObject("schSM",test);
+   DisableObject("schSS",test);
+   DisableObject("schDay",test);
+}
+function FixState3()
+{
+   var test=GetCCV("event_storage_switch");
+   test=1-test;
+   DisableObject("pretime",test);
+   DisableObject("delaytime",test);
+}
+function FixState4()
+{
+SetValue("schSH1s",0);SetValue("schSM1s",0);SetValue("schSS1s",0);SetValue("schSH1e",0);SetValue("schSM1e",0);SetValue("schSS1e",0);
+SetValue("schSH2s",0);SetValue("schSM2s",0);SetValue("schSS2s",0);SetValue("schSH2e",0);SetValue("schSM2e",0);SetValue("schSS2e",0);
+SetValue("schSH3s",0);SetValue("schSM3s",0);SetValue("schSS3s",0);SetValue("schSH3e",0);SetValue("schSM3e",0);SetValue("schSS3e",0);
+SetValue("schSH4s",0);SetValue("schSM4s",0);SetValue("schSS4s",0);SetValue("schSH4e",0);SetValue("schSM4e",0);SetValue("schSS4e",0);
+}
+</script>
+<div align="center">
+<table width="500" border="1" bordercolor="#FF9900" style="margin-top:50px;">
+		<tr>
+			<td colspan="2" width="500" height="23" bgcolor="#006699"><font color="#FFFFFF">瀛樺偍璁剧疆</font></td>
+		</tr>
+		<tr>
+		  <td>
+		   <table width="500" border="0" align="center">
+				<script>
+				 	WIP("storageswitch","storageswitch"); 
+				    DW('<tr><td>'+GL("perstorage")+':</td><td>');
+				    var o = '';
+				    o += GetRadioCtrlHtml(CTRLARY, "perstorage", 0);
+				    o += "100%";
+				    o += GetRadioCtrlHtml(CTRLARY, "perstorage", 1);
+				    o += "90%";
+				     o += GetRadioCtrlHtml(CTRLARY, "perstorage", 2);
+				    o += "85%";
+				    o += GetRadioCtrlHtml(CTRLARY, "perstorage", 3);
+				    o += "80%";
+				     o += GetRadioCtrlHtml(CTRLARY, "perstorage", 4);
+				    o += "70%";
+				    DW(o);
+				    DW('</td></tr>');
+				 </script>
+			</table>
+		  </td>
+		</tr>
+		<tr>
+		  <td>
+			<table width="500" border="0" align="center">
+				<script>
+					WIP("time_storage_switch","time_storage_switch");    
+					DW("<tr><td>");
+					DW(WH_("schDay"));
+					DW("</td></tr>")                             
+					//DW("<tr><td>时间段1:开始时间:"+WH_("schSH")+":"+WH_("schSM")+":"+WH_("schSS")+"  ");
+					DW("<tr><td></td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+GL("starttime")+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+GL("endtime"))
+					DW("<tr><td>"+GL("timesection")+"1:</td><td>"+WH_("schSH1s")+":"+WH_("schSM1s")+":"+WH_("schSS1s")+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+WH_("schSH1e")+":"+WH_("schSM1e")+":"+WH_("schSS1e")+"</td></tr>");
+					DW("<tr><td>"+GL("timesection")+"2:</td><td>"+WH_("schSH2s")+":"+WH_("schSM2s")+":"+WH_("schSS2s")+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+WH_("schSH2e")+":"+WH_("schSM2e")+":"+WH_("schSS2e")+"</td></tr>");
+					DW("<tr><td>"+GL("timesection")+"3:</td><td>"+WH_("schSH3s")+":"+WH_("schSM3s")+":"+WH_("schSS3s")+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+WH_("schSH3e")+":"+WH_("schSM3e")+":"+WH_("schSS3e")+"</td></tr>");
+					DW("<tr><td>"+GL("timesection")+"4:</td><td>"+WH_("schSH4s")+":"+WH_("schSM4s")+":"+WH_("schSS4s")+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+WH_("schSH4e")+":"+WH_("schSM4e")+":"+WH_("schSS4e")+"</td></tr>");
+					//DW(WH_("schSH"));
+					//DW(":");
+					//DW(WH_("schSM"));
+					//DW(":");
+					//DW(WH_("schSS"));
+					//DW("</td><tr>");
+					//DW("结束时间:"+WH_("schSH")+":"+WH_("schSM")+":"+WH_("schSS")+"</td></tr>");
+					//DW("<tr><td></td><td>时间段2:开始时间:"+WH_("schSH")+":"+WH_("schSM")+":"+WH_("schSS")+"  ");
+					//DW("结束时间:"+WH_("schSH")+":"+WH_("schSM")+":"+WH_("schSS")+"</td></tr>");
+					//DW("<tr><td></td><td>时间段3:开始时间:"+WH_("schSH")+":"+WH_("schSM")+":"+WH_("schSS")+"  ");
+					//DW("结束时间:"+WH_("schSH")+":"+WH_("schSM")+":"+WH_("schSS")+"</td></tr>");
+					//DW("<tr><td></td><td>时间段4:开始时间:"+WH_("schSH")+":"+WH_("schSM")+":"+WH_("schSS")+"  ");
+					//DW("结束时间:"+WH_("schSH")+":"+WH_("schSM")+":"+WH_("schSS")+"</td></tr>");
+				</script>
+			</table>
+		  </td>
+		</tr>
+		<tr>
+		  <td>
+			<table width="500" border="0" align="center">
+				<script>
+					WIP("event_storage_switch","event_storage_switch");  
+					DW("<tr><td>"+GL("pretime")+":</td><td>"+WH_("pretime")+"</td>");
+					DW("<tr><td>"+GL("delaytime")+":</td><td>"+WH_("delaytime")+"</td>");
+					//DW("<tr><td>"+GL("storageresolution")+":</td><td>"+WH_("storageresolution")+"</td>");
+					WIPSubmit();
+				</script>
+			</table>
+		</td>
+	  </tr>
+</table>
+</div>
+<script>
+ALC();
+</script>

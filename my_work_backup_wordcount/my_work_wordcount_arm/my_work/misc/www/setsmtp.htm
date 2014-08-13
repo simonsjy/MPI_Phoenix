@@ -1,0 +1,30 @@
+<script>
+var v_smtpip="<%smtpip%>";
+var v_smtpMail="<%emailuser%>";
+var V_AttFiles=new V_NumRange("<%smtpminattach%>","<%smtpmaxattach%>",GL("att_file_nums").toLowerCase());
+CTRLARY={
+attFiles:new Ctrl_Text("attFiles","3","3","<%asmtpattach%>","asmtpattach=",new CheckerObj(V_AttFiles)),
+attFileFormat:new Ctrl_Select("attFileFormat","<%attfileformatname.all%>","<%attfileformat%>","attfileformat=")
+};
+function WAI1(ctx)
+{
+DW("<tr class=m1><td colspan=3 height=30>"+ctx+"</td></tr>");
+}
+function WAI3(tid,ctx)
+{
+DW("<tr class=b1><td width=20 height=30>&nbsp;</td><td width=130 >"+GL(tid)+":</td><td>"+ctx+"</td></tr>");
+}
+WriteAppPH("smtp_app_set");
+WTablePH();
+WAI1(GetContentLink("smtp_net","nsmtp.htm"));
+WAI3("smtp_server",v_smtpip);
+WAI3("email_addr",v_smtpMail);
+//WAI1("<hr>");
+WAI1(GL("storage_set"));
+WAI3("att_file_nums",WH_("attFiles"));
+WAI3("attfileformat",WH_("attFileFormat"));
+WAI1("<br><center>"+CreateSubmitButton_());
+WTablePB();
+WriteAppPB();
+ALC();
+</script>

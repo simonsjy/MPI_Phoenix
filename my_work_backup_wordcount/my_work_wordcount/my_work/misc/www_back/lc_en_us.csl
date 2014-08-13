@@ -1,0 +1,256 @@
+/*  */
+.orig_a1
+{
+  font-family:"Tahoma","Arial";
+  font-size:16px;
+  font-style:normal;
+  text-transform:uppercase;
+  font-weight:bold;
+}
+.a1
+{
+  font-family:"Tahoma","Arial";
+  font-size:30px;
+  font-style:normal;
+  font-weight:bold;
+}
+.a1b
+{
+  font-family:"Tahoma","Arial";
+  font-size:16px;
+  font-style:normal;
+  font-weight:bold;
+}
+.b1
+{
+  font-family:"Tahoma","Arial";
+  font-size:14px;
+}
+.b2
+{
+  font-family:"Tahoma","Arial";
+  font-size:12px;
+}
+.m1
+{
+  font-family:"Tahoma","Arial";
+  font-size:12px;
+  font-weight:bold;
+}
+.m2
+{
+  font-family:"Tahoma","Arial";
+  font-size:15px;
+  font-weight:bold;
+  text-decoration:none;
+}
+.m3
+{
+  font-family:"Tahoma","Arial";
+  font-size:12px;
+  font-weight:bold;
+  text-decoration:none;color:#FF0000;
+}
+.m4
+{
+  font-family:"Tahoma","Arial";
+  font-size:18px;
+  font-weight:bold;
+  text-decoration:none;
+}
+.l1
+{
+  font-family:"Tahoma","Arial";
+  font-size:14px;
+  text-decoration:none;
+}
+.bluer
+{
+  font-family:"Tahoma","Arial";
+  font-size:14px;
+  color:#000099;
+}
+.bluerWithYel
+{
+  font-family:"Tahoma","Arial";
+  font-size:14px;
+  color:#000099;
+  background-color:#FFFF99;
+}
+.sel
+{
+  font-family:"Tahoma","Arial";
+  font-size:12px;
+  font-weight:bold;
+  color:#FFFFFF;
+  background-color:#0099FF;
+  text-indent:3pt;
+}
+
+.sel2
+{
+  font-family:"Tahoma","Arial";
+  font-size:12px;
+  font-weight:bold;
+  color:#FFFFFF;
+  background-color:#0099FF;
+}
+.td1
+{
+  font-family:"Tahoma","Arial";
+  font-size:12px;
+  font-weight:bold;
+  text-decoration:none;
+  text-align: center;
+  background-image: url(bnbg.gif);
+  border-width:1px;
+  border-color:#000000;
+  border-style:solid;
+}
+.watch
+{
+  font-family:"Tahoma","Arial";
+  font-size:12px;
+  font-weight:bold;
+  text-decoration:none;
+  cursor: pointer;
+}
+.fixsize
+{
+  font-family:"Trebuchet MS","Arial";
+  font-size:12px;
+  font-weight:bold;
+  text-decoration:none;
+}
+.btn_submit
+{
+  font-family:"Tahoma","Arial";
+  font-size:14px;
+  font-style:normal;
+  height:25px;
+  line-height:15px;
+}
+.menuLink
+{
+  font-family:"Tahoma","Arial";
+  font-size:18px;
+  font-weight:bold;
+  cursor: pointer;
+  color: #0000FF;
+  background-color: transparent;
+}
+.menuLinkON
+{
+  font-family:"Tahoma","Arial";
+  font-size:14px;
+  font-weight:bold;
+  cursor: pointer;
+  color: #0045FF;
+  background-color: #ffff99;
+}
+.cssTimerLayer
+{
+  position:absolute;
+  left:275px;
+  top:36px;
+  width:200px;
+  height:18px;
+  z-index:2;
+}
+.cssViewChLayer
+{
+  font-family:"Tahoma","Arial";
+  position:absolute;
+  left:-600px;
+  top:10px;
+  width:150px;
+  z-index:2;
+}
+.cssLogoLayer
+{
+  position:absolute;
+  top:5px;
+  left:-600px;
+  width:200px;
+  height:40px;
+  z-index:2;
+}
+td, th {
+  font-family:"Tahoma","Arial";
+  font-size:14px;
+  border-bottom:		0px;
+  border-left:		0px;
+  border-right:		0px;
+  padding:			0px;
+  margin:			0px;
+}
+.cssIpAddr
+{
+  font-family:"Tahoma","Arial";
+  border-width:1;
+  border-color:black;
+  border-style:solid;
+  font-size:12px;
+  width:180;
+}
+.cssIpAddrItem
+{
+  font-family:"Tahoma","Arial";
+  width:40;
+  border:0;
+  text-align:center;
+  font-size:12px;
+  font-weight:bold;
+}
+.cssIpFilter
+{
+  font-family:"Tahoma","Arial";
+  border-width:1;
+  border-color:black;
+  border-style:solid;
+  font-size:12px;
+  width:300;
+
+}
+.cssIpFilterItem
+{
+  font-family:"Tahoma","Arial";
+  width:70;
+  border:0;
+  text-align:center;
+  font-size:12px;
+  font-weight:bold;
+
+}
+.aaOff
+{
+  font-family:"Tahoma","Arial";
+  font-size:12px;
+  font-weight:bold;
+  width:18;
+  background-color: #909090;
+}
+.aaOn
+{
+  font-family:"Tahoma","Arial";
+  font-size:12px;
+  font-weight:bold;
+  width:18;
+  background-color: #FF0000;
+}
+/*
+.comment01
+{
+  font-family:"Tahoma","Arial";
+  font-size:12px;
+  width:150px;
+  height:30px;
+  background-color: #E0E0FF;
+  position:absolute;
+  left:0px;
+  top:0px;
+  z-index:20;
+  visibility: hidden;
+
+}
+*/

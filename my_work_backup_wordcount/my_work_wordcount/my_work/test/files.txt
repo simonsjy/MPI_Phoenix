@@ -1,0 +1,1 @@
+/mnt/word_dir/word_10MB.txt

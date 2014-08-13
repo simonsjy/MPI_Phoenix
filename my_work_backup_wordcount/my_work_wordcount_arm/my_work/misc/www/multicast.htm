@@ -1,0 +1,65 @@
+<script>
+  CTRLARY = {
+    multicast: new Ctrl_Check("multicast", 1, "setmulticast="),
+    rtspswitch: new Ctrl_Check("rtspswitch",1,"rtspswitch=","FixState()"),
+    h2641: new Ctrl_Text("h2641",8,8,"<%h2642%>","h2641="),
+    h2642: new Ctrl_Text("h2642",8,8,"<%h2642%>","h2642="),
+    mpeg41: new Ctrl_Text("mpeg41",8,8,"<%mpeg41%>","mpeg41="),
+    mpeg42: new Ctrl_Text("mpeg42",8,8,"<%mpeg42%>","mpeg42="),
+    jpeg: new Ctrl_Text("jpeg",8,8,"<%jpeg%>","jpeg=")
+  };
+  function FixState()
+  {
+   var test=GetCCV("rtspswitch");
+   test=1-test;
+   DisableObject("h2641",test);
+   DisableObject("h2642",test);
+   DisableObject("mpeg41",test);
+   DisableObject("mpeg42",test);
+   DisableObject("jpeg",test);
+  }
+ //2011-03-21
+ function WIPX_(tid, ctx,tid1,ctx1)
+{
+  DW('<tr class="b1">');
+  DW('<td width=100 height="25" border="0">');
+  DW(GL(tid) + ':</td><td border="0">' + ctx + '</td>');
+  DW('<td width=100 height="25" border="0">');
+  DW(GL(tid1) + ':</td><td border="0">' + ctx1 + '</td>');
+  DW('</tr>');
+};
+function WIP_(tid, id,tid1,id1)
+{
+  WIPX_(tid, WH_(id),tid1,WH_(id1));
+};
+//2011-03-21 end
+</script>
+<div align="center">
+<table width="500" border="1" bordercolor="#FF9900" style="margin-top:50px;">
+    <tr>
+        <td style="width:500px; height:23px; background-color: #006699"><font color="#ffffff">RTSP设置</font></td>
+    </tr>
+    <tr>
+        <td style="width:500px; height:34px">
+         <script>
+        DW(WH_("multicast")+GL("Enable_Multicast")+"&nbsp &nbsp &nbsp &nbsp"+WH_("rtspswitch")+GL("rtspswitch"));
+        </script>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table align="center" style="width:500px; height: 150px;">
+             <script>
+              WIP_("H2641","h2641","H2642","h2642");
+              WIP_("MPEG41","mpeg41","MPEG42","mpeg42");
+              WIP("JPEG","jpeg");
+              WIPSubmit();
+             </script>
+            </table>
+        </td>
+    </tr>
+</table>
+</div>
+<script>
+  ALC();
+</script>

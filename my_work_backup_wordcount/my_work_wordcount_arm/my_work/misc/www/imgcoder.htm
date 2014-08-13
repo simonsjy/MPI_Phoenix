@@ -1,0 +1,71 @@
+
+<script>
+ CTRLARY = {
+    audSrc: new Ctrl_Radio("audSrc","<%audiosource%>","setaudiosource=")
+};
+  function MY_ONUNLOAD() {
+    clearTimeout(timerID);
+    //StopActiveX();
+  }
+  function MY_ONLOAD() {
+   g_lockLink = false;
+  }
+  function MY_CH_CHANGE() {
+  }
+  function MY_BEFORE_SUBMIT() {
+    return true;
+  }
+  function MY_SUBMIT_OK() {
+   return true;
+  }
+ 
+ </script>
+<div align="center">
+<table width="600" height="130" border="1" bordercolor="#FF9900" style="margin-top:50px;">
+<tr>
+		<td width="500" bgcolor="#006699" height="23"><font color="#FFFFFF">视频编码设置</font></td>
+	<tr>
+    <td height="80"><table width="500" border="0" align="center">
+		<tr>
+	        <td width="100">
+	        <script>
+	       	DW(GL("audio_format")+':');
+			</script>
+	        </td>
+	        <td>
+	        <script>
+	    	var o = '';
+	    	o += GetRadioCtrlHtml(CTRLARY, "audSrc", 0);
+	    	o += "AMR_G711";
+	    	o += GetRadioCtrlHtml(CTRLARY, "audSrc", 1);
+	    	o += "AAC_G711";
+	    	DW(o);
+	  		</script>
+	        </td>
+	        <td>
+	        &nbsp;
+	        </td>
+      </tr>
+       <tr>
+	      	<td border="0">
+	      	</td>
+	      	<td border="0">
+	      	</td>
+	      	<td border="0">
+	      	</td>
+	      	<td border="0">
+	      	</td>
+	      	<td colspan="4" align="right">
+	        <script>
+	        CreateSubmitButton();
+	        </script>
+	      	</td>
+      </tr>
+    </table>
+   </td>
+  </tr> 
+</table>
+</div>
+<script>
+ALC();
+</script>
