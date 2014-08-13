@@ -1,7 +1,7 @@
 MPI_Phoenix
 ===========
 author:Shao Jiayi                               time:2014/06/17                                 release:1
-key words:MNPI+Phoenix;parallel programming;multi-core distributed system
+key words:MPI+Phoenix;parallel programming;multi-core distributed system
 
 This program is designed by myself for the Undergraduate course graduation design
 
